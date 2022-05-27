@@ -1,5 +1,5 @@
 TODO: This session should be split into two sessions. One into Metafacture Flux and one into Metafacture Fix.
-TODO: Use this https://api.open-meteo.com/v1/forecast?latitude=50.93&longitude=6.92&hourly=temperature_2m&current_weather=true&timezone=Europe%2FBerlin API.
+TODO: Use this https://fcc-weather-api.glitch.me/api/current?lat=35&lon=139 (for cologne) API.
 
 If you know how to use the command line Metafacture can easily be used. 
 Other ways to use Metafacture is as a JAVA library or with the Playground.
