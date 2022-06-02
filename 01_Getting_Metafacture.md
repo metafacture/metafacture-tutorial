@@ -1,5 +1,6 @@
-## Day 1: Getting Catmandu
+## Day 1: Whats Metafacture? And where do I get it?
 
+![Logo](https://metafacture.org/img/metafacture.png)
 Metafacture is a data processing toolkit maintained by hbz and initially developed by DNB. 
 Metafacture is a toolkit for processing semi-structured data with a focus on library metadata. 
 It provides a versatile set of tools for reading, writing and transforming data - espacially library related metadata. 
