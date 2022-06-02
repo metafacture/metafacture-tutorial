@@ -1,5 +1,6 @@
-## Day 1: Getting Catmandu
+## Day 1: Whats Metafacture? And where do I get it?
 
+![Logo](https://metafacture.org/img/metafacture.png)
 Metafacture is a data processing toolkit maintained by hbz and initially developed by DNB. 
 Metafacture is a toolkit for processing semi-structured data with a focus on library metadata. 
 It provides a versatile set of tools for reading, writing and transforming data - espacially library related metadata. 
@@ -13,4 +14,4 @@ If you are already familiar with the command line follow the installation guide 
 
 https://github.com/metafacture/metafacture-core#metafacture-as-a-stand-alone-application
 
-For first steps you could also use the [Metafacture Playground](https://metafacture.org/playground/). The playground it a webinterface that should help you getting started, test and share flux worflows.
+For first steps we will use the [Metafacture Playground](https://metafacture.org/playground/). The playground it a webinterface that should help you getting started and also test, share and export metafacture worflows.
