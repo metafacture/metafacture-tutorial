@@ -1,9 +1,9 @@
-TODO: This session should be split into two sessions. One into Metafacture Flux and one into Metafacture Fix.
-TODO: Use this https://fcc-weather-api.glitch.me/api/current?lat=35&lon=139 (for cologne) API.
-
 If you know how to use the command line Metafacture can easily be used.  Other ways to use Metafacture is as a JAVA library or with the Playground.
 
-In this lesson we will introduce you to a UNIX command we have created for metafacture as well as the playground, a webinterface to test and share Metafacture. This introduction will be by playing around with Metafacture. 
+In this lesson we start with the playground. The commandline handling will be subject to a later lesson.
+
+
+The [Metafacture Playground](https://metafacture.org/playground) is a webinterface to test and share Metafacture. For this introduction we will start with the Playground since it allows a quick start without additional installing. 
 
 In this tutorial we are going to process structured information. We call data structured when it organised in such a way is that it easy processable by computers. Literary tex t documents like War and Peace are structured only in words and sentences, but a computer doesn’t know which words are part of the title or which words contain names. We had to tell the computer that. Today we will download a weather report in a structured format called JSON and inspect it with the command catmandu.
 
