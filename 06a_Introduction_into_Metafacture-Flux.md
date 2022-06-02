@@ -1,3 +1,6 @@
+## Introduction into Metafacture Flux?
+-- What are modules and what is a Flux workflow?
+
 If you know how to use the command line Metafacture can easily be used.  Other ways to use Metafacture is as a JAVA library or with the Playground.
 
 In this lesson we start with the playground. The commandline handling will be subject to a later lesson.
@@ -10,23 +13,25 @@ In this tutorial we are going to process structured information. We call data st
 
 Lets jump to the Playground to learn how to create workflows:
 
-images/2022-06-01_15-41.png
+![image](images/2022-06-01_15-41.png)
 
 See the window called Flux? 
+
+Copy this short code sample [into the playground](https://metafacture.org/playground/?flux=%22Hello%2C+friend.+I%27am+Metafacture%21%22%0A%7Cprint%0A%3B&active-editor=fix):
 
 ```
 "Hello, friend. I'am Metafacture!"
 |print
 ;
 ```
-
-Copy this short code sample [into the playground](https://metafacture.org/playground/?flux=%22Hello%2C+friend.+I%27am+Metafacture%21%22%0A%7Cprint%0A%3B&active-editor=fix). Great, you have your first Metafacture Flux Workflow. Congratulations.
+Great, you have your first Metafacture Flux Workflow. Congratulations.
 Now you can press the `Process`-Button or press Ctrl+Enter to execute the workflow.
 
 See the result below? It is `Hello, friend. I'am Metafacture!`.
 
 But what have we done here? 
 We have a short text string `"Hello, friend. I'am Metafacture"`. That is printed with the modul `print`.
+
 A Metafacture Workflow is nothing else as a incoming text string with multiple moduls that do something with the incoming string.
 But the workflow does not have to start with a text string but also can be a variable that stands for the text string and needs to be defined before the workflow. As this:
 
@@ -45,9 +50,9 @@ Copy this into the FLUX window of your playground or just adjust your example.
 But the result is the same if you process the flux.
 
 The Playground has a special variable called `PG_DATA`. In the Playground it can be used at the beginning
-of the workflow and it refers to the input that is written in the Data-window of the playground.
+of the workflow and it refers to the input that is written in the Data Window at the top of the playground.
 
-images/2022-06-01_18-18.png
+![image](images/2022-06-01_18-18.png)
 
 So lets use `PG_DATA` instead of `INPUT` and copy the value of the text string in the Data field above the Flux.
 
@@ -98,10 +103,11 @@ With the metafacture you can process this file to make it a bit easier readable 
 Lets turn the one line of json data into YAML. YAML is another format for structured information which is a bit easier to read for human eyes. 
 In order to change the serialization of the data we need to decode the data and then encode the data.
 
-We have lots of decoder- and encoder-modules that can be used in an FLUX-Workflow.
+Metafacture has lots of decoder- and encoder-modules that can be used in an FLUX-Workflow.
 Let's try this out. Add the module `decode-json` and `encode-yaml` to your Flux Workflow.
 
 The Flux should now look like this:
+
 Flux:
 ```
 PG_DATA
@@ -150,9 +156,11 @@ id: "2886242"
 name: "Cologne"
 cod: "200"
 ```
+This is better readble right?
 
-But we cannot only open the data we have in our data field. But we also can open stuff on the web.
-E.g. instead of using `PG_DATA` lets read the live info which is provided by the URL from above:
+But we cannot only open the data we have in our data field. But we also can open stuff on the web:
+
+e.g. instead of using `PG_DATA` lets read the live info which is provided by the URL from above:
 
 Clear your playground and copy the following Flux-Workflow:
 
@@ -165,15 +173,17 @@ Clear your playground and copy the following Flux-Workflow:
 | print;
 ```
 
-The result should be the same as before but with `open-http` you can get the text that is provided via an url.
-Congratulations you have created your first Flux-Workflow for Metafacture. But lets understand what a Flux Workflow is.
+The result should be the same as before but with the module `open-http` you can get the text that is provided via an url.
+
+LBut lets understand what a Flux Workflow does.
 The Flux-Workflow is combination of different moduls to process incoming semi structured data. In our example we have different things that we do with these modules:
-TODO: Hier anpassen.
-First with `"weather.json"` we state the file name and location in relation to the folder we are in when we start the script.
-Then we tell Metafacture `open-file` to open the stated file.
+
+First we have a URL.
+The URL state the location of the data on the web..
+Then we tell Metafacture `open-http` to request the stated url.
 Then we tell Metafacture how to handle the data that is incoming: Since the report is writen in one line, we tell Metafacture to regard every new line as a new record with `as-lines`
-Then we tell Metafacture to `decode-json` in order to translate the incoming data as json to the generic internal data model.
-Then we tell metafacture to serialize the data as YAML with `encode-yaml`
+Then we tell Metafacture to `decode-json` in order to translate the incoming data as json to the generic internal data model that is called metadata events
+Then we tell metafacture to serialize the metadata events as YAML with `encode-yaml`
 Finally we tell MF to `print` everything.
 
 So let's have a small recap of what we done and learnd sofar.
