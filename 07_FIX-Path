@@ -1,93 +1,72 @@
-
-
-TODO: Introduce open-http as FLUX-Command.
-
 Last session we learned the how to construct a metafacture workflow and execute it on the commandline and how it can be used to parse structured information. Today we will go deeper into Metafacture Fix and describe how to pluck data out of structured information.
 
-Today will we fetch a new weather report and store it in a new file weather2.json. Lets try to download Tokyo:
+Today will we fetch a new weather report with the Metafacture Playground:
 
-$ curl https://fcc-weather-api.glitch.me/api/current?lat=6.9&lon=50.9 > weather2.json
-
-From the previous tutorials we know many commands how to examine this data set. For instance, to get a quick overview of the content of weather2.json we can use the cat command:
-
-$ cat weather2.json
-
-We also saw in the previous post how you can use catmandu to transform the JSON format into the YAML format which is easier to read and contains the same information. We can do this straight from the URL.
-
-sample4.flux:
 ```
-"https://fcc-weather-api.glitch.me/api/current?lat=6.9&lon=50.9"
-| open-http(accept="application/json")
+"https://fcc-weather-api.glitch.me/api/current?lat=50.93414&lon=6.93147"
+| open-http
 | as-lines
 | decode-json
-| encode-yaml(prettyprinting="True")
-| print;
+| encode-yaml
+| print
+;
 ```
 
-```JSON
-{
-  "coord": {
-    "lon": 50.9,
-    "lat": 6.9
-  },
-  "weather": [
-    {
-      "id": 803,
-      "main": "Clouds",
-      "description": "broken clouds",
-      "icon": "https://cdn.glitch.com/6e8889e5-7a72-48f0-a061-863548450de5%2F04d.png?1499366020964"
-    }
-  ],
-  "base": "stations",
-  "main": {
-    "temp": 27.09,
-    "feels_like": 30.35,
-    "temp_min": 27.09,
-    "temp_max": 27.09,
-    "pressure": 1010,
-    "humidity": 84,
-    "sea_level": 1010,
-    "grnd_level": 1010
-  },
-  "visibility": 10000,
-  "wind": {
-    "speed": 12.58,
-    "deg": 231,
-    "gust": 16.51
-  },
-  "clouds": {
-    "all": 63
-  },
-  "dt": 1653642713,
-  "sys": {
-    "sunrise": 1653617958,
-    "sunset": 1653662885
-  },
-  "timezone": 10800,
-  "id": 0,
-  "name": "",
-  "cod": 200
-}
+We also saw in the previous post how you can use catmandu to transform the JSON format into the YAML format which is easier to read and contains the same information.
+
+We also learned some fixes to retrieve information out of the JSON file like `retain("name","temp")`.
+
+In this post we delve a bit deeper into ways how to point to fields in a JSON or a YAML file:
+
+```YAML
+---
+coord:
+  lon: "6.9315"
+  lat: "50.9341"
+weather:
+- id: "800"
+  main: "Clear"
+  description: "clear sky"
+  icon: "https://cdn.glitch.com/6e8889e5-7a72-48f0-a061-863548450de5%2F01d.png?1499366022009"
+base: "stations"
+main:
+  temp: "12.56"
+  feels_like: "11.93"
+  temp_min: "11.62"
+  temp_max: "14.68"
+  pressure: "1022"
+  humidity: "79"
+visibility: "10000"
+wind:
+  speed: "1.03"
+  deg: "0"
+clouds:
+  all: "0"
+dt: "1654153727"
+sys:
+  type: "2"
+  id: "43069"
+  country: "DE"
+  sunrise: "1654140191"
+  sunset: "1654198658"
+timezone: "7200"
+id: "2886242"
+name: "Cologne"
+cod: "200"
 ```
 
- 
+`main.temp` is called a Path that is JSON Path-like and points to a part of the JSON data you are interested in. The data, as shown above, is structured like a tree. There are top level simple fields like: base,cod,dt,id which contain only text values or numbers. There are also fields like coord that contain a deeper structure like lat and lon.
 
-We also learned some fixes to retrieve information out of the JSON file like `retain(main.temp)`.
-
-In this post we delve a bit deeper into ways how to point to fields in a JSON file.
-
-This main.temp is called a Path that is JSON Path-like and points to a part of the JSON data you are interested in. The data, as shown above, is structured like a tree. There are top level simple fields like: base,cod,dt,id which contain only text values or numbers. There are also fields like coord that contain a deeper structure like lat and lon.
-
-Metafacture Fix is using a path-syntax that is JSON Path like. It also uses the dot notation but there are some differences with the path structure of arrays and repeated
+Metafacture Fix is using a path-syntax that is JSON Path like. It also uses the dot notation but there are some differences with the path structure of arrays and repeated fields. Especially when working with JSON or YAML.
 
 Using a JSON path you can point to every part of the JSON file using a dot-notation. For simple top level fields the path is just the name of the field:
-```
+
 * `base`
 * `cod`
 * `dt`
 * `id`
 * `name`
-```
+
 
 For the fields with deeper structure you add a dot ‘.’ to point to the leaves:
 
@@ -116,7 +95,7 @@ There are two extra path structures that need to be explained:
 * repeatable fields
 * arrays
 
-In an data set an element sometimes an element can have multiple instances. Different data models solve this possibility differently. XML-Records can have all elements multiple times, element repition is possible. Repeatable elements also exist in JSON and YAML but are unusual:
+In an data set an element sometimes an element can have multiple instances. Different data models solve this possibility differently. XML-Records can have all elements multiple times, element repition is possible and in many schemas (partky) allowed. Repeatable elements also exist in JSON and YAML but are unusual:
 
 ```
 creator: Justus
@@ -124,10 +103,10 @@ creator: Peter
 creator: Bob
 ```
 
-In this example creator exists three times. To point to one of the colors you need to use an index. The first index in a array has value 1, the second the value 2, the third the value 3. So, the  path of the creator Bob would be creator.3.
+In this example `creator`-element exists three times. To point to one of the colors you need to use an index. The first index in a array has value 1, the second the value 2, the third the value 3. So, the  path of the creator Bob would be creator.3.
 TODO: Path-Index could perhaps change to zero-based.
 
-In JSON or YAML element repition is possible but usually instead of repeating elements are constructed as list so the element can have more than one value. This is called an array and looks like this in YAML:
+In JSON or YAML element repition is possible but usually instead of repeating elements repetition is constructed as list so the element can have more than one value. This is called an array and looks like this in YAML:
 
 ```
 my:
@@ -137,12 +116,24 @@ my:
 		- yellow
 ```
 
-In the example above you see a field `my` which contains a deeper field `colors` which has 3 values. To point to one of the colors you need to use an index but also genuin arrays have a marker in Metafacture: `[]`Also here the first index in a array has value 1, the second the value 2, the third the value 3. 
+or:
+```
+characters: 
+  - name: Justus
+    role: Detective
+  - name: Peter
+    role: Detective
+  - name: Bob
+    role: Research & Archive
+```
+
+
+In the example above you see a field `my` which contains a deeper field `colors` which has 3 values. To point to one of the colors you need to use an index but also genuin arrays have a marker in Metafacture: `[]`. Also here the first index in a array has value 1, the second the value 2, the third the value 3. The array markers are generated by the JSON-Decoder. Also if you want to generate an array in the target schema, then you need to add `[]` at the end of an list.
+While sofare the path handling of Catmandu and Metafacture are similar, the differ at this point.
 
 So, the path of the color red would be: `my.color[].2`
+And the path for character Peter would be `characters[].2.name`
 
-TODO: Example with arrayOfObjects. And changes for the part below:
-
-There is one array type in our JSON report and that is the weather field. To point to the description of the weather you need the JSON Path weather.0.description.
+There is one array type in our JSON report and that is the `weather` field. To point to the description of the weather you need the path `weather[].1.description`.
 
 In this post we learned the JSON Path syntax and how it can be used to point to parts of a JSON data set want to manipulate. We explained the JSON path using a YAML transformation as example, because this is easier to read. YAML and JSON are two formats that contain the same informational content (and thus both can work with JSON Path) but look different when written into a file.
