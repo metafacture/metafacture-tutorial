@@ -3,7 +3,7 @@ Flux-Moduls can do a lot of things but the main transformation of incoming data 
 
 What do we mean when we talk about transformation:
 e.g.
- * Manipulating elementnames and elementvalues
+ * Manipulating element-names and element-values
  * Change hierachies and structures of records
  * Lookup values in concordance list. 
 
