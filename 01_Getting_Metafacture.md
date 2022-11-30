@@ -9,7 +9,8 @@ The name Metafacture is a portmanteau of the words metadata and manufacture.
 
 In this tutorial we are going to teach you how to use the command line tools of Metafacture to preform simple and advanced data processing tasks.
 
-To be able to follow our examples you need to have access to a UNIX account with Catmandu installed.
+To be able to follow our examples you need to have access to a UNIX account with Metafacture Core and Metafacture Fix installed.
+But at first we will use the Metafacture Playground a webapp.
 If you are already familiar with the command line follow the installation guide here:
 
 https://github.com/metafacture/metafacture-core#metafacture-as-a-stand-alone-application
