@@ -1,6 +1,6 @@
 # metafacture-tutorial
 
-This project is an idea but I have not started yet.
+This project is early-stage.
 
 This is a selective copy of the [Catmandu tutorial](https://librecatproject.wordpress.com/2014/12/01/day-1-getting-catmandu/) but adapted for [Metafacture](https://github.com/metafacture).
 The Catmandu tutorial was created by [@phochste](https://github.com/phochste). It is great if you want to learn [Catmandu](https://github.com/LibreCat/Catmandu). So try it out.
