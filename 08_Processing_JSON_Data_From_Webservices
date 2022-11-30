@@ -1,0 +1,68 @@
+TODO: This sessions seem to be unneccessary to me, since open-http was introduced before.
+
+Day 8: Processing JSON data from webservices
+
+During the last three sessions we got an introduction into Metafacture, Flux and Fix and learned how to transform structured JSON data. The JSON data in these examples was first fetched from a an URL with command curl. Today we will learn how to simplify fetching more data from web services.
+
+In short, a web service is a server that can be queried by HTTP requests. Most web services return JSON data if queried with an URL. For instance the weather web service used during the last two days is documented at openweathermap.org/api. To retrieve current weather data from selected cities, we used commands and URLs like this:
+
+
+$ curl http://api.openweathermap.org/data/2.5/weather?q=Gent,be
+$ curl http://api.openweathermap.org/data/2.5/weather?q=Tokyo,jp
+
+The URLs only differ in its query parameter q, so we can construct a so called URL template. The form of an URL template is defined in RFC 6570, so our template is:
+
+http://api.openweathermap.org/data/2.5/weather?q
+
+Catmandu supports URL templates to retrieve JSON data with its getJSON Importer. Let’s use it to fetch weather data for Toyko:
+
+$ echo '{"q":"Tokyo,jp"}' | catmandu convert getJSON --url 'http://api.openweathermap.org/data/2.5/weather{?q}'
+
+URL templates make most sense, if applied with multiple values, so let’s create a list of cities. We could use a text editor, such as learned at day 5 but here is an alternative way to learn something new:
+
+$ echo q > cities.csv
+$ echo Ghent,be >> cities.csv
+$ echo Tokyo,jp >> cities.csv
+$ echo Berlin,de >> cities.csv
+$ catmandu convert CSV --sep_char _ to JSON < cities.csv > cities.json
+
+We first created the CSV file cities.csv by appending one line after another. The > character is used to pipe output to a file and >> can be used to append to a file instead of overwriting it. You will learn more about processing CSV files in a later article. The last command converts the CSV file to line-separated JSON. Have a look at both files with cat:
+
+$ cat cities.csv
+q
+Ghent,be
+Tokyo,jp
+Berlin,de
+
+$ cat cities.json
+{"q":"Ghent,be"}
+{"q":"Tokyo,jp"}
+{"q":"Berlin,de"}
+
+Now we can finally use this list of cities to retrieve weather data in one call:
+
+$ cat cities.json | catmandu convert getJSON --url 'http://api.openweathermap.org/data/2.5/weather{?q}'
+
+Try to append to YAML or to JSON --pretty 1 to this command to get a better view of the data, as described in introduction into catmandu (day 6)!
+
+To better see what’s going on we can skip retrieving data and just get the full URLs instead. This is done by setting the option --dry to 1:
+
+$ catmandu convert getJSON --dry 1 --url 'http://api.openweathermap.org/data/2.5/weather{?q}' < cities.json
+
+With the knowledge from previous days we can extract some information. Here is an improved fix to get both name, and temperature:
+
+retain_field(main.temp)
+move_field(name,main.name)
+retain_field(main)
+
+Save this fix as file weather2.fix and get temperate of cities of your choice:
+
+$ cat cities.json | catmandu convert getJSON --url 'http://api.openweathermap.org/data/2.5/weather{?q}' --fix weather2.fix
+
+The getJSON Importer get be used to retrieve JSON data from various web services. Catmandu further includes specialized importers for selected web services, for instance:
+
+    Twitter
+    Wikidata
+    CrossRef
+    ArXiv
+    PLoS
