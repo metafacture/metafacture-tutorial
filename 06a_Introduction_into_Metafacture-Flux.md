@@ -175,7 +175,7 @@ Clear your playground and copy the following Flux-Workflow:
 
 The result should be the same as before but with the module `open-http` you can get the text that is provided via an url.
 
-LBut lets understand what a Flux Workflow does.
+But lets understand what a Flux Workflow does.
 The Flux-Workflow is combination of different moduls to process incoming semi structured data. In our example we have different things that we do with these modules:
 
 First we have a URL.
