@@ -1,4 +1,5 @@
 # TODO: Day 10: Working with CSV and Excel files
+Depending on 
 
 10_librecatCSV and Excel files are widely-used to store and exchange simple structured data. Many open datasets are published as CSV files, e.g. datahub.io. Within the library community CSV files are used for the distribution of title lists (KBART), e.g Knowledge Base+. Excel spreadsheets are often used to generate reports.
 

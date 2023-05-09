@@ -8,7 +8,7 @@ In this lesson we start with the playground. The commandline handling will be su
 
 The [Metafacture Playground](https://metafacture.org/playground) is a webinterface to test and share Metafacture. For this introduction we will start with the Playground since it allows a quick start without additional installing. 
 
-In this tutorial we are going to process structured information. We call data structured when it organised in such a way is that it easy processable by computers. Literary tex t documents like War and Peace are structured only in words and sentences, but a computer doesn’t know which words are part of the title or which words contain names. We had to tell the computer that. Today we will download a weather report in a structured format called JSON and inspect it with the command catmandu.
+In this tutorial we are going to process structured information. We call data structured when it organised in such a way is that it easy processable by computers. Literary text documents like War and Peace are structured only in words and sentences, but a computer doesn’t know which words are part of the title or which words contain names. We had to tell the computer that. Today we will download a weather report in a structured format called JSON and inspect it with the command catmandu.
 
 
 Lets jump to the Playground to learn how to create workflows:

@@ -1,27 +1,23 @@
-TODO: https://github.com/metafacture/metafacture-examples/blob/master/Swissbib-Extensions/MARC-CSV/input.xml for marcXML 
+TODO: Use a better MARC-Example. Perhaps? https://github.com/metafacture/metafacture-examples/blob/master/Swissbib-Extensions/MARC-CSV/input.xml for marcXML 
+
+
 
 
 Day 9: Processing MARC with Catmandu
 
-09_librecat
-
-In the previous days we learned how we can use Metafacture to process structured data like JSON. Today we will use Metafacture to process MARC metadata records. In this process we will see that MARC can be processed using JSON paths
-
-( but this is a bit cumbersome. We will introduce MARCspec as an easier way to point to parts of a MARC record.)
+In the previous days we learned how we can use Metafacture to process structured data like JSON. Today we will use Metafacture to process MARC metadata records. In this process we will see that MARC can be processed using JSON paths.
 
 As always, we will need to set up a small metafacture flux script.
 
-Lets inscept a marc file: https://github.com/LibreCat/Catmandu/wiki/files/camel.usmarc
+Lets inscept a marc file: https://raw.githubusercontent.com/metafacture/metafacture-core/master/metafacture-runner/src/main/dist/examples/read/marc21/10.marc21
 
-Download it an in the terminal do:
-
-$ cat Documents/camel.usmarc
+https://metafacture.org/playground/?flux=%22https%3A//raw.githubusercontent.com/metafacture/metafacture-core/master/metafacture-runner/src/main/dist/examples/read/marc21/10.marc21%22%0A%7C+open-http%0A%7C+as-lines%0A%7C+print%0A%3B&active-editor=fix
 
 You should see something like this:
 
 Screenshot_01_12_14_09_41
 
-Like JSON the MARC file contains structured data but the format is different. All the data is on one line, but there isn’t at first sight a clear separation between fields and values. The field/value structure there but you need to use a MARC parser to extract this information. Marc contains a MARC parser which can be used to interpret this file.
+Like JSON the MARC file contains structured data but the format is different. All the data is on one line, but there isn’t at first sight a clear separation between fields and values. The field/value structure there but you need to use a MARC parser to extract this information. Metafacture contains a MARC parser which can be used to interpret this file.
 
 Lets create a small Flux script to transform the Marc data into YAML:
 <https://metafacture.org/playground/?flux=%22https%3A//raw.githubusercontent.com/metafacture/metafacture-core/master/metafacture-runner/src/main/dist/examples/read/marc21/10.marc21%22%0A%7C+open-http%0A%7C+as-lines%0A%7C+decode-marc21%0A%7C+encode-yaml%0A%7C+print%0A%3B&active-editor=fix>
@@ -41,7 +37,7 @@ Running it in the playground or with the commandline you will see something like
 
 Screenshot_01_12_14_10_01
 
-Metafacture has its own decoder for Marc21 data. The structure is translated as the following: The leader can either be translated in an entity or a single element. All `XXX` fields are translated in top elements with name of the field+indice numbers. TODO: ... Every subfield is translated in a subfield.
+Metafacture has its own decoder for Marc21 data. The structure is translated as the following: The leader can either be translated in an entity or a single element. All `XXX` fields are translated in top elements with name of the field+indice numbers. Every subfield is translated in a subfield. 
  
 We can use catmandu to read the _id fields of the MARC record with the retain fix we learned in the Day 6 post:
 
@@ -229,7 +225,7 @@ The leader value is translated into a leader element with the subfields.
 
 
 
-To work with MARC in Metafatcture is more easy than in CATMANDU. The difficulties are introduces with repeatable fields.This is something you usually don’t know. And you have to inspect this first.
+To work with MARC in Metafatcture is more easy than in CATMANDU. The difficulties are introduces with repeatable fields. This is something you usually don’t know. And you have to inspect this first.
 
 ```
 "https://raw.githubusercontent.com/metafacture/metafacture-core/master/metafacture-runner/src/main/dist/examples/read/marc21/10.marc21"
@@ -251,12 +247,22 @@ More elaborate mappings are possible. I’ll show you more complete examples in 
 
 Step 1, create a fix file myfixes.txt containing:
 
-marc_map("245",title)
-marc_map("020a",isbn.$append)
+```
+set_array("title")
+do list(path: "245??.?","var":"$i")
+  copy_field("$i","title.$append")
+end
+join_field(title," ")
+set_array("isbn")
+do list(path: "020??.a","var":"$i")
+  copy_field("$i",isbn.$append)
+end
 join_field(isbn,",")
-remove_field(record)
+retain("_id","title","isbn")
+```
 
-Step 2, execute this command:
+TODO: Introduce when csv is provided:
+ Step 2, execute this command:
 
 $ catmandu convert MARC --fix myfixes.txt to CSV < Documents/camel.usmarc
 
