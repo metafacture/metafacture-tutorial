@@ -95,7 +95,7 @@ There are two extra path structures that need to be explained:
 * repeatable fields
 * arrays
 
-In an data set an element sometimes an element can have multiple instances. Different data models solve this possibility differently. XML-Records can have all elements multiple times, element repition is possible and in many schemas (partky) allowed. Repeatable elements also exist in JSON and YAML but are unusual:
+In an data set an element sometimes an element can have multiple instances. Different data models solve this possibility differently. XML-Records can have all elements multiple times, element repition is possible and in many schemas (partly) allowed. Repeatable elements also exist in JSON and YAML but are unusual:
 
 ```
 creator: Justus
@@ -165,4 +165,4 @@ title.type
 title.lang
 ```
 
-If you want to create xml then you need to map to this structure too.
+If you want to create xml with attributes then you need to map to this structure too.

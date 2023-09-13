@@ -1,6 +1,6 @@
 # TODO : Day 15 : MARC to Dublin Core
 
-13_librecatToday we will look a bit further into MARC processing with Catmandu. By now you should already know how to startup the Virtual Catmandu (hint: see day 1) and start up the UNIX command prompt (hint: see day 2). We already saw a bit of MARC processing in day 9 and today we will show you how to transform MARC records into Dublin Core. This as a preparation to create RDF and Linked Data in the later posts.
+Today we will look a bit further into MARC processing with Metafacture. We already saw a bit of MARC processing in and today we will show you how to transform MARC records into Dublin Core. TODO: Is this also workable with MF? This as a preparation to create RDF and Linked Data in the later posts?
 
 First I’m going to teach you how to process different types of MARC files. On the Virtual Catmandu system we provided five  example MARC files. You can find them in your Documents folder:
 
