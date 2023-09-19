@@ -1,3 +1,5 @@
+## Fix Path and more complex transfromations in Fix
+
 Last session we learned the how to construct a metafacture workflow and execute it on the commandline and how it can be used to parse structured information. Today we will go deeper into Metafacture Fix and describe how to pluck data out of structured information.
 
 Today will we fetch a new weather report with the Metafacture Playground:
