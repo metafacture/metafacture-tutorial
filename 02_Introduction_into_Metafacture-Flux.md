@@ -1,7 +1,6 @@
 ## Introduction into Metafacture Flux?
--- What are modules and what is a Flux workflow?
 
-If you know how to use the command line Metafacture can easily be used.  Other ways to use Metafacture is as a JAVA library or with the Playground.
+If you know how to use the command line Metafacture can easily be used. Other ways to use Metafacture is as a JAVA library or with the Playground.
 
 In this lesson we start with the playground. The commandline handling will be subject to a later lesson.
 
@@ -269,6 +268,8 @@ See:
 | write("test.xml")
 ;
 ```
+
+### Exercise 
 
 Have a look at `decode-xml` what is different to `decode-json` what does it expect?
 
