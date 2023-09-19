@@ -29,13 +29,15 @@ So dive into Metafacture Fix. Lets get back to the [Playground](https://metafact
 
 You should end up with something like:
 
+```
 ---
 name: Cologne
 ...
+```
 
 The `fix` module in Metafacture is used to manipulate the input data filtering fields we would like to see. Only one fix-function was used: `retain`, which throws away all the data from the input except the ‘name’ field.
 
-TODO: This should be changed when subfields can be retained.
+> TODO: This should be changed when subfields can be retained.
 
 Also add the info that is written in `main`
 
@@ -135,5 +137,5 @@ or [use timestamp](https://metafacture.org/playground/?flux=%22https%3A//fcc-wea
 
 Also there are many flux commands/modules that can be used.
 
-Check the documentation to get a complete list. This post only presented a short introduction into Metafacture. In the next posts we will go deeper into its capabilities.
+Check the documentation to get a complete list of [flux command](https://github.com/metafacture/metafacture-documentation/blob/master/flux-commands.md) and [fix functions](https://github.com/metafacture/metafacture-documentation/blob/master/Fix-function-and-Cookbook.md#functions). This post only presented a short introduction into Metafacture. In the next posts we will go deeper into its capabilities.
 
