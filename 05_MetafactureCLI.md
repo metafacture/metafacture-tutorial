@@ -26,6 +26,7 @@ Our runned workflow only has a flux and no additional files since it i querring 
 
 If we want to querry local data you have to adjust your workflow:
 
+```
 "https://fcc-weather-api.glitch.me/api/current?lat=50.93414&lon=6.93147"
 | open-http
 | as-lines
@@ -33,9 +34,11 @@ If we want to querry local data you have to adjust your workflow:
 | encode-yaml
 | print
 ;
+```
 
 If you want to load a local file instead of fetching it from the web. We need to change the flux a little bit.
 
+```
 "path/to/your/file.json"
 | open-file
 | as-lines
@@ -54,6 +57,7 @@ If we want to use fix we need to refrence the fix file that in the playground we
 | encode-yaml
 | print
 ;
+```
 
 (Hint: You can use the varliable FLUX_DIR to shorten the file path if the file is in the same folder as the flux-file.)
 
