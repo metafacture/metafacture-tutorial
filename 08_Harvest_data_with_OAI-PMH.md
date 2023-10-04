@@ -23,7 +23,18 @@ If you just want to use the specific metadata records and not the oai-pmh specif
 
 You can also harvest MARC data and store it in a file:
 
-$ catmandu convert OAI --url https://lib.ugent.be/oai --metadataPrefix marcxml --set flandrica --handler marcxml to MARC --type USMARC > ugent.mrc
+```
+"https://lib.ugent.be/oai"
+| open-oaipmh(metadataPrefix="marcxml", setSpec="flandrica")
+| decode-xml
+| handle-marcxml
+| encode-json(prettyPrinting="true")
+| print
+;
+
+```
+TODO: Revisit this example when https://github.com/metafacture/metafacture-core/issues/454 is fixed.
+
 
 Instead of harvesting the whole metadata you can get the record identifiers (--listIdentifiers) only:
 
