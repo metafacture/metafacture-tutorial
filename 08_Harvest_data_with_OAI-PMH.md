@@ -8,7 +8,18 @@ The OAI server may support selective harvesting, so OAI clients can get only sub
 
 To get some Dublin Core records from the collection of Ghent University Library and convert it to JSON (default) run the following catmandu command:
 
-$ catmandu convert OAI --url https://lib.ugent.be/oai --metadataPrefix oai_dc --set flandrica --handler oai_dc
+```
+"https://lib.ugent.be/oai"
+| open-oaipmh(metadataPrefix="oai_dc", setSpec="flandrica")
+| decode-xml
+| handle-generic-xml
+| encode-json(prettyPrinting="true")
+| print
+;
+
+```
+
+If you just want to use the specific metadata records and not the oai-pmh specific metadata wrappers then specify the xml handler like this: `| handle-generic-xml(recordtagname="dc")`
 
 You can also harvest MARC data and store it in a file:
 

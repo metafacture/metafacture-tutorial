@@ -20,7 +20,7 @@ Screenshot_01_12_14_09_41
 Like JSON the MARC file contains structured data but the format is different. All the data is on one line, but there isn’t at first sight a clear separation between fields and values. The field/value structure there but you need to use a MARC parser to extract this information. Metafacture contains a MARC parser which can be used to interpret this file.
 
 Lets create a small Flux script to transform the Marc data into YAML:
-<https://metafacture.org/playground/?flux=%22https%3A//raw.githubusercontent.com/metafacture/metafacture-core/master/metafacture-runner/src/main/dist/examples/read/marc21/10.marc21%22%0A%7C+open-http%0A%7C+as-lines%0A%7C+decode-marc21%0A%7C+encode-yaml%0A%7C+print%0A%3B&active-editor=fix>
+<https://metafacture.org/playground/?flux=%22https%3A//raw.githubusercontent.com/metafacture/metafacture-core/master/metafacture-runner/src/main/dist/examples/read/marc21/10.marc21%22%0A%7C+open-http%0A%7C+as-lines%0A%7C+decode-marc21%0A%7C+encode-yaml%0A%7C+print%0A%3B>
 
 ```
 "https://raw.githubusercontent.com/metafacture/metafacture-core/master/metafacture-runner/src/main/dist/examples/read/marc21/10.marc21"
@@ -264,21 +264,30 @@ retain("_id","title","isbn")
 TODO: Introduce when csv is provided:
  Step 2, execute this command:
 
-$ catmandu convert MARC --fix myfixes.txt to CSV < Documents/camel.usmarc
+```
+"https://raw.githubusercontent.com/metafacture/metafacture-core/master/metafacture-runner/src/main/dist/examples/read/marc21/10.marc21"
+| open-http
+| as-lines
+| decode-marc21
+| fix(transformationFile)
+| encode-csv
+| print
+;
+
+```
 
 You will see this as output:
 
-_id,isbn,title
-"fol05731351 ","0471383147 (paper/cd-rom : alk. paper)","ActivePerl with ASP and ADO /Tobias Martinsson."
-"fol05754809 ",1565926994,"Programming the Perl DBI /Alligator Descartes and Tim Bunce."
-"fol05843555 ",,"Perl :programmer's reference /Martin C. Brown."
-"fol05843579 ",0072120002,"Perl :the complete reference /Martin C. Brown."
-"fol05848297 ",1565924193,"CGI programming with Perl /Scott Guelich, Shishir Gundavaram & Gunther Birznieks."
-"fol05865950 ",0596000138,"Proceedings of the Perl Conference 4.0 :July 17-20, 2000, Monterey, California."
-"fol05865956 ",1565926099,"Perl for system administration /David N. Blank-Edelman."
-"fol05865967 ",0596000278,"Programming Perl /Larry Wall, Tom Christiansen & Jon Orwant."
-"fol05872355 ",013020868X,"Perl programmer's interactive workbook /Vincent Lowe."
-"fol05882032 ","0764547291 (alk. paper)","Cross-platform Perl /Eric F. Johnson.
+"Colonial and post-colonial discourse in the novels of Yo§am Sang-So§ap, Chinua Achebe and Salman Rushdie Soonsik Kim","0820431125","946638705"
+"Ostenfelder Bauernhaus Deutschlands a§�ltestes Freilichtmuseum in Husum Konrad Grunsky","3880426066","94685887X"
+"Gesellschaftsrecht 1995 hrsg. von Hartwig Henze ...","3814550080","947459928"
+"Deathlock = Todespunkt Michael Burning","3929207478","948469390"
+"Die Prachtlibellen Europas Gattung Calopteryx Georg Ru§�ppell ...","3894328835","950561274"
+"Insolvenzrecht 1996 hrsg. von Hanns Pru§�tting","3814550099","950592463"
+"Siciliano Rainer Bigalke. [Ed. by U. J. Lu§�ders]","3895862193","950974439"
+"Arbeitsrecht 1997 hrsg. von Peter Hanau ; Gu§�nter Schaub","3814550110","953176436"
+"Gesellschaftsrecht 1997 hrsg. von Peter Hommelhoff ; Volker Ro§�hricht","3814550102","954369300"
+"Bankrecht 1998 hrsg. von Norbert Horn ; Herbert Schimansky","3814550129","954377915"
 
 In the fix above we mapped the 245-field to the title. The ISBN is in the 020-field. Because MARC records can contain one or more 020 fields we created an isbn array using the isbn.$append syntax. Next we turned the isbn array back into a comma separated string using the join_field fix. As last step we deleted all the fields we didn’t need in the output with the remove_field syntax.
 
