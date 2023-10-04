@@ -54,6 +54,7 @@ Also add the info that is written in `main`
 
 You should now see something like this:
 
+```
 ---
 main:
   temp: "15.99"
@@ -63,6 +64,7 @@ main:
   pressure: "1017"
   humidity: "60"
 name: "Cologne"
+```
 
 When manipulating data you often need to create many fixes to process a data file in the format you need. With a text editor you can write all fix functions in a singe separate fix-file.
 
