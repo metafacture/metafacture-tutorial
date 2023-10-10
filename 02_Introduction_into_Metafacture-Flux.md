@@ -57,7 +57,7 @@ e.g.
 
 ![image](images/02_image_02.png)
 
-In the Playground you can put the variable `inputFile` at the beginnning of a MF workflow to process the content of this imaginary file.
+In the Playground you can put the variable `inputFile` at the beginning of a MF workflow to process the content of this imaginary file.
 
 ![image](images/02_image_03.png)
 
@@ -78,7 +78,7 @@ inputFile
 ;
 ```
 
-Höm... There seems to be unusual output. Its a fiel path. Why?
+Höm... There seems to be unusual output. Its a file path. Why?
 Because hidden behind the variable `ìnputFile` is a path to a file.
 But to read the content of the file. Therefore we need to handle the incoming data differently.
 
@@ -207,16 +207,16 @@ Afterwards we tell Metafacture to `decode-json` in order to translate the incomi
 Lastly Metafacture should serialize the metadata events as YAML with `encode-yaml`
 Finally we tell MF to `print` everything.
 
-So let's have a small recap of what we done and learned sofar.
+So let's have a small recap of what we done and learned so far.
 We played around with the Metafacture Playground.
-We learnd that Metafacture Flux Workflow is a combination modules with an inital text string or an variable.
+We learned that Metafacture Flux Workflow is a combination modules with an inital text string or an variable.
 We got to know different modules like `open-http`, `as-lines`. `decode-json`, `encode-yaml`, `print`
 
 More modules can be found in the [documentation of available flux commands](https://github.com/metafacture/metafacture-documentation/blob/master/flux-commands.md).
 
 Now take some time and play around a little bit more and use some other modules.
 1) Try to change the Flux workflow to output as formeta (a metafacture specific data format) and not as YAML.
-2) Set the stile of formeta to multiline.
+2) Set the style of formeta to multiline.
 3) Also try not to print but to write the output and call the file that you write weather.xml.
 
 ```
@@ -229,7 +229,7 @@ Now take some time and play around a little bit more and use some other modules.
 ;
 ```
 
-What you see with the module `write` is that modules can have further specification in brakets.
+What you see with the module `write` is that modules can have further specification in brackets.
 These can eiter be a string in `"..."` or attributes that define options as with `style=`.
 
 One last thing you should learn on an abstract level is to grasp the general idea of Metafacture Flux workflows is that they have many different moduls through which the data is flowing.
@@ -238,7 +238,7 @@ The most abstract and most common process resemble the following steps:
 → read → decode → transform → encode → write →
 
 This process is one that Transforms incoming data in a way that is changed at the end.
-Each step can be done by one or an combination of multiple modules.
+Each step can be done by one or a combination of multiple modules.
 Modules are small tools that do parts of the complete task we want to do.
 
 Each modul demands a certain input and give a certain output. This is called signature.
@@ -280,7 +280,7 @@ The signature of `decode-xml` and `decode-json` is quiet differnet.
 `decode-xml`: signature: Reader -> XmlReceiver
 `decode-json`: signature: String -> StreamReceiver 
 
-Explaination: 
+Explanation: 
 `decode-xml` expects data from Reader output of `open-file` or `open-http`, and creates output that can be transformed by a specific xml `handler`.
 
 `decode-json` expects data from output of a string like `as-lines` or `as-records` and creates output that could be transformed by `fix` or encoded with a module like `encode-xml`
