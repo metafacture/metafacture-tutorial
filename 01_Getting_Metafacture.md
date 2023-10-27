@@ -16,3 +16,6 @@ If you are already familiar with the command line follow the installation guide 
 https://github.com/metafacture/metafacture-core#metafacture-as-a-stand-alone-application
 
 For first steps we will use the [Metafacture Playground](https://metafacture.org/playground/). The playground it a webinterface that should help you getting started and also test, share and export metafacture worflows.
+
+
+Next lesson: [02 Introduction into Metafacture Flux](./02_Introduction_into_Metafacture-Flux.md)
