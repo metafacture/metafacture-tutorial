@@ -91,3 +91,4 @@ Another important thing, when working with xml data sets is to specify the recor
 
 https://metafacture.org/playground/?flux=%22http%3A//www.lido-schema.org/documents/examples/LIDO-v1.1-Example_FMobj00154983-LaPrimavera.xml%22%0A%7C+open-http%0A%7C+decode-xml%0A%7C+handle-generic-xml%28recordtagname%3D%22lido%22%29%0A%7C+encode-yaml%0A%7C+print%0A%3B
 
+Next lesson: [11 Mapping Marc to Dublin Core](./11_MARC_to_Dublin_Core.md)
