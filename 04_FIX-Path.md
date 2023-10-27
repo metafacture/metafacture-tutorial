@@ -206,4 +206,6 @@ title.type
 title.lang
 ```
 
+Next lessons: [05 More Fix Concepts](./05-More-Fix-Concepts.md)
+
 If you want to create xml with attributes then you need to map to this structure too.
