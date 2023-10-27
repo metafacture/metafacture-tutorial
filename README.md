@@ -1,3 +1,6 @@
+
+![Logo](https://metafacture.org/img/metafacture.png)
+
 # metafacture-tutorial
 
 This project is early-stage.
