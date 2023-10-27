@@ -1,6 +1,6 @@
-# TODO: Day 08: Harvest data with OAI-PMH
+## TODO: Lesson 8: Harvest data with OAI-PMH
 
-14_librecatThe Open Archives Initiative Protocol for Metadata Harvesting (OAI-PMH) is a protocol to harvest metadata records from OAI compliant repositories. It was developed by the Open Archives Initiative as a low-barrier mechanism for repository interoperability. The Open Archives Initiative maintains a registry of OAI data providers.
+The Open Archives Initiative Protocol for Metadata Harvesting (OAI-PMH) is a protocol to harvest metadata records from OAI compliant repositories. It was developed by the Open Archives Initiative as a low-barrier mechanism for repository interoperability. The Open Archives Initiative maintains a registry of OAI data providers.
 
 Every OAI server must provide metadata records in Dublin Core, other (bibliographic) formats like MARC may be supported additionally. Available metadata formats can be detected with “ListMetadataFormats“. You can set the metadata format for the Catmandu OAI client via the --metadataPrefix parameter.
 
@@ -16,10 +16,14 @@ To get some Dublin Core records from the collection of Ghent University Library 
 | encode-json(prettyPrinting="true")
 | print
 ;
-
 ```
+Lets have a look at the documentation of open-oaipmh:
 
-If you just want to use the specific metadata records and not the oai-pmh specific metadata wrappers then specify the xml handler like this: `| handle-generic-xml(recordtagname="dc")`
+![open-oaipmh Documentation](./images/OAI-PMH-Docu.png)
+
+There you see the specific options that can be used to configure your OAI PMH Harvesting.
+
+But if you just want to use the specific metadata records and not the oai-pmh specific metadata wrappers then specify the xml handler like this: `| handle-generic-xml(recordtagname="dc")`
 
 You can also harvest MARC data and store it in a file:
 
@@ -33,7 +37,7 @@ You can also harvest MARC data and store it in a file:
 ;
 
 ```
-TODO: Revisit this example when https://github.com/metafacture/metafacture-core/issues/454 is fixed.
+> TODO: Revisit this example when https://github.com/metafacture/metafacture-core/issues/454 is fixed.
 
 
 Instead of harvesting the whole metadata you can get the record identifiers (--listIdentifiers) only:

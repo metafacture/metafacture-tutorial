@@ -1,6 +1,10 @@
-# TODO : Day 15 : MARC to Dublin Core
+# TODO : Day 15 : From MARC to Dublin Core as loud JSON-LD
 
-Today we will look a bit further into MARC processing with Metafacture. We already saw a bit of MARC processing in and today we will show you how to transform MARC records into Dublin Core. TODO: Is this also workable with MF? This as a preparation to create RDF and Linked Data in the later posts?
+Today we will look a bit further into MARC processing with Metafacture. We already saw a bit of MARC processing in and today we will show you how to transform MARC records into Dublin Core. 
+
+
+
+TODO: Is this also workable with MF? This as a preparation to create RDF and Linked Data in the later posts?
 
 First I’m going to teach you how to process different types of MARC files. On the Virtual Catmandu system we provided five  example MARC files. You can find them in your Documents folder:
 
@@ -106,3 +110,9 @@ replace_all(date,"\D+","")
 
 marc_map(650a,subject.$append)
 remove_field(record)
+
+> TODO: 
+> Create the metafacture workflow to transform Marc to JSON.
+> Map the marc data to DC.
+> Also add an context for creating JSON LD.
+> Add excersise.

@@ -1,7 +1,11 @@
-While we had fun with our Metafacture Playground another way to use Metafacture is
-the command line. While running a Metafacture flux process needs a terminal,
-creating and editing FLUX and FLIX we need an texteditor like Codium/VS Code or others.
+## Lesson 7: Using Metafacture as Command Line Tool
 
+While we had fun with our Metafacture Playground another way to use Metafacture is
+the command line. For running a Metafacture flux process we need a terminal and installed JAVA.
+For creating and editing FLUX and FLIX we need an texteditor like Codium/VS Code or others.
+
+> TODO: Check if JAVA is installed and if not a short manual for installing the needed JAVA.
+> Also specify the needed JAVA version.
 
 For this we can download the latest runner of Metafacture Fix:
 

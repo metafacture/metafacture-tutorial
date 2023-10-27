@@ -1,9 +1,9 @@
-# Fix concepts
+## Lesson 6: More Fix concepts
 
 We already learned about simple Fixes (or Fix Functions) but there are three additional concepts in Fix selector, conditionals and binds. 
-These Fix concepts were introduced by Catmandu (see [functions](https://librecat.org/Catmandu/#functions), [selector](https://librecat.org/Catmandu/#selectors), [conditionals](https://librecat.org/Catmandu/#conditionals) and [binds](https://librecat.org/Catmandu/#binds)).
+These Fix concepts were introduced by Catmandu (see [functions](https://librecat.org/Catmandu/#functions), [selector](https://librecat.org/Catmandu/#selectors), [conditionals](https://librecat.org/Catmandu/#conditionals) and [binds](https://librecat.org/Catmandu/#binds)). But be aware Metafacture Fix does not support all of the specific functions, selectors, conditionals and binds from Catmandu. Check the documentation for an full overview of the supported [fix functions](https://github.com/metafacture/metafacture-documentation/blob/master/Fix-function-and-Cookbook.md#functions).
 
-## Additional concepts
+### Additional concepts
 
 The following code snippet shows examples of eachs of these concepts:
 
@@ -38,9 +38,9 @@ if exists("error")
 end
 ```
 
-While simple fixes aka *[Functions](https://github.com/metafacture/metafacture-documentation/blob/master/Fix-function-and-Cookbook.md#functions)* are used to add, change, remove or otherwise manipulate elements.
+Simple fixes aka *[Functions](https://github.com/metafacture/metafacture-documentation/blob/master/Fix-function-and-Cookbook.md#functions)* are used to add, change, remove or otherwise manipulate elements. Simple fixes were introduced in [Lesson 3](./03_Introduction_into_Metafacture-Fix.md).
 
-The other three concepts help when you intend more complex transformations:
+The other three concepts help when you intend to use more complex transformations:
 
 *[Conditionals](https://github.com/metafacture/metafacture-documentation/blob/master/Fix-function-and-Cookbook.md#conditionals)* are used to control the processing of fix functions. The included fix functions are not process with every workflow but only under certain conditions.
 
@@ -255,5 +255,7 @@ end
 https://metafacture.org/playground/?flux=inputFile%0A%7C+open-file%0A%7C+as-records%0A%7C+decode-yaml%0A%7C+fix%28transformationFile%29%0A%7C+encode-yaml%0A%7C+print%0A%3B&transformation=do+list%28path%3A%22colours%5B%5D%22%2C%22var%22%3A%22%24i%22%29%0A++++if+any_equal%28%22%24i%22%2C%22green%22%29%0A++++++++set_array%28%22result%5B%5D%22%29+%23+To+create+a+new+array+named+result%0A%0A++++++++upcase%28%22%24i%22%29%0A++++++++append%28%22%24i%22%2C%22+is+a+nice+color%22%29%0A++++++++copy_field%28%22%24i%22%2C%22result.%24append%22%29%0A++++end%0Aend&data=---%0Acolours%3A%0A+-+red%0A+-+yellow%0A+-+green
 
 TO BE CONTINUED ...
+
+TODO: Add Excercises.
 
 Next lesson: [06 Metafacture CLI](./06_MetafactureCLI.md)

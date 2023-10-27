@@ -1,9 +1,9 @@
-TODO: Use a better MARC-Example. Perhaps? https://github.com/metafacture/metafacture-examples/blob/master/Swissbib-Extensions/MARC-CSV/input.xml for marcXML 
+> TODO: Use a better MARC-Example. Perhaps? https://github.com/metafacture/metafacture-examples/blob/master/Swissbib-Extensions/MARC-CSV/input.xml for marcXML 
 
 
 
 
-Day 9: Processing MARC with Catmandu
+Lesson 7: Processing MARC with Metafacture
 
 In the previous days we learned how we can use Metafacture to process structured data like JSON. Today we will use Metafacture to process MARC metadata records. In this process we will see that MARC can be processed using JSON paths.
 
@@ -261,8 +261,8 @@ join_field(isbn,",")
 retain("_id","title","isbn")
 ```
 
-TODO: Introduce when csv is provided:
- Step 2, execute this command:
+
+ Step 2, execute this worklow:
 
 ```
 "https://raw.githubusercontent.com/metafacture/metafacture-core/master/metafacture-runner/src/main/dist/examples/read/marc21/10.marc21"
@@ -292,5 +292,7 @@ You will see this as output:
 In the fix above we mapped the 245-field to the title. The ISBN is in the 020-field. Because MARC records can contain one or more 020 fields we created an isbn array using the isbn.$append syntax. Next we turned the isbn array back into a comma separated string using the join_field fix. As last step we deleted all the fields we didn’t need in the output with the remove_field syntax.
 
 In this post we demonstrated how to process MARC data. In the next post we will show some examples how catmandu typically can be used to process library data.
+
+> TODO: Add excercise.
 
 Next lesson: [08 Harvest data with OAI-PMH](./08_Harvest_data_with_OAI-PMH.md)
