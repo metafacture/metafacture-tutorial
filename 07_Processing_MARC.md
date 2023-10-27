@@ -293,4 +293,4 @@ In the fix above we mapped the 245-field to the title. The ISBN is in the 020-fi
 
 In this post we demonstrated how to process MARC data. In the next post we will show some examples how catmandu typically can be used to process library data.
 
-Continue with Day 10: Working with CSV and Excel files >>
+Next lesson: [08 Harvest data with OAI-PMH](./08_Harvest_data_with_OAI-PMH.md)
