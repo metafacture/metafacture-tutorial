@@ -1,4 +1,4 @@
-## Day 1: Whats Metafacture? And where do I get it?
+## Lesson 1: Whats Metafacture? And where do I get it?
 
 ![Logo](https://metafacture.org/img/metafacture.png)
 Metafacture is a data processing toolkit maintained by hbz and initially developed by DNB. 
