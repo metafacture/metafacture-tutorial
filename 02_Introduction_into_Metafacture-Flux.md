@@ -1,6 +1,6 @@
 ## Introduction into Metafacture Flux?
 
-If you know how to use the command line Metafacture can easily be used. Other ways to use Metafacture is as a JAVA library or with the Playground.
+If you know how to use the command line Metafacture can easily be used. Other ways to use Metafacture are as a JAVA library or with the Playground.
 
 In this lesson we start with the playground. The commandline handling will be subject to a later lesson.
 
