@@ -11,41 +11,27 @@ It should help you to get accostumed with Metafacture Core and Metafacture Fix (
 
 Have fun.
 
+Lesson plan:
 
-Lessons from Catmandu Tutorial:
+[01 Getting metafacture](./01_Getting_Metafacture.md)
 
-Day 1: Getting Catmandu -> Getting Metafacture
+[02 Introduction into Metafacture Flux](./02_Introduction_into_Metafacture-Flux.md)
 
-Day 2: Virtual Box introduction -> not needed
+[03 Introduction into Metafacture-Fix](./03_Introduction_into_Metafacture-Fix.md)
 
-Day 3: Bash basics -> not needed
+[04 Fix Path](./04_FIX-Path.md)
 
-Day 4: grep, less and wc -> not needed
+[05 More Fix Concepts](./05-More-Fix-Concepts.md)
 
-Day 5: Editing text with nano -> not needed
+[06 Metafacture CLI](./06_MetafactureCLI.md)
 
-Day 6: Introduction into Catmandu -> Introduction to Metafacture Flux and Fix
+[07 Processing MARC](./07_Processing_MARC.md)
 
-Day 7: Catmandu JSON paths -> Introduction to Fix path
+[08 Harvest data with OAI-PMH](./08_Harvest_data_with_OAI-PMH.md) (TODO)
 
-Day 8: Processing JSON data from webservices -> perhaps not needed or only some adjustments
+[09 Working with CSV and TSV](./09_Working_with_CSV.md)
 
-Day 9: Processing MARC with Catmandu -> highlight the differents to Catmandu since no special MARC functions are needed
+[10 Working with XML](./10_Working_with_XML.md)
 
-Day 10: Working with CSV and Excel files -> TODO!
+[11 Mapping Marc to Dublin Core](./11_MARC_to_Dublin_Core.md) (TODO)
 
-Day 11: Store your data in MongoDB -> not possible in MF yet
-
-Day 12: Index your data with ElasticSearch ->  not possible in MF Core yet, but swissbib did this
-
-Day 13: Harvest data with OAI-PMH -> TODO!
-
-Day 14: Set up your own OAI data service -> not possible in MF yet
-
-Day 15 : MARC to Dublin Core -> TODO!
-
-Day 16: Importing RDF data with Catmandu -> can MF do this?
-
-Day 17: Exporting RDF data with Catmandu -> can MF do this?
-
-Day 18: Merry Christmas! -> not needed as lessen, but celebrate anyway :)
