@@ -1,4 +1,4 @@
-## Fix Path and more complex transfromations in Fix
+## Lesson 4: Fix Path and more complex transfromations in Fix
 
 Last session we learned the how to construct a metafacture workflow and execute it on the commandline and how it can be used to parse structured information. Today we will go deeper into Metafacture Fix and describe how to pluck data out of structured information.
 
@@ -14,7 +14,7 @@ Today will we fetch a new weather report with the Metafacture Playground:
 ;
 ```
 
-We also saw in the previous post how you can use catmandu to transform the JSON format into the YAML format which is easier to read and contains the same information.
+We also saw in the previous post how you can use Metafacture to transform the JSON format into the YAML format which is easier to read and contains the same information.
 
 We also learned some fixes to retrieve information out of the JSON file like `retain("name","temp")`.
 
@@ -206,6 +206,10 @@ title.type
 title.lang
 ```
 
+If you want to create xml with attributes then you need to map to this structure too. We will come back to lection working with xml in lesson 10.
+
+
+
 Next lessons: [05 More Fix Concepts](./05-More-Fix-Concepts.md)
 
-If you want to create xml with attributes then you need to map to this structure too.
+
