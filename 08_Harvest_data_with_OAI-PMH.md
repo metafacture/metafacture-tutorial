@@ -1,4 +1,4 @@
-# TODO: Day 13: Harvest data with OAI-PMH
+# TODO: Day 08: Harvest data with OAI-PMH
 
 14_librecatThe Open Archives Initiative Protocol for Metadata Harvesting (OAI-PMH) is a protocol to harvest metadata records from OAI compliant repositories. It was developed by the Open Archives Initiative as a low-barrier mechanism for repository interoperability. The Open Archives Initiative maintains a registry of OAI data providers.
 
@@ -57,3 +57,7 @@ $ catmandu import OAI --url https://lib.ugent.be/oai --metadataPrefix marcxml --
 $ catmandu import OAI ---url https://lib.ugent.be/oai --metadataPrefix marcxml --set flandrica --handler marcxml --fix simple.fix to MongoDB --database_name oai --bag ugent
 
 The Catmandu OAI client provides special handler (--handler) for Dublin Core (oai_dc) and MARC (marcxml). For other metadata formats use the default handler (raw) or implement your own. Read our documentation for further details.
+
+
+Next lesson: 
+[09 Working with CSV and TSV](./09_Working_with_CSV.md)
