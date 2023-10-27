@@ -305,3 +305,5 @@ Exercise 5: [Collect MARC-XML from the WEB and transform them to JSON](https://m
 
 As you surely already saw is that I mentioned transform as one step. We did not play around with transformations yet.
 This will be the theme of the next session.
+
+Next lesson: [03 Introduction into Metafacture-Fix](./03_Introduction_into_Metafacture-Fix.md)
