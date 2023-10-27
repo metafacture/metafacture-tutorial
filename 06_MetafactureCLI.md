@@ -65,3 +65,6 @@ TODO: Give homework:
 	- Provide a file or a file-folder.
 	- Give a homework.
 	- Give the solution.
+
+
+ Next lesson: [07 Processing MARC](./07_Processing_MARC.md)
