@@ -137,6 +137,8 @@ Excercise: [Add a field with todays date.](https://metafacture.org/playground/?f
 or [use timestamp](https://metafacture.org/playground/?flux=%22https%3A//fcc-weather-api.glitch.me/api/current%3Flat%3D50.93414%26lon%3D6.93147%22%0A%7C+open-http%0A%7C+as-lines%0A%7C+decode-json%0A%7C+fix+%28transformationFile%29%0A%7C+encode-yaml%0A%7C+print%0A%3B&transformation=move_field%28%22main.temp%22%2C%22temp%22%29%0Aprepend%28%22temp%22%2C%22The+temperature+is+%22%29%0Aappend%28%22temp%22%2C%22+degrees+Kelvin%22%29%0Atimestamp%28%22time%22%2Cformat%3A%22yyyy-MM-dd%27T%27HH%3Amm%3Ass%22%2C+timezone%3A%22Europe/Berlin%22%29%0Aretain%28%22name%22%2C+%22temp%22%2C%22time%22%29)
 </details>
 
+
+Next lesson: [04 Fix Path](./04_FIX-Path.md)
 Also there are many flux commands/modules that can be used.
 
 Check the documentation to get a complete list of [flux command](https://github.com/metafacture/metafacture-documentation/blob/master/flux-commands.md) and [fix functions](https://github.com/metafacture/metafacture-documentation/blob/master/Fix-function-and-Cookbook.md#functions). This post only presented a short introduction into Metafacture. In the next posts we will go deeper into its capabilities.
