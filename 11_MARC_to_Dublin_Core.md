@@ -1,4 +1,5 @@
 # TODO : Lesson 11 : From MARC to Dublin Core as loud JSON-LD
+TODO: Use better example.
 
 Today we will look a bit further into MARC processing with Metafacture. We already saw a bit of MARC processing in and today we will show you how to transform MARC records into Dublin Core and providing the data as linked open usable data.
 
