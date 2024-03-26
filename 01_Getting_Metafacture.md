@@ -1,21 +1,20 @@
-## Lesson 1: Whats Metafacture? And where do I get it?
+## Lesson 1: Introducing Metafacture and requirements for this tutorial
 
 ![Logo](https://metafacture.org/img/metafacture.png)
-Metafacture is a data processing toolkit maintained by hbz and initially developed by DNB. 
-Metafacture is a toolkit for processing semi-structured data with a focus on library metadata. 
-It provides a versatile set of tools for reading, writing and transforming data - espacially library related metadata. 
+Metafacture is an ETL data processing toolkit with a focus on library metadata.
+It was initially developed by DNB starting in 2011 and is maintained since 2019 by hbz.
 Metafacture can be used as a stand-alone application or as a Java library in other applications.
 The name Metafacture is a portmanteau of the words metadata and manufacture.
 
-In this tutorial we are going to teach you how to use the command line tools of Metafacture to preform simple and advanced data processing tasks.
+In this tutorial we are going to teach how to use Metafacture to peform simple and advanced data processing tasks.
 
-To be able to follow our examples you need to have access to a UNIX account with Metafacture Core and Metafacture Fix installed.
-But at first we will use the Metafacture Playground a webapp.
-If you are already familiar with the command line follow the installation guide here:
+At the beginning we will use the web application [Metafacture Playground](https://metafacture.org/playground/). So no
+installation is needed. The playground is a web interface that helps you getting started.
+It is useful used to test, share and export metafacture workflows.
 
-https://github.com/metafacture/metafacture-core#metafacture-as-a-stand-alone-application
-
-For first steps we will use the [Metafacture Playground](https://metafacture.org/playground/). The playground it a webinterface that should help you getting started and also test, share and export metafacture worflows.
-
+Starting with [Chapter 6](https://github.com/metafacture/metafacture-tutorial/blob/main/06_MetafactureCLI.md)
+we switch from using Playground to running Metafacture on our own Hardware.
+At this point, to be able to follow the examples, you need a Linux/Unix Bash Shell (part of every Linux, MacOS and Windows >=10)
+with Metafacture Core and Metafacture Fix installed.
 
 Next lesson: [02 Introduction into Metafacture Flux](./02_Introduction_into_Metafacture-Flux.md)
