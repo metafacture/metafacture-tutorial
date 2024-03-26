@@ -10,11 +10,11 @@ In this tutorial we are going to teach how to use Metafacture to peform simple a
 
 At the beginning we will use the web application [Metafacture Playground](https://metafacture.org/playground/). So no
 installation is needed. The playground is a web interface that helps you getting started.
-It is useful used to test, share and export metafacture workflows.
+It is useful to test, share and export metafacture workflows.
 
 Starting with [Chapter 6](https://github.com/metafacture/metafacture-tutorial/blob/main/06_MetafactureCLI.md)
 we switch from using Playground to running Metafacture on our own Hardware.
 At this point, to be able to follow the examples, you need a Linux/Unix Bash Shell (part of every Linux, MacOS and Windows >=10)
 with Metafacture Core and Metafacture Fix installed.
 
-Next lesson: [02 Introduction into Metafacture Flux](./02_Introduction_into_Metafacture-Flux.md)
+**Next lesson**: [02 Introduction into Metafacture Flux](./02_Introduction_into_Metafacture-Flux.md)
