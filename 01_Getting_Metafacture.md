@@ -9,7 +9,7 @@ The name Metafacture is a portmanteau of the words metadata and manufacture.
 In this tutorial we are going to teach how to use Metafacture to peform simple and advanced data processing tasks.
 
 At the beginning we will use the web application [Metafacture Playground](https://metafacture.org/playground/). So no
-installation is needed. The playground is a web interface that helps you getting started.
+installation is needed. The Playground is a web interface that helps you getting started.
 It is useful to test, share and export metafacture workflows.
 
 Starting with [Chapter 6](https://github.com/metafacture/metafacture-tutorial/blob/main/06_MetafactureCLI.md)
