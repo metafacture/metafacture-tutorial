@@ -100,7 +100,7 @@ You can see that in this [sample](https://metafacture.org/playground/?flux=input
 
 We usually do not start with any random text strings but with data. So lets play around with some data. 
 
-Let's start with a link: https://fcc-weather-api.glitch.me/api/current?lat=50.93414&lon=6.93147
+Let's start with a link: https://weather-proxy.freecodecamp.rocks/api/current?lat=50.93414&lon=6.93147
 
 
 You will see data that look like this:
@@ -185,7 +185,7 @@ e.g. instead of using `inputFile` lets read the live weather data which is provi
 Clear your playground and copy the following Flux-Workflow:
 
 ```
-"https://fcc-weather-api.glitch.me/api/current?lat=50.93414&lon=6.93147"
+"https://weather-proxy.freecodecamp.rocks/api/current?lat=50.93414&lon=6.93147"
 | open-http
 | as-lines
 | decode-json
@@ -194,7 +194,7 @@ Clear your playground and copy the following Flux-Workflow:
 ;
 ```
 
-The [result in the playground](https://metafacture.org/playground/?flux=%22https%3A//fcc-weather-api.glitch.me/api/current%3Flat%3D50.93414%26lon%3D6.93147%22%0A%7C+open-http%0A%7C+as-lines%0A%7C+decode-json%0A%7C+encode-yaml%0A%7C+print%0A%3B) should be the same as before but with the module `open-http` you can get the text that is provided via an url.
+The [result in the playground](https://metafacture.org/playground/?flux=%22https%3A//weather-proxy.freecodecamp.rocks/api/current%3Flat%3D50.93414%26lon%3D6.93147%22%0A%7C+open-http%0A%7C+as-lines%0A%7C+decode-json%0A%7C+encode-yaml%0A%7C+print%0A%3B) should be the same as before but with the module `open-http` you can get the text that is provided via an url.
 
 But lets understand what a Flux Workflow does.
 The Flux-Workflow is combination of different moduls to process incoming semi structured data. In our example we have different things that we do with these modules:
@@ -220,7 +220,7 @@ Now take some time and play around a little bit more and use some other modules.
 3) Also try not to print but to write the output and call the file that you write weather.xml.
 
 ```
-"https://fcc-weather-api.glitch.me/api/current?lat=50.93414&lon=6.93147"
+"https://weather-proxy.freecodecamp.rocks/api/current?lat=50.93414&lon=6.93147"
 | open-http
 | as-lines
 | decode-json
@@ -258,7 +258,7 @@ Comments can be added with `//`.
 See:
 ```
 //input string:
-"https://fcc-weather-api.glitch.me/api/current?lat=50.93414&lon=6.93147"
+"https://weather-proxy.freecodecamp.rocks/api/current?lat=50.93414&lon=6.93147"
 
 // MF Workflow:
 | open-http
