@@ -1,14 +1,15 @@
 ## Lesson 2: Introduction into Metafacture Flux
 
-If you know how to use the command line Metafacture can easily be used. Other ways to use Metafacture are as a JAVA library or with the Playground.
+To perform data processing with Metafacture transformation workflows are configured with **Metafacture Flux**, a domain-specific scripting language(DSL).
+With Metafacture Flux we combine different modules for reading, opening, transforming, and writing data sets.
 
-In this lesson we start with the playground. The commandline handling will be subject to a later lesson.
+In this lesson we will learn about Metafacture Flux, what Flux workflows are and how to combine different Flux modules to create a workflow in order to process datasets.
 
+To process data Metafacture can be used with the command line, as JAVA library or you can use the Metafacture Playground.
 
-The [Metafacture Playground](https://metafacture.org/playground) is a webinterface to test and share Metafacture. For this introduction we will start with the Playground since it allows a quick start without additional installing. 
+For this introduction we will start with the Playground since it allows a quick start without additional installing. The [Metafacture Playground](https://metafacture.org/playground) is a webinterface to test and share Metafacture.  The commandline handling will be subject in lesson 6. TODO: Add link.
 
 In this tutorial we are going to process structured information. We call data structured when it organised in such a way is that it easy processable by computers. Literary text documents like War and Peace are structured only in words and sentences, but a computer doesn’t know which words are part of the title or which words contain names. We had to tell the computer that. Today we will download a weather report in a structured format called JSON and inspect it with the command catmandu.
-
 
 Lets jump to the Playground to learn how to create workflows:
 
@@ -235,7 +236,7 @@ These can eiter be a string in `"..."` or attributes that define options as with
 One last thing you should learn on an abstract level is to grasp the general idea of Metafacture Flux workflows is that they have many different moduls through which the data is flowing.
 The most abstract and most common process resemble the following steps:
 
-→ read → decode → transform → encode → write →
+**→ read → decode → transform → encode → write →**
 
 This process is one that Transforms incoming data in a way that is changed at the end.
 Each step can be done by one or a combination of multiple modules.
