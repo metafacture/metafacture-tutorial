@@ -13,7 +13,7 @@ e.g.
 
 But not changing serialization that is part of encoding and decoding.
 
-In this tutorial I focus on Fix. If you want to learn about Morph have a look at https://slides.lobid.org/metafacture-2020/#/
+In this tutorial we focus on Fix. If you want to learn about Morph have a look at https://slides.lobid.org/metafacture-2020/#/
 
 So let's dive into Metafacture Fix and get back to the [Playground](https://metafacture.org/playground/?flux=%22https%3A//fcc-weather-api.glitch.me/api/current%3Flat%3D50.93414%26lon%3D6.93147%22%0A%7C+open-http%0A%7C+as-lines%0A%7C+decode-json%0A%7C+fix+%28%22retain%28%27name%27%29%22%29%0A%7C+encode-yaml%0A%7C+print%0A%3B). Clear it if needed and paste the following Flux in the Flux-File area.
 
