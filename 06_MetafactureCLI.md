@@ -18,7 +18,7 @@ Unix: `./bin/metafix-runner path/to/your.flux` or Windows: `./bin/metafix-runner
 To get quick started let's revisit a Flux we toyed around with in the playground.
 The playground has a nice feature to export and import Metafacture Workflows.
 
-`https://metafacture.org/playground/?flux=%22https%3A//fcc-weather-api.glitch.me/api/current%3Flat%3D50.93414%26lon%3D6.93147%22%0A%7C+open-http%0A%7C+as-lines%0A%7C+decode-json%0A%7C+encode-yaml%0A%7C+print%0A%3B&active-editor=fix`
+`https://metafacture.org/playground/?flux=%22https%3A//weather-proxy.freecodecamp.rocks/api/current%3Flat%3D50.93414%26lon%3D6.93147%22%0A%7C+open-http%0A%7C+as-lines%0A%7C+decode-json%0A%7C+encode-yaml%0A%7C+print%0A%3B&active-editor=fix`
 
 Export the workflow and lets run the flux.
 
@@ -31,7 +31,7 @@ Our runned workflow only has a flux and no additional files since it i querring 
 If we want to querry local data you have to adjust your workflow:
 
 ```
-"https://fcc-weather-api.glitch.me/api/current?lat=50.93414&lon=6.93147"
+"https://weather-proxy.freecodecamp.rocks/api/current?lat=50.93414&lon=6.93147"
 | open-http
 | as-lines
 | decode-json
