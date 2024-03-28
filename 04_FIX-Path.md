@@ -5,7 +5,7 @@ Last session we learned the how to construct a metafacture workflow and execute 
 Today will we fetch a new weather report with the Metafacture Playground:
 
 ```
-"https://fcc-weather-api.glitch.me/api/current?lat=50.93414&lon=6.93147"
+"https://weather-proxy.freecodecamp.rocks/api/current?lat=50.93414&lon=6.93147"
 | open-http
 | as-lines
 | decode-json
