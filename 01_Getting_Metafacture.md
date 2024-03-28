@@ -1,4 +1,4 @@
-## Lesson 1: Introducing Metafacture and requirements for this tutorial
+# Lesson 1: Introducing Metafacture and requirements for this tutorial
 
 ![Logo](https://metafacture.org/img/metafacture.png)
 Metafacture is an ETL data processing toolkit with a focus on library metadata.

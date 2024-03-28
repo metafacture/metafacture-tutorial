@@ -65,13 +65,14 @@ name: "Cologne"
 
 When manipulating data you often need to create many fixes to process a data file in the format and structure you need. With a text editor you can write all fix functions in a singe separate fix-file.
 
-In your playground move the fix-function to the separate fix file. In the playground we use the variable `transformationFile` to adress the fix file in the playground.
+The playground has an transformationFile-content area that can be used as if the fix is in a separate file.
+In the playground we use the variable `transformationFile` to adress the fix file in the playground.
 
 Like this.
 
-![image](images/03_image_01.png)
+![image](images/outsourcedFix.png)
 
-Fix:
+Write the following Fix into the transformationFile-content area:
 
 ```PERL
 retain("name", "main.temp")
@@ -86,9 +87,11 @@ And add these lines in front of the retain function:
 move_field("main.temp", "temp")
 ```
 
-Also change the `retain` funcation, that you only keep `"name"` and `"temp"` and not `"main.temp"` any more.
+With `move_field` you can change the name and the position of an element in a record. Here instead of `temp` being a subfield of `main`, it `temp`is now a top leve element.
 
-```PERLÖ
+Also change the `retain` function, that you only keep `"name"` and `"temp"` and not the not existing `"main.temp"` any more.
+
+```PERL
 move_field("main.temp","temp")
 retain("name", "temp")
 ```
@@ -150,5 +153,3 @@ Upcase the name element
 
 
 Next lesson: [04 Fix Path](./04_Fix-Path.md)
-
-

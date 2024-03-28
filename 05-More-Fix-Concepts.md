@@ -38,7 +38,7 @@ if exists("error")
 end
 ```
 
-Simple fixes aka *[Functions](https://github.com/metafacture/metafacture-documentation/blob/master/Fix-function-and-Cookbook.md#functions)* are used to add, change, remove or otherwise manipulate elements. Simple fixes were introduced in [Lesson 3](./03_Introduction_into_Metafacture-Fix.md).
+We already got to know simple fixes aka *[Functions](https://github.com/metafacture/metafacture-documentation/blob/master/Fix-function-and-Cookbook.md#functions)*. They are used to add, change, remove or otherwise manipulate elements. Simple fixes were introduced in [Lesson 3](./03_Introduction_into_Metafacture-Fix.md).
 
 The other three concepts help when you intend to use more complex transformations:
 
@@ -228,11 +228,10 @@ If you want to only change it, under a certain condition:
 
 ```PERL
 if any_equal("colours[]","green")
-  set_array("result") # To create a new array named result
-
+  set_array("result[]") # To create a new array named result
   upcase("colours[].*")
   append("colours[].*"," is a nice color")
-  copy_field("colours[].*","result.$append")
+  copy_field("colours[].*","result[].$append")
 end
 ```
 
@@ -243,16 +242,14 @@ To only tranform and copy the value `green` to an X you have to use the `do list
 do list(path:"colours[]","var":"$i")
     if any_equal("$i","green")
         set_array("result[]") # To create a new array named result
-
         upcase("$i")
         append("$i"," is a nice color")
-        copy_field("$i","result.$append")
+        copy_field("$i","result[].$append")
     end
 end
 ```
 
-
-https://metafacture.org/playground/?flux=inputFile%0A%7C+open-file%0A%7C+as-records%0A%7C+decode-yaml%0A%7C+fix%28transformationFile%29%0A%7C+encode-yaml%0A%7C+print%0A%3B&transformation=do+list%28path%3A%22colours%5B%5D%22%2C%22var%22%3A%22%24i%22%29%0A++++if+any_equal%28%22%24i%22%2C%22green%22%29%0A++++++++set_array%28%22result%5B%5D%22%29+%23+To+create+a+new+array+named+result%0A%0A++++++++upcase%28%22%24i%22%29%0A++++++++append%28%22%24i%22%2C%22+is+a+nice+color%22%29%0A++++++++copy_field%28%22%24i%22%2C%22result.%24append%22%29%0A++++end%0Aend&data=---%0Acolours%3A%0A+-+red%0A+-+yellow%0A+-+green
+[See this example here in the playground.](https://metafacture.org/playground/?flux=inputFile%0A%7C+open-file%0A%7C+as-records%0A%7C+decode-yaml%0A%7C+fix%28transformationFile%29%0A%7C+encode-yaml%0A%7C+print%0A%3B&transformation=do+list%28path%3A%22colours%5B%5D%22%2C%22var%22%3A%22%24i%22%29%0A++++if+any_equal%28%22%24i%22%2C%22green%22%29%0A++++++++set_array%28%22result%5B%5D%22%29+%23+To+create+a+new+array+named+result%0A++++++++upcase%28%22%24i%22%29%0A++++++++append%28%22%24i%22%2C%22+is+a+nice+color%22%29%0A++++++++copy_field%28%22%24i%22%2C%22result%5B%5D.%24append%22%29%0A++++end%0Aend&data=---%0Acolours%3A%0A+-+red%0A+-+yellow%0A+-+green)
 
 TO BE CONTINUED ...
 
