@@ -166,7 +166,13 @@ And the path for `Peter` would be `characters[].2.name`
 
 There is one array type in our JSON report from above and that is the `weather` field. To point to the description of the weather you need the path `weather[].1.description`.
 
-Excercise: [Again append the last names to the specific character Justus Jonas, Peter Shaw and Bob Andrews. Also add a field to each character "type":"Person"`](https://metafacture.org/playground/?flux=inputFile%0A%7Copen-file%0A%7Cas-records%0A%7Cdecode-yaml%0A%7Cfix%28transformationFile%29%0A%7Cencode-json%28prettyPrinting%3D%22true%22%29%0A%7Cprint%0A%3B&transformation=&data=---%0Acharacters%3A+%0A++-+name%3A+Justus%0A++++role%3A+Investigator%0A++-+name%3A+Peter%0A++++role%3A+Investigator%0A++-+name%3A+Bob%0A++++role%3A+Research+%26+Archive%0A)
+Excercise:
+
+[Only `retain` the elements of title, the element of the series and the role of Bob Andrews. You have to identify the paths for said elements.](https://metafacture.org/playground/?flux=inputFile%0A%7Copen-file%0A%7Cas-records%0A%7Cdecode-json%0A%7Cencode-yaml%0A%7Cprint%0A%3B&data=%7B%0A++%22title%22+%3A+%22The+Secret+of+Terror+Castle%22%2C%0A++%22isPartOf%22+%3A+%7B%0A++++%22series%22+%3A+%22The+Three+Investigators%22%2C%0A++++%22volume%22+%3A+%221%22%0A++%7D%2C%0A++%22releaseDate%22+%3A+%221964%22%2C%0A++%22author%22+%3A+%22Robert+Arthur%22%2C%0A++%22characters%22+%3A+%5B+%7B%0A++++%22name%22+%3A+%22Jupiter+Jones%22%2C%0A++++%22role%22+%3A+%22Investigator%22%0A++%7D%2C+%7B%0A++++%22name%22+%3A+%22Peter+Crenshaw%22%2C%0A++++%22role%22+%3A+%22Investigator%22%0A++%7D%2C+%7B%0A++++%22name%22+%3A+%22Bob+Andrews%22%2C%0A++++%22role%22+%3A+%22Research+%26+Archive%22%0A++%7D+%5D%0A%7D)
+
+TODO: Solution
+
+[Again append the last names to the specific character Justus Jonas, Peter Shaw and Bob Andrews. Also add a field to each character "type":"Person"`](https://metafacture.org/playground/?flux=inputFile%0A%7Copen-file%0A%7Cas-records%0A%7Cdecode-yaml%0A%7Cfix%28transformationFile%29%0A%7Cencode-json%28prettyPrinting%3D%22true%22%29%0A%7Cprint%0A%3B&transformation=&data=---%0Acharacters%3A+%0A++-+name%3A+Justus%0A++++role%3A+Investigator%0A++-+name%3A+Peter%0A++++role%3A+Investigator%0A++-+name%3A+Bob%0A++++role%3A+Research+%26+Archive%0A)
 
 
 <details>
@@ -187,9 +193,7 @@ e.g.:
 
 Other ways are also possible too.
 
-**Bonus:**
-
-XML in MF and their path.
+## Bonus: XML in MF and their paths
 
 `<title>This is the title</title>`
 
@@ -210,7 +214,4 @@ title.lang
 If you want to create xml with attributes then you need to map to this structure too. We will come back to lection working with xml in lesson 10.
 
 
-
 Next lessons: [05 More Fix Concepts](./05-More-Fix-Concepts.md)
-
-

@@ -30,7 +30,7 @@ Our runned workflow only has a flux and no additional files since it i querring 
 
 If we want to querry local data you have to adjust your workflow:
 
-```
+```default
 "https://weather-proxy.freecodecamp.rocks/api/current?lat=50.93414&lon=6.93147"
 | open-http
 | as-lines
@@ -42,7 +42,7 @@ If we want to querry local data you have to adjust your workflow:
 
 If you want to load a local file instead of fetching it from the web. We need to change the flux a little bit.
 
-```
+```default
 "path/to/your/file.json"
 | open-file
 | as-lines
@@ -50,9 +50,11 @@ If you want to load a local file instead of fetching it from the web. We need to
 | encode-yaml
 | print
 ;
+```
 
 If we want to use fix we need to refrence the fix file that in the playground we only refrenced via `|fix`
 
+```default
 "path/to/your/file.json"
 | open-file
 | as-lines

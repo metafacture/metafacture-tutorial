@@ -19,7 +19,7 @@ Like JSON the MARC file contains structured data but the format is different. Al
 Lets create a small Flux script to transform the Marc data into YAML:
 <https://metafacture.org/playground/?flux=%22https%3A//raw.githubusercontent.com/metafacture/metafacture-core/master/metafacture-runner/src/main/dist/examples/read/marc21/10.marc21%22%0A%7C+open-http%0A%7C+as-lines%0A%7C+decode-marc21%0A%7C+encode-yaml%0A%7C+print%0A%3B>
 
-```
+```default
 "https://raw.githubusercontent.com/metafacture/metafacture-core/master/metafacture-runner/src/main/dist/examples/read/marc21/10.marc21"
 | open-http
 | as-lines
@@ -31,7 +31,6 @@ Lets create a small Flux script to transform the Marc data into YAML:
 
 Running it in the playground or with the commandline you will see something like this
 
-
 Screenshot_01_12_14_10_01
 
 Metafacture has its own decoder for Marc21 data. The structure is translated as the following: The leader can either be translated in an entity or a single element. All `XXX` fields are translated in top elements with name of the field+indice numbers. Every subfield is translated in a subfield.
@@ -40,7 +39,7 @@ We can use catmandu to read the _id fields of the MARC record with the retain fi
 
 Flux:
 
-```
+```default
 "https://raw.githubusercontent.com/metafacture/metafacture-core/master/metafacture-runner/src/main/dist/examples/read/marc21/10.marc21"
 | open-http
 | as-lines
@@ -53,7 +52,7 @@ Flux:
 
 You will see:
 
-```
+```YAML
 ---
 _id: "946638705"
 
@@ -92,8 +91,7 @@ Extracting data out of the MARC record itself is a bit more difficult. This is a
 
 MARC is an array-an-array, you need indexes to extract the data. For instance the MARC leader is usually in the first field of a MARC record. In the previous posts we learned that you need to use the 0 index to extract the first field out of an array:
 
-
-```
+```default
 "https://raw.githubusercontent.com/metafacture/metafacture-core/master/metafacture-runner/src/main/dist/examples/read/marc21/10.marc21"
 | open-http
 | as-lines
@@ -104,8 +102,7 @@ MARC is an array-an-array, you need indexes to extract the data. For instance th
 ;
 ```
 
-
-```
+```YAML
 ---
 leader:
   status: "p"
@@ -224,7 +221,7 @@ The leader value is translated into a leader element with the subfields.
 
 To work with MARC in Metafatcture is more easy than in CATMANDU. The difficulties are introduces with repeatable fields. This is something you usually don’t know. And you have to inspect this first.
 
-```
+```default
 "https://raw.githubusercontent.com/metafacture/metafacture-core/master/metafacture-runner/src/main/dist/examples/read/marc21/10.marc21"
 | open-http
 | as-lines
@@ -235,7 +232,7 @@ To work with MARC in Metafatcture is more easy than in CATMANDU. The difficultie
 ;
 ```
 
-```
+```PERL
 copy_field("245??.a", "title")
 retain("title")
 ```
@@ -244,7 +241,7 @@ More elaborate mappings are possible. I’ll show you more complete examples in 
 
 Step 1, create a fix file myfixes.txt containing:
 
-```
+```PERL
 set_array("title")
 do list(path: "245??.?","var":"$i")
   copy_field("$i","title.$append")
@@ -261,7 +258,7 @@ retain("_id","title","isbn")
 
  Step 2, execute this worklow:
 
-```
+```default
 "https://raw.githubusercontent.com/metafacture/metafacture-core/master/metafacture-runner/src/main/dist/examples/read/marc21/10.marc21"
 | open-http
 | as-lines

@@ -32,7 +32,7 @@ So let's dive into Metafacture Fix and get back to the [Playground](https://meta
 
 You should end up with something like:
 
-```
+```YAML
 ---
 name: Cologne
 ...
@@ -56,7 +56,7 @@ Also add the info that is written in `main`
 
 You should now see something like this:
 
-```
+```YAML
 ---
 main:
   temp: "15.99"
@@ -72,7 +72,8 @@ Like this.
 ![image](images/03_image_01.png)
 
 Fix:
-```
+
+```PERL
 retain("name", "main.temp")
 ```
 
@@ -81,20 +82,20 @@ With this separate fix-file it will be a bit easier to write many fix-functions 
 To add more fixes we can again edit the fix file.
 And add these lines in front of the retain function:
 
-```
+```PERL
 move_field("main.temp", "temp")
 ```
 
 Also change the `retain` funcation, that you only keep `"name"` and `"temp"` and not `"main.temp"` any more.
 
-```
+```PERLÖ
 move_field("main.temp","temp")
 retain("name", "temp")
 ```
 
 The output should be something like this:
 
-```
+```YAML
 ---
 name: "Cologne"
 temp: "16.29"
@@ -103,14 +104,14 @@ temp: "16.29"
 So with `move_field` we moved and renamed an existing element.
 As next step add the following function before the `retain` function.
 
-```
+```PERL
 prepend("temp","The temperature is ")
 append("temp"," degrees Kelvin")
 ```
 
 If you execute your last workflow with the Process-Button again, you should now see as ouput:
 
-```
+```YAML
 ---
 name: "Cologne"
 temp: "The temperature is 16.29 degrees Kelvin"

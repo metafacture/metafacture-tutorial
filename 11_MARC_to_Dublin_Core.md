@@ -7,7 +7,7 @@ To transform this MARC file into Dublin Core we need to create a fix file. You c
 
 And type into this textfile the following fixes:
 
-```PEARL
+```PERL
 copy_field("245??.a","title")
 set_array("creator[]")
 copy_field("100??.a","creator[].$append")
@@ -50,7 +50,7 @@ Given the dublin.txt file above we can execute the filtering command like this:
 TODO: Explain how to run the function with CLI.
 
 
-```
+```default
 "https://raw.githubusercontent.com/metafacture/metafacture-core/master/metafacture-runner/src/main/dist/examples/read/marc21/10.marc21"
 | open-http
 | as-lines
@@ -63,6 +63,8 @@ TODO: Explain how to run the function with CLI.
 
 The results should look like this:
 
+```YAML
+---
 _id: '000000002'
 creator:
 - Katz, Jerrold J.
@@ -78,12 +80,13 @@ subject:
 - Competence and performance (Linguistics)
 title: Propositional structure and illocutionary force :a study of the contribution of sentence meaning to speech acts /Jerrold J. Katz.
 ...
+```
 
 Congratulations, you’ve created your first mapping file to transform library data from MARC to Dublin Core! We need to add a bit more cleaning to delete some periods and commas here and there but as is we already have our first mapping.
 
 Below you’ll find a complete example. You can read more about our Fix language online.
 
-```PEARL
+```PERL
 set_array("title")
 copy_field("245??.?","title.$append")
 join_field("title", " ")
@@ -121,7 +124,7 @@ We can turn this data also to JSON-LD by adding a context that specifies the ele
 
 Add the following fix to the fix above:
 
-```PEARL
+```PERL
 add_field("@context.title","http://purl.org/dc/terms/title")
 add_field("@context.creator","http://purl.org/dc/elements/1.1/creator")
 add_field("@context.date","http://purl.org/dc/elements/1.1/date")

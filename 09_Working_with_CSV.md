@@ -6,13 +6,14 @@ Metafacture implements an decoder and encoder for both formats: decode-csv and e
 
 So get some CSV data to work with:
 
-``````
+```default
 "https://lib.ugent.be/download/librecat/data/goodreads.csv"
 | open-http
 | as-lines
 | print
 ;
-``````
+```
+
 It shows a CSV file with a header row at the beginnung.
 
 Now you can convert the data to different formats, like JSON, YAML and XML by decoding the data as csv and encoding it in the desired format:
@@ -32,7 +33,6 @@ By default Metafactures `decode-csv` expects that CSV fields are separated by co
 See:
 
 https://metafacture.org/playground/?flux=%2212157%3B%24The+Journal+of+Headache+and+Pain%24%3B2193-1801%22%0A%7C+read-string%0A%7C+as-lines%0A%7C+decode-csv%28separator%3D%22%3B%22%29%0A%7C+fix%28transformationFile%29%0A%7C+encode-csv%28separator%3D%22\t%22%2C+includeheader%3D%22true%22%29%0A%7C+print%3B&transformation=replace_all%28%22%3F%22%2C%22%5E\\%24%7C\\%24%24%22%2C%22%22%29
-
 
 (Different to Catmandu quote-chars cannot be manipulated by the decoder directly.)
 

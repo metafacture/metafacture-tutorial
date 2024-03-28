@@ -1,4 +1,4 @@
-## Lesson 10: Working with XML
+# Lesson 10: Working with XML
 
 While CSV are one type of file format that are used for data exchange. The other one which is most famous is XML.
 
@@ -11,7 +11,7 @@ the decoder follows straight after the opening of a file, a website or an OAI-PM
 
 Lets start with this simple record
 
-```
+```XML
 <?xml version="1.0" encoding="utf-8"?>
 <record>
   <title>GRM</title>
@@ -38,7 +38,7 @@ https://metafacture.org/playground/?flux=inputFile%0A%7C+open-file%0A%7C+decode-
 
 You see this as result:
 
-```
+```YAML
 ---
 title:
   value: "GRM"
@@ -55,11 +55,13 @@ https://metafacture.org/playground/?flux=inputFile%0A%7C+open-file%0A%7C+decode-
 
 See:
 
-`<title attribute="test">Test value</title>`
+```XML
+<title attribute="test">Test value</title>
+```
 
 =>
 
-```
+```YAML
 title:
   attribute: "test"
   value: "Test value"

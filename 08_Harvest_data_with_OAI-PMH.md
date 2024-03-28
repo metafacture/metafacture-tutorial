@@ -19,7 +19,7 @@ The client requests could be limited via datestamps (`datefrom`, `dateuntil`) or
 
 To get some Dublin Core records from the collection of Ghent University Library and convert it to JSON (default) run the following Metafacture worklow via Playground or CLI:
 
-```
+```default
 "https://lib.ugent.be/oai"
 | open-oaipmh(metadataPrefix="oai_dc", setSpec="flandrica")
 | decode-xml
@@ -33,7 +33,7 @@ But if you just want to use the specific metadata records and not the oai-pmh sp
 
 You can also harvest MARC data and store it in a file:
 
-```JAVA
+```default
 "https://lib.ugent.be/oai"
 | open-oaipmh(metadataPrefix="marcxml", setSpec="flandrica")
 | decode-xml
@@ -60,6 +60,7 @@ retain("_id","title","creator[]","date")
 
 Now you can run an ETL process (extract, transform, load) with this worklflow:
 
+```default
 "https://lib.ugent.be/oai"
 | open-oaipmh(metadataPrefix="marcxml", setSpec="flandrica")
 | decode-xml
@@ -69,6 +70,7 @@ Now you can run an ETL process (extract, transform, load) with this worklflow:
 | json-to-elasticsearch-bulk(idkey="_id", type="resource", index="resources-alma-fix-staging")
 | print
 ;
+```default
 
 
 Next lesson:
