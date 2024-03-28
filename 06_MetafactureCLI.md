@@ -1,8 +1,8 @@
-## Lesson 7: Using Metafacture as Command Line Tool
+# Lesson 7: Using Metafacture as Command Line Tool
 
 While we had fun with our Metafacture Playground another way to use Metafacture is
 the command line. For running a Metafacture flux process we need a terminal and installed JAVA.
-For creating and editing FLUX and FLIX we need an texteditor like Codium/VS Code or others.
+For creating and editing Flux and Fix files we need an texteditor like Codium/VS Code or others.
 
 > TODO: Check if JAVA is installed and if not a short manual for installing the needed JAVA.
 > Also specify the needed JAVA version.
@@ -22,7 +22,7 @@ The playground has a nice feature to export and import Metafacture Workflows.
 
 Export the workflow and lets run the flux.
 
-`./bin/metafix-runner downloas/playground.flux` 
+`./bin/metafix-runner downloas/playground.flux`
 The result should be the same.
 
 The Metafacture ClI Tool expects a flux file for every workflow.

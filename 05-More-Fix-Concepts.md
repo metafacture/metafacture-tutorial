@@ -1,6 +1,6 @@
 ## Lesson 6: More Fix concepts
 
-We already learned about simple Fixes (or Fix Functions) but there are three additional concepts in Fix selector, conditionals and binds. 
+We already learned about simple Fixes (or Fix Functions) but there are three additional concepts in Fix selector, conditionals and binds.
 These Fix concepts were introduced by Catmandu (see [functions](https://librecat.org/Catmandu/#functions), [selector](https://librecat.org/Catmandu/#selectors), [conditionals](https://librecat.org/Catmandu/#conditionals) and [binds](https://librecat.org/Catmandu/#binds)). But be aware Metafacture Fix does not support all of the specific functions, selectors, conditionals and binds from Catmandu. Check the documentation for an full overview of the supported [fix functions](https://github.com/metafacture/metafacture-documentation/blob/master/Fix-function-and-Cookbook.md#functions).
 
 ### Additional concepts
@@ -55,7 +55,7 @@ do Bind(params,…)
 end
 ```
 
-## Conditionals  
+## Conditionals 
 
 Conditionals are a common concept in programming and scripting languages. They control processes, in our scenario: transformations, with regard to specific requirements.
 
@@ -201,7 +201,7 @@ colours:
  - green
 ```
 
-and you use the fix 
+and you use the fix
 
 ```
 set_array("result") # To create a new array named result

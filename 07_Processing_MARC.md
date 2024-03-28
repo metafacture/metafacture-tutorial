@@ -1,4 +1,4 @@
-> TODO: Use a better MARC-Example. Perhaps? https://github.com/metafacture/metafacture-examples/blob/master/Swissbib-Extensions/MARC-CSV/input.xml for marcXML 
+> TODO: Use a better MARC-Example. Perhaps? https://github.com/metafacture/metafacture-examples/blob/master/Swissbib-Extensions/MARC-CSV/input.xml for marcXML
 
 Lesson 7: Processing MARC with Metafacture
 
@@ -34,11 +34,11 @@ Running it in the playground or with the commandline you will see something like
 
 Screenshot_01_12_14_10_01
 
-Metafacture has its own decoder for Marc21 data. The structure is translated as the following: The leader can either be translated in an entity or a single element. All `XXX` fields are translated in top elements with name of the field+indice numbers. Every subfield is translated in a subfield. 
- 
+Metafacture has its own decoder for Marc21 data. The structure is translated as the following: The leader can either be translated in an entity or a single element. All `XXX` fields are translated in top elements with name of the field+indice numbers. Every subfield is translated in a subfield.
+
 We can use catmandu to read the _id fields of the MARC record with the retain fix we learned in the Day 6 post:
 
-FLUX:
+Flux:
 
 ```
 "https://raw.githubusercontent.com/metafacture/metafacture-core/master/metafacture-runner/src/main/dist/examples/read/marc21/10.marc21"
@@ -291,14 +291,14 @@ In the fix above we mapped the 245-field to the title. The ISBN is in the 020-fi
 In this post we demonstrated how to process MARC data. In the next post we will show some examples how catmandu typically can be used to process library data.
 
 > TODO: Add excercise.
-> First I’m going to teach you how to process different types of MARC files. 
-> 
+> First I’m going to teach you how to process different types of MARC files.
+>
 > There are many ways in which MARC data can be written into a file. Every vendor likes to use its own format. You can compare this with the different ways a text document can be stored: as Word, as Open Office, as PDF and plain text.
-> 
+>
 > If we are going to process these files with Metafacture, then we need to tell the system what the exact format is.
-> 
+>
 > // We will work today with the last example rug01.sample which is a small export out of the Aleph catalog from Ghent University Library. Ex Libris uses a special MARC format to structure their data which is called Aleph sequential. We need to tell catmandu not only that our input file is in MARC but also in this special Aleph format. Let’s try to create YAML to see what it gives:
-> // 
+> //
 > // $ catmandu convert MARC --type ALEPHSEQ to YAML < Documents/rug01.sample
 
 >

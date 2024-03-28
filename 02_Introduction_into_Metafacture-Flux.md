@@ -1,25 +1,29 @@
-## Lesson 2: Introduction into Metafacture Flux
+# Lesson 2: Introduction into Metafacture Flux
 
 To perform data processing with Metafacture transformation workflows are configured with **Metafacture Flux**, a domain-specific scripting language(DSL).
 With Metafacture Flux we combine different modules for reading, opening, transforming, and writing data sets.
 
 In this lesson we will learn about Metafacture Flux, what Flux workflows are and how to combine different Flux modules to create a workflow in order to process datasets.
 
+## Getting started with the Metafacture Playground
+
 To process data Metafacture can be used with the command line, as JAVA library or you can use the Metafacture Playground.
 
 For this introduction we will start with the Playground since it allows a quick start without additional installing. The [Metafacture Playground](https://metafacture.org/playground) is a webinterface to test and share Metafacture.  The commandline handling will be subject in lesson 6. TODO: Add link.
 
-In this tutorial we are going to process structured information. We call data structured when it organised in such a way is that it easy processable by computers. Literary text documents like War and Peace are structured only in words and sentences, but a computer doesn’t know which words are part of the title or which words contain names. We had to tell the computer that. Today we will download a weather report in a structured format called JSON and inspect it with the command catmandu.
+In this tutorial we are going to process *structured information*. We call data structured when it organised in such a way is that it easy processable by computers. Literary text documents like War and Peace are structured only in words and sentences, but a computer doesn’t know which words are part of the title or which words contain names. We had to tell the computer that. Today we will download a weather report in a structured format called JSON and inspect it with the command catmandu.
+
+## Flux Workflows
 
 Lets jump to the Playground to learn how to create workflows:
 
 ![image](images/02_image_01.png)
 
-See the window called Flux? 
+See the window called Flux?
 
-Copy this short code sample [into the playground](https://metafacture.org/playground/?flux=%22Hello%2C+friend.+I%27am+Metafacture%21%22%0A%7Cprint%0A%3B&active-editor=fix):
+Copy the following short code sample [into the playground](https://metafacture.org/playground/?flux=%22Hello%2C+friend.+I%27am+Metafacture%21%22%0A%7Cprint%0A%3B&active-editor=fix):
 
-```
+```default
 "Hello, friend. I'am Metafacture!"
 |print
 ;
@@ -30,13 +34,13 @@ Now you can press the `Process`-Button or press Ctrl+Enter to execute the workfl
 
 See the result below? It is `Hello, friend. I'am Metafacture!`.
 
-But what have we done here? 
+But what have we done here?
 We have a short text string `"Hello, friend. I'am Metafacture"`. That is printed with the modul `print`.
 
 A Metafacture Workflow is nothing else as a incoming text string with multiple moduls that do something with the incoming string.
 But the workflow does not have to start with a text string but also can be a variable that stands for the text string and needs to be defined before the workflow. As this:
 
-```
+```default
 inputData="Hello, friend. I'am Metafacture!";
 
 inputData
@@ -44,7 +48,7 @@ inputData
 ;
 ```
 
-Copy this into the FLUX window of your playground or just adjust your example.
+Copy this into the I window of your playground or just adjust your example.
 
 `INPUT` as a varibale is defined in the first line of the flux. And instead of the text string, the Flux-Workflow starts just with the variable `INPUT` without `"`.
 
@@ -73,7 +77,8 @@ Data:
 `Hello, friend. I'am Metafacture!`
 
 Flux:
-```
+
+```default
 inputFile
 |print
 ;
@@ -88,7 +93,8 @@ But to read the content of the file. Therefore we need to handle the incoming da
 We need to add two additional Metafacture commands: `open-file` and `as-lines`
 
 Flux:
-```
+
+```default
 inputFile
 | open-file
 | as-lines
@@ -99,16 +105,15 @@ inputFile
 The inputFile is opened as a file(`open-file`) and then processed line by line (`as-line`).
 You can see that in this [sample](https://metafacture.org/playground/?flux=inputFile%0A%7Copen-file%0A%7Cas-lines%0A%7Cprint%0A%3B&data=Hello%2C+friend.+I%27am+Metafacture%21).
 
-We usually do not start with any random text strings but with data. So lets play around with some data. 
+We usually do not start with any random text strings but with data. So lets play around with some data.
 
 Let's start with a link: https://weather-proxy.freecodecamp.rocks/api/current?lat=50.93414&lon=6.93147
-
 
 You will see data that look like this:
 
 ```JSON
 {"coord":{"lon":6.9315,"lat":50.9341},"weather":[{"id":800,"main":"Clear","description":"clear sky","icon":"https://cdn.glitch.com/6e8889e5-7a72-48f0-a061-863548450de5%2F01d.png?1499366022009"}],"base":"stations","main":{"temp":15.82,"feels_like":15.02,"temp_min":14.55,"temp_max":18.03,"pressure":1016,"humidity":60},"visibility":10000,"wind":{"speed":4.63,"deg":340},"clouds":{"all":0},"dt":1654101245,"sys":{"type":2,"id":43069,"country":"DE","sunrise":1654053836,"sunset":1654112194},"timezone":7200,"id":2886242,"name":"Cologne","cod":200}
-``` 
+```
 
 This is data in JSON format. But it seems not very readable.
 
@@ -119,16 +124,17 @@ The output in result is the same as the input and it is still not very readable.
 
 So let's transform some stuff. Let us use some other serialization. How about YAML.
 With the metafacture you can process this file to make it a bit easier readable by using a small workflow script.
-Lets turn the one line of JSON data into YAML. YAML is another format for structured information which is a bit easier to read for human eyes. 
+Lets turn the one line of JSON data into YAML. YAML is another format for structured information which is a bit easier to read for human eyes.
 In order to change the serialization of the data we need to decode the data and then encode the data.
 
-Metafacture has lots of decoder- and encoder-modules for specific data formats that can be used in an FLUX-Workflow.
+Metafacture has lots of decoder- and encoder-modules for specific data formats that can be used in an Flux-Workflow.
 Let's try this out. Add the module `decode-json` and `encode-yaml` to your Flux Workflow.
 
 The Flux should now look like this:
 
 Flux:
-```
+
+```default
 inputFile
 | open-file
 | as-lines
@@ -185,7 +191,7 @@ e.g. instead of using `inputFile` lets read the live weather data which is provi
 
 Clear your playground and copy the following Flux-Workflow:
 
-```
+```default
 "https://weather-proxy.freecodecamp.rocks/api/current?lat=50.93414&lon=6.93147"
 | open-http
 | as-lines
@@ -216,11 +222,12 @@ We got to know different modules like `open-http`, `as-lines`. `decode-json`, `e
 More modules can be found in the [documentation of available flux commands](https://github.com/metafacture/metafacture-documentation/blob/master/flux-commands.md).
 
 Now take some time and play around a little bit more and use some other modules.
+
 1) Try to change the Flux workflow to output as formeta (a metafacture specific data format) and not as YAML.
 2) Set the style of formeta to multiline.
 3) Also try not to print but to write the output and call the file that you write weather.xml.
 
-```
+```default
 "https://weather-proxy.freecodecamp.rocks/api/current?lat=50.93414&lon=6.93147"
 | open-http
 | as-lines
@@ -257,7 +264,8 @@ Each module is separated by a `|` and every workflow ends with a `;`.
 Comments can be added with `//`.
 
 See:
-```
+
+```default
 //input string:
 "https://weather-proxy.freecodecamp.rocks/api/current?lat=50.93414&lon=6.93147"
 
@@ -271,7 +279,7 @@ See:
 ```
 ---------------
 
-### Exercise 
+## Exercise
 
 1) Have a look at `decode-xml` what is different to `decode-json`? And what input does it expect and what output does it create (Hint: signature)?
 
@@ -280,9 +288,9 @@ See:
 
 The signature of `decode-xml` and `decode-json` is quiet differnet.
 `decode-xml`: signature: Reader -> XmlReceiver
-`decode-json`: signature: String -> StreamReceiver 
+`decode-json`: signature: String -> StreamReceiver
 
-Explanation: 
+Explanation:
 `decode-xml` expects data from Reader output of `open-file` or `open-http`, and creates output that can be transformed by a specific xml `handler`.
 
 `decode-json` expects data from output of a string like `as-lines` or `as-records` and creates output that could be transformed by `fix` or encoded with a module like `encode-xml`

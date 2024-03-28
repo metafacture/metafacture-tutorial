@@ -1,4 +1,4 @@
-## Lesson 9: Working with CSV and TSV files
+# Lesson 9: Working with CSV and TSV files
 
 CSV and TSV files are widely-used to store and exchange simple structured data. Many open datasets are published as CSV or TSV files, e.g. datahub.io. Within the library community CSV files are used for the distribution of title lists (KBART), e.g Knowledge Base+.
 
@@ -31,7 +31,7 @@ By default Metafactures `decode-csv` expects that CSV fields are separated by co
 
 See:
 
-https://test.metafacture.org/playground/?flux=%2212157%3B%24The+Journal+of+Headache+and+Pain%24%3B2193-1801%22%0A%7C+read-string%0A%7C+as-lines%0A%7C+decode-csv%28separator%3D%22%3B%22%29%0A%7C+fix%28transformationFile%29%0A%7C+encode-csv%28separator%3D%22\t%22%2C+includeheader%3D%22true%22%29%0A%7C+print%3B&transformation=replace_all%28%22%3F%22%2C%22%5E\\%24%7C\\%24%24%22%2C%22%22%29
+https://metafacture.org/playground/?flux=%2212157%3B%24The+Journal+of+Headache+and+Pain%24%3B2193-1801%22%0A%7C+read-string%0A%7C+as-lines%0A%7C+decode-csv%28separator%3D%22%3B%22%29%0A%7C+fix%28transformationFile%29%0A%7C+encode-csv%28separator%3D%22\t%22%2C+includeheader%3D%22true%22%29%0A%7C+print%3B&transformation=replace_all%28%22%3F%22%2C%22%5E\\%24%7C\\%24%24%22%2C%22%22%29
 
 
 (Different to Catmandu quote-chars cannot be manipulated by the decoder directly.)
@@ -39,7 +39,7 @@ https://test.metafacture.org/playground/?flux=%2212157%3B%24The+Journal+of+Heada
 In the example above we read the string as a little CSV fragment using the `read-string` command for our small test. It will read the tiny CSV string which uses “;” and “$” as separation and quotation characters.
 The string is then read each line by `as-lines` and decoded as csv with the separator `,`.
 
-With a little fix you can 
+With a little fix you can
 
 When exporting data a tabular format you can change the field names in the header or omit the header:
 
@@ -51,7 +51,7 @@ https://metafacture.org/playground/?flux=%22https%3A//lib.ugent.be/download/libr
 
 If you want to export complex/nested data structures to a tabular format, you must “flatten” the datastructure. This could be done with Metafacture. But be aware that the nested structure if repeatble elements are provided have to be the same every time. Otherwise the header and the csv file do not fit:
 
-https://test.metafacture.org/playground/?flux=%22https%3A//lobid.org/organisations/search%3Fq%3Dk%25C3%25B6ln%26size%3D10%22%0A%7C+open-http%28accept%3D%22application/json%22%29%0A%7C+as-records%0A%7C+decode-json%28recordpath%3D%22member%22%29%0A%7C+flatten%0A%7C+encode-csv%28includeheader%3D%22true%22%29%0A%7C+print%3B
+https://metafacture.org/playground/?flux=%22https%3A//lobid.org/organisations/search%3Fq%3Dk%25C3%25B6ln%26size%3D10%22%0A%7C+open-http%28accept%3D%22application/json%22%29%0A%7C+as-records%0A%7C+decode-json%28recordpath%3D%22member%22%29%0A%7C+flatten%0A%7C+encode-csv%28includeheader%3D%22true%22%29%0A%7C+print%3B
 
 > TODO: Add excercises.
 

@@ -76,24 +76,24 @@ To transform more parts of the original record to RDF, we only need to map field
 xml_simple(_metadata)
 retain_field(_metadata)
 move_field(_metadata,m)
-    
+   
 move_field(m.id,_id)
 prepend(_id,"http://arxiv.org/abs/")
-    
+   
 move_field(m.title,dc_title)
 move_field(m.abstract,bibo_abstract)
-    
+   
 move_field(m.doi,bibo_doi)
 copy_field(bibo_doi,owl_sameAs)
 prepend(owl_sameAs,"http://dx.doi.org/")
-            
+           
 move_field(m.license,cc_license)
-          
+         
 move_field(m.authors.author,dc_creator)
 unless exists(dc_creator.0)
   move_field(dc_creator,dc_creator.0)
-end         
-            
+end        
+           
 do list(path=>dc_creator)
   add_field(a,foaf_Person)
   copy_field(forenames,foaf_name.0)
@@ -103,8 +103,8 @@ do list(path=>dc_creator)
   move_field(keyname,foaf_familyName)
   move_field(suffix,schema_honoricSuffix)
   remove_field(affiliation)
-end 
-    
+end
+   
 remove_field(m)
 
 The result is one big RDF graph for all records:

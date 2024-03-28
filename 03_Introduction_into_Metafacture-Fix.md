@@ -1,23 +1,25 @@
-## Lesson 3: Introduction into Metafacture Fix
+# Lesson 3: Introduction into Metafacture Fix
 
-In the last session we learned about FLUX-Moduls.
+In the last session we learned about Flux-Moduls.
 Flux-Moduls can do a lot of things. They configure the the "high-level" transformation pipeline.
 
 But the main transformation of incoming data at record-, elemenet- and value-level is usually done by the transformation moduls: `fix` or `morph` as one step in the pipeline.
 
-What do we mean when we talk about transformation:
-e.g.
- * Manipulating element-names and element-values
- * Change hierachies and structures of records
- * Lookup values in concordance list. 
+What do we mean when we talk about transformation, e.g.:
+
+* Manipulating element-names and element-values
+* Change hierachies and structures of records
+* Lookup values in concordance list.
 
 But not changing serialization that is part of encoding and decoding.
 
 In this tutorial we focus on Fix. If you want to learn about Morph have a look at https://slides.lobid.org/metafacture-2020/#/
 
+## Metafacture Fix and Fix Functions
+
 So let's dive into Metafacture Fix and get back to the [Playground](https://metafacture.org/playground/?flux=%22https%3A//weather-proxy.freecodecamp.rocks/api/current%3Flat%3D50.93414%26lon%3D6.93147%22%0A%7C+open-http%0A%7C+as-lines%0A%7C+decode-json%0A%7C+fix+%28%22retain%28%27name%27%29%22%29%0A%7C+encode-yaml%0A%7C+print%0A%3B). Clear it if needed and paste the following Flux in the Flux-File area.
 
-```
+```default
 "https://weather-proxy.freecodecamp.rocks/api/current?lat=50.93414&lon=6.93147"
 | open-http
 | as-lines
@@ -41,7 +43,7 @@ The `fix` module in Metafacture is used to manipulate the input data filtering f
 Also add the info that is written in `main`
 
 
-```
+```default
 "https://weather-proxy.freecodecamp.rocks/api/current?lat=50.93414&lon=6.93147"
 | open-http
 | as-lines
@@ -76,7 +78,7 @@ retain("name", "main.temp")
 
 With this separate fix-file it will be a bit easier to write many fix-functions and it does not overcrowd the flux-workflow.
 
-To add more fixes we can again edit the fix file. 
+To add more fixes we can again edit the fix file.
 And add these lines in front of the retain function:
 
 ```
@@ -146,6 +148,6 @@ Upcase the name element
 </details>
 
 
-Next lesson: [04 Fix Path](./04_FIX-Path.md)
+Next lesson: [04 Fix Path](./04_Fix-Path.md)
 
 

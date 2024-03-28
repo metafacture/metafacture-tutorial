@@ -1,4 +1,4 @@
-Lesson 8: Harvest data with OAI-PMH
+# Lesson 8: Harvest data with OAI-PMH
 
 The Open Archives Initiative Protocol for Metadata Harvesting (OAI-PMH) is a protocol to harvest metadata records from OAI compliant repositories. It was developed by the Open Archives Initiative as a low-barrier mechanism for repository interoperability. The Open Archives Initiative maintains a registry of OAI data providers.
 
@@ -12,9 +12,9 @@ There you see the specific options that can be used to configure your OAI PMH Ha
 
 Every OAI server must provide metadata records in Dublin Core, other (bibliographic) formats like MARC may be supported additionally. Available metadata formats can be detected with the OAI verb `ListMetadataFormats`:  https://lib.ugent.be/oai?verb=ListMetadataFormats
 
-This OAI-PMH API provides MODS and Dublin Core. For specifying the metadataformat you use the `metadataprefix:` Option. 
+This OAI-PMH API provides MODS and Dublin Core. For specifying the metadataformat you use the `metadataprefix:` Option.
 
-The OAI server may support selective harvesting, so OAI clients can get only subsets of records from a repository. 
+The OAI server may support selective harvesting, so OAI clients can get only subsets of records from a repository.
 The client requests could be limited via datestamps (`datefrom`, `dateuntil`) or set membership (`setSpec`).
 
 To get some Dublin Core records from the collection of Ghent University Library and convert it to JSON (default) run the following Metafacture worklow via Playground or CLI:
@@ -71,5 +71,5 @@ Now you can run an ETL process (extract, transform, load) with this worklflow:
 ;
 
 
-Next lesson: 
+Next lesson:
 [09 Working with CSV and TSV](./09_Working_with_CSV.md)
