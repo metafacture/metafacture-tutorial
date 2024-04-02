@@ -1,8 +1,10 @@
-## Lesson 1: Introducing Metafacture and requirements for this tutorial
+# Lesson 1: Introducing Metafacture and requirements for this tutorial
 
 ![Logo](https://metafacture.org/img/metafacture.png)
 Metafacture is an ETL data processing toolkit with a focus on library metadata.
+It provides a versatile set of tools for reading, writing and transforming data.
 It was initially developed by DNB starting in 2011 and is maintained since 2019 by hbz.
+
 Metafacture can be used as a stand-alone application or as a Java library in other applications.
 The name Metafacture is a portmanteau of the words metadata and manufacture.
 

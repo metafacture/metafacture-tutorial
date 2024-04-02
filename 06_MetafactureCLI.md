@@ -1,13 +1,15 @@
-## Lesson 7: Using Metafacture as Command Line Tool
+# Lesson 7: Using Metafacture as Command Line Tool
 
 While we had fun with our Metafacture Playground another way to use Metafacture is
-the command line. For running a Metafacture flux process we need a terminal and installed JAVA.
-For creating and editing FLUX and FLIX we need an texteditor like Codium/VS Code or others.
+the command line. For running a Metafacture flux process we need a terminal and installed JAVA 11 ore higher.
+For creating and editing Flux and Fix files we need an texteditor like Codium/VS Code or others.
 
-> TODO: Check if JAVA is installed and if not a short manual for installing the needed JAVA.
-> Also specify the needed JAVA version.
+For this lesson basic knowledge of the commandline is recommended.
 
-For this we can download the latest runner of Metafacture Fix:
+Check if Java 11 or higher is installed with `java -version` in your terminal.
+If not, install JAVA 11 or higher.
+
+To use Metafacture on the commandline we can download the latest runner of Metafacture Fix:
 
 https://github.com/metafacture/metafacture-fix/releases
 
@@ -22,15 +24,13 @@ The playground has a nice feature to export and import Metafacture Workflows.
 
 Export the workflow and lets run the flux.
 
-`./bin/metafix-runner downloas/playground.flux` 
+`./bin/metafix-runner downloads/playground.flux`
 The result should be the same.
 
 The Metafacture ClI Tool expects a flux file for every workflow.
 Our runned workflow only has a flux and no additional files since it i querring data from the web and it has no fix transformations.
 
-If we want to querry local data you have to adjust your workflow:
-
-```
+```default
 "https://weather-proxy.freecodecamp.rocks/api/current?lat=50.93414&lon=6.93147"
 | open-http
 | as-lines
@@ -40,9 +40,9 @@ If we want to querry local data you have to adjust your workflow:
 ;
 ```
 
-If you want to load a local file instead of fetching it from the web. We need to change the flux a little bit.
+If you want to load a local file instead of fetching data from the web we need to change the flux a little bit with an texteditor.
 
-```
+```default
 "path/to/your/file.json"
 | open-file
 | as-lines
@@ -50,9 +50,11 @@ If you want to load a local file instead of fetching it from the web. We need to
 | encode-yaml
 | print
 ;
+```
 
 If we want to use fix we need to refrence the fix file that in the playground we only refrenced via `|fix`
 
+```default
 "path/to/your/file.json"
 | open-file
 | as-lines

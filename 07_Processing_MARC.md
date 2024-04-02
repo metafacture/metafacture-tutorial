@@ -1,4 +1,4 @@
-> TODO: Use a better MARC-Example. Perhaps? https://github.com/metafacture/metafacture-examples/blob/master/Swissbib-Extensions/MARC-CSV/input.xml for marcXML 
+> TODO: Use a better MARC-Example. Perhaps? https://github.com/metafacture/metafacture-examples/blob/master/Swissbib-Extensions/MARC-CSV/input.xml for marcXML
 
 Lesson 7: Processing MARC with Metafacture
 
@@ -19,7 +19,7 @@ Like JSON the MARC file contains structured data but the format is different. Al
 Lets create a small Flux script to transform the Marc data into YAML:
 <https://metafacture.org/playground/?flux=%22https%3A//raw.githubusercontent.com/metafacture/metafacture-core/master/metafacture-runner/src/main/dist/examples/read/marc21/10.marc21%22%0A%7C+open-http%0A%7C+as-lines%0A%7C+decode-marc21%0A%7C+encode-yaml%0A%7C+print%0A%3B>
 
-```
+```default
 "https://raw.githubusercontent.com/metafacture/metafacture-core/master/metafacture-runner/src/main/dist/examples/read/marc21/10.marc21"
 | open-http
 | as-lines
@@ -31,16 +31,15 @@ Lets create a small Flux script to transform the Marc data into YAML:
 
 Running it in the playground or with the commandline you will see something like this
 
-
 Screenshot_01_12_14_10_01
 
-Metafacture has its own decoder for Marc21 data. The structure is translated as the following: The leader can either be translated in an entity or a single element. All `XXX` fields are translated in top elements with name of the field+indice numbers. Every subfield is translated in a subfield. 
- 
+Metafacture has its own decoder for Marc21 data. The structure is translated as the following: The leader can either be translated in an entity or a single element. All `XXX` fields are translated in top elements with name of the field+indice numbers. Every subfield is translated in a subfield.
+
 We can use catmandu to read the _id fields of the MARC record with the retain fix we learned in the Day 6 post:
 
-FLUX:
+Flux:
 
-```
+```default
 "https://raw.githubusercontent.com/metafacture/metafacture-core/master/metafacture-runner/src/main/dist/examples/read/marc21/10.marc21"
 | open-http
 | as-lines
@@ -53,7 +52,7 @@ FLUX:
 
 You will see:
 
-```
+```YAML
 ---
 _id: "946638705"
 
@@ -92,8 +91,7 @@ Extracting data out of the MARC record itself is a bit more difficult. This is a
 
 MARC is an array-an-array, you need indexes to extract the data. For instance the MARC leader is usually in the first field of a MARC record. In the previous posts we learned that you need to use the 0 index to extract the first field out of an array:
 
-
-```
+```default
 "https://raw.githubusercontent.com/metafacture/metafacture-core/master/metafacture-runner/src/main/dist/examples/read/marc21/10.marc21"
 | open-http
 | as-lines
@@ -104,8 +102,7 @@ MARC is an array-an-array, you need indexes to extract the data. For instance th
 ;
 ```
 
-
-```
+```YAML
 ---
 leader:
   status: "p"
@@ -224,7 +221,7 @@ The leader value is translated into a leader element with the subfields.
 
 To work with MARC in Metafatcture is more easy than in CATMANDU. The difficulties are introduces with repeatable fields. This is something you usually don’t know. And you have to inspect this first.
 
-```
+```default
 "https://raw.githubusercontent.com/metafacture/metafacture-core/master/metafacture-runner/src/main/dist/examples/read/marc21/10.marc21"
 | open-http
 | as-lines
@@ -235,7 +232,7 @@ To work with MARC in Metafatcture is more easy than in CATMANDU. The difficultie
 ;
 ```
 
-```
+```PERL
 copy_field("245??.a", "title")
 retain("title")
 ```
@@ -244,7 +241,7 @@ More elaborate mappings are possible. I’ll show you more complete examples in 
 
 Step 1, create a fix file myfixes.txt containing:
 
-```
+```PERL
 set_array("title")
 do list(path: "245??.?","var":"$i")
   copy_field("$i","title.$append")
@@ -261,7 +258,7 @@ retain("_id","title","isbn")
 
  Step 2, execute this worklow:
 
-```
+```default
 "https://raw.githubusercontent.com/metafacture/metafacture-core/master/metafacture-runner/src/main/dist/examples/read/marc21/10.marc21"
 | open-http
 | as-lines
@@ -291,14 +288,14 @@ In the fix above we mapped the 245-field to the title. The ISBN is in the 020-fi
 In this post we demonstrated how to process MARC data. In the next post we will show some examples how catmandu typically can be used to process library data.
 
 > TODO: Add excercise.
-> First I’m going to teach you how to process different types of MARC files. 
-> 
+> First I’m going to teach you how to process different types of MARC files.
+>
 > There are many ways in which MARC data can be written into a file. Every vendor likes to use its own format. You can compare this with the different ways a text document can be stored: as Word, as Open Office, as PDF and plain text.
-> 
+>
 > If we are going to process these files with Metafacture, then we need to tell the system what the exact format is.
-> 
+>
 > // We will work today with the last example rug01.sample which is a small export out of the Aleph catalog from Ghent University Library. Ex Libris uses a special MARC format to structure their data which is called Aleph sequential. We need to tell catmandu not only that our input file is in MARC but also in this special Aleph format. Let’s try to create YAML to see what it gives:
-> // 
+> //
 > // $ catmandu convert MARC --type ALEPHSEQ to YAML < Documents/rug01.sample
 
 >

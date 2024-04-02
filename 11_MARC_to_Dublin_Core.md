@@ -7,7 +7,7 @@ To transform this MARC file into Dublin Core we need to create a fix file. You c
 
 And type into this textfile the following fixes:
 
-```PEARL
+```PERL
 copy_field("245??.a","title")
 set_array("creator[]")
 copy_field("100??.a","creator[].$append")
@@ -50,7 +50,7 @@ Given the dublin.txt file above we can execute the filtering command like this:
 TODO: Explain how to run the function with CLI.
 
 
-```
+```default
 "https://raw.githubusercontent.com/metafacture/metafacture-core/master/metafacture-runner/src/main/dist/examples/read/marc21/10.marc21"
 | open-http
 | as-lines
@@ -63,6 +63,8 @@ TODO: Explain how to run the function with CLI.
 
 The results should look like this:
 
+```YAML
+---
 _id: '000000002'
 creator:
 - Katz, Jerrold J.
@@ -78,12 +80,13 @@ subject:
 - Competence and performance (Linguistics)
 title: Propositional structure and illocutionary force :a study of the contribution of sentence meaning to speech acts /Jerrold J. Katz.
 ...
+```
 
 Congratulations, you’ve created your first mapping file to transform library data from MARC to Dublin Core! We need to add a bit more cleaning to delete some periods and commas here and there but as is we already have our first mapping.
 
 Below you’ll find a complete example. You can read more about our Fix language online.
 
-```PEARL
+```PERL
 set_array("title")
 copy_field("245??.?","title.$append")
 join_field("title", " ")
@@ -121,7 +124,7 @@ We can turn this data also to JSON-LD by adding a context that specifies the ele
 
 Add the following fix to the fix above:
 
-```PEARL
+```PERL
 add_field("@context.title","http://purl.org/dc/terms/title")
 add_field("@context.creator","http://purl.org/dc/elements/1.1/creator")
 add_field("@context.date","http://purl.org/dc/elements/1.1/date")
@@ -135,7 +138,7 @@ The result should look like this:
 https://metafacture.org/playground/?flux=%22https%3A//raw.githubusercontent.com/metafacture/metafacture-core/master/metafacture-runner/src/main/dist/examples/read/marc21/10.marc21%22%0A%7C+open-http%0A%7C+as-lines%0A%7C+decode-marc21%0A%7C+fix%28transformationFile%29%0A%7C+encode-json%28prettyPrinting%3D%22true%22%29%0A%7C+print%0A%3B&transformation=set_array%28%22title%22%29%0Acopy_field%28%22245%3F%3F.%3F%22%2C%22title.%24append%22%29%0Ajoin_field%28%22title%22%2C+%22+%22%29%0Aset_array%28%22creator%5B%5D%22%29%0Acopy_field%28%22100%3F%3F.a%22%2C%22creator%5B%5D.%24append%22%29%0Acopy_field%28%22700%3F%3F.a%22%2C%22creator%5B%5D.%24append%22%29%0Acopy_field%28%22260%3F%3F.c%22%2C%22date%22%29%0Areplace_all%28%22date%22%2C%22\\D%2B%22%2C%22%22%29%0Acopy_field%28%22260%3F%3F.b%22%2C%22publisher%22%29%0Areplace_all%28%22publisher%22%2C%22%2C%24%22%2C%22%22%29%0A%0Aadd_field%28%22type%22%2C%22BibliographicResource%22%29%0A%0Aset_array%28%22isbn%5B%5D%22%29%0Ado+list%28path%3A%22020%3F%3F%22%2C%22var%22%3A%22%24i%22%29%0A++++copy_field%28%22%24i.a%22%2C%22isbn%5B%5D.%24append%22%29%0Aend%0Areplace_all%28%22isbn.%2A%22%2C%22+.%22%2C%22%22%29%0A%0Aset_array%28%22isbn%5B%5D%22%29%0Ado+list%28path%3A%22022%3F%3F%22%2C%22var%22%3A%22%24i%22%29%0A++++copy_field%28%22%24i.a%22%2C%22issn%5B%5D.%24append%22%29%0Aend%0Areplace_all%28%22issn.%2A%22%2C%22+.%22%2C%22%22%29%0A%0Aset_array%28%22subject%5B%5D%22%29%0Ado+list%28path%3A%22650%3F%3F%22%2C%22var%22%3A%22%24i%22%29%0A++++copy_field%28%22%24i.a%22%2C%22subject%5B%5D.%24append%22%29%0Aend%0A%0Aadd_field%28%22@context.title%22%2C%22http%3A//purl.org/dc/terms/title%22%29%0Aadd_field%28%22@context.creator%22%2C%22http%3A//purl.org/dc/elements/1.1/creator%22%29%0Aadd_field%28%22@context.date%22%2C%22http%3A//purl.org/dc/elements/1.1/date%22%29%0Aadd_field%28%22@context.publisher%22%2C%22http%3A//purl.org/dc/elements/1.1/publisher%22%29%0Aadd_field%28%22@context.subject%22%2C%22http%3A//purl.org/dc/elements/1.1/subject%22%29%0Aadd_field%28%22@context.isbn%22%2C%22http%3A//purl.org/ontology/bibo/isbn%22%29%0Aadd_field%28%22@context.issn%22%2C%22http%3A//purl.org/ontology/bibo/issn%22%29%0A%0Aretain%28%22@context%22%2C%22title%22%2C%22creator%5B%5D%22%2C%22date%22%2C%22publisher%22%2C%22isbn%5B%5D%22%2C%22issn%5B%5D%22%2C%22subject%5B%5D%22%29
 
 
-> TODO: 
+> TODO:
 > Create the metafacture workflow to transform Marc to JSON.
 > Map the marc data to DC.
 > Also add an context for creating JSON LD.

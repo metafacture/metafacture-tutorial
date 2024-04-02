@@ -1,11 +1,11 @@
-## Lesson 4: Fix Path and more complex transfromations in Fix
+# Lesson 4: Fix Path and more complex transfromations in Fix
 
-Last session we learned the how to construct a metafacture workflow and execute it on the commandline and how it can be used to parse structured information. Today we will go deeper into Metafacture Fix and describe how to pluck data out of structured information.
+Last sessions we learned the how to construct a metafacture workflow, how to use the Playground and how and how Metafacture Fix can be used to parse structured information. Today we will go deeper into Metafacture Fix and describe how to pluck data out of structured information.
 
 Today will we fetch a new weather report with the Metafacture Playground:
 
-```
-"https://weather-proxy.freecodecamp.rocks/api/current?lat=50.93414&lon=6.93147"
+```JAVA
+"https://fcc-weather-api.glitch.me/api/current?lat=50.93414&lon=6.93147"
 | open-http
 | as-lines
 | decode-json
@@ -16,7 +16,7 @@ Today will we fetch a new weather report with the Metafacture Playground:
 
 We also saw in the previous post how you can use Metafacture to transform the JSON format into the YAML format which is easier to read and contains the same information.
 
-We also learned some fixes to retrieve information out of the JSON file like `retain("name","temp")`.
+We also learned some fixes to retrieve information out of the JSON file like `retain("name","main.temp")`.
 
 In this post we delve a bit deeper into ways how to point to fields in a JSON or a YAML file:
 
@@ -57,7 +57,7 @@ name: "Cologne"
 cod: "200"
 ```
 
-`main.temp` is called a Path that is JSON Path-like and points to a part of the JSON data you are interested in. The data, as shown above, is structured like a tree. There are top level simple fields like: `base`, `cod`, `dt`, `id` which contain only text values or numbers. There are also fields like `coord` that contain a deeper structure like `lat` and `lon`.
+`main.temp` is called a *Path* that is JSON Path-like and points to a part of the data set - here our Yaml record - you are interested in. The data, as shown above, is structured like a tree. There are top level simple fields like: `base`, `cod`, `dt`, `id` which contain only text values or numbers. There are also fields like `coord` that contain a deeper structure like `lat` and `lon`.
 
 Metafacture Fix is using Fix Path, a path-syntax that is JSON Path like but not identical. It also uses the dot notation but there are some differences with the path structure of arrays and repeated fields. Especially when working with JSON or YAML.
 
@@ -81,7 +81,7 @@ For the fields with deeper structure you add a dot `.` to point to the leaves:
 
 So for example. If you would have a deeply nested structure like:
 
-```
+```YAML
 x:
   y:
     z:
@@ -109,7 +109,7 @@ There are two extra path structures that need to be explained:
 
 In an data set an element sometimes an element can have multiple instances. Different data models solve this possibility differently. XML-Records can have all elements multiple times, element repition is possible and in many schemas (partly) allowed. Repeatable elements also exist e.g. in JSON and YAML but are unusual:
 
-```
+```YAML
 creator: Justus
 creator: Peter
 creator: Bob
@@ -126,11 +126,11 @@ If you want to refer to all creators then you can use the array wildcard `*` whi
 [See here](https://metafacture.org/playground/?flux=inputFile%0A%7Copen-file%0A%7Cas-records%0A%7Cdecode-yaml%0A%7Cfix%28transformationFile%29%0A%7Cencode-json%28prettyPrinting%3D%22true%22%29%0A%7Cprint%0A%3B&transformation=append%28%22creator.1%22%2C%22+Jonas%22%29%0Aappend%28%22creator.2%22%2C%22+Shaw%22%29%0Aappend%28%22creator.3%22%2C%22+Andrews%22%29%0Aprepend%28%22creator.%2A%22%2C%22Investigator+%22%29&data=---%0Acreator%3A+Justus%0Acreator%3A+Peter%0Acreator%3A+Bob%0A)
 </details>
 
-In JSON or YAML element repition is possible but unusual. Instead of repeating elements repetition is constructed as list so that an element can have more than one value. This is called an array and looks like this in YAML:
+In JSON or YAML element repetion is possible but unusual. Instead of repeating elements repetition is constructed as list so that an element can have more than one value. This is called an array and looks like this in YAML:
 
 Our example from above would look like this if creator was a list instead of an repeated field:
 
-```
+```YAML
 creator:
 	- Justus
 	- Peter
@@ -139,17 +139,18 @@ creator:
 
 or:
 
-```
+```YAML
 my:
   colors:
-  	- black
-	- red
-	- yellow
+    - black
+    - red
+    - yellow
 ```
 
 Also lists can be deeply nested, if they are not just lists of strings (array of strings) but of objects.
-```
-characters: 
+
+```YAML
+characters:
   - name: Justus
     role: Investigator
   - name: Peter
@@ -165,7 +166,13 @@ And the path for `Peter` would be `characters[].2.name`
 
 There is one array type in our JSON report from above and that is the `weather` field. To point to the description of the weather you need the path `weather[].1.description`.
 
-Excercise: [Again append the last names to the specific character Justus Jonas, Peter Shaw and Bob Andrews. Also add a field to each character "type":"Person"`](https://metafacture.org/playground/?flux=inputFile%0A%7Copen-file%0A%7Cas-records%0A%7Cdecode-yaml%0A%7Cfix%28transformationFile%29%0A%7Cencode-json%28prettyPrinting%3D%22true%22%29%0A%7Cprint%0A%3B&transformation=&data=---%0Acharacters%3A+%0A++-+name%3A+Justus%0A++++role%3A+Investigator%0A++-+name%3A+Peter%0A++++role%3A+Investigator%0A++-+name%3A+Bob%0A++++role%3A+Research+%26+Archive%0A)
+Excercise:
+
+[Only `retain` the elements of title, the element of the series and the role of Bob Andrews. You have to identify the paths for said elements.](https://metafacture.org/playground/?flux=inputFile%0A%7Copen-file%0A%7Cas-records%0A%7Cdecode-json%0A%7Cencode-yaml%0A%7Cprint%0A%3B&data=%7B%0A++%22title%22+%3A+%22The+Secret+of+Terror+Castle%22%2C%0A++%22isPartOf%22+%3A+%7B%0A++++%22series%22+%3A+%22The+Three+Investigators%22%2C%0A++++%22volume%22+%3A+%221%22%0A++%7D%2C%0A++%22releaseDate%22+%3A+%221964%22%2C%0A++%22author%22+%3A+%22Robert+Arthur%22%2C%0A++%22characters%22+%3A+%5B+%7B%0A++++%22name%22+%3A+%22Jupiter+Jones%22%2C%0A++++%22role%22+%3A+%22Investigator%22%0A++%7D%2C+%7B%0A++++%22name%22+%3A+%22Peter+Crenshaw%22%2C%0A++++%22role%22+%3A+%22Investigator%22%0A++%7D%2C+%7B%0A++++%22name%22+%3A+%22Bob+Andrews%22%2C%0A++++%22role%22+%3A+%22Research+%26+Archive%22%0A++%7D+%5D%0A%7D)
+
+TODO: Solution
+
+[Again append the last names to the specific character Justus Jonas, Peter Shaw and Bob Andrews. Also add a field to each character "type":"Person"`](https://metafacture.org/playground/?flux=inputFile%0A%7Copen-file%0A%7Cas-records%0A%7Cdecode-yaml%0A%7Cfix%28transformationFile%29%0A%7Cencode-json%28prettyPrinting%3D%22true%22%29%0A%7Cprint%0A%3B&transformation=&data=---%0Acharacters%3A+%0A++-+name%3A+Justus%0A++++role%3A+Investigator%0A++-+name%3A+Peter%0A++++role%3A+Investigator%0A++-+name%3A+Bob%0A++++role%3A+Research+%26+Archive%0A)
 
 
 <details>
@@ -186,9 +193,7 @@ e.g.:
 
 Other ways are also possible too.
 
-**Bonus:**
-
-XML in MF and their path.
+## Bonus: XML in MF and their paths
 
 `<title>This is the title</title>`
 
@@ -200,7 +205,7 @@ XMLs are not just simple elements with key-pair values or objects with subfields
 
 The path for the different attributs and elements are the following:
 
-```
+```YAML
 title.value
 title.type
 title.lang
@@ -209,7 +214,4 @@ title.lang
 If you want to create xml with attributes then you need to map to this structure too. We will come back to lection working with xml in lesson 10.
 
 
-
 Next lessons: [05 More Fix Concepts](./05-More-Fix-Concepts.md)
-
-
