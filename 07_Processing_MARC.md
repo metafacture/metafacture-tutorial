@@ -2,13 +2,23 @@
 
 Lesson 7: Processing MARC with Metafacture
 
-In the previous days we learned how we can use Metafacture to process structured data like JSON. Today we will use Metafacture to process MARC metadata records. In this process we will see that MARC can be processed using JSON paths.
+In the previous days we learned how we can use Metafacture to process structured data like JSON. Today we will use Metafacture to process MARC metadata records. In this process we will see that MARC can be processed using FIX paths.
 
 As always, we will need to set up a small metafacture flux script.
 
-Lets inscept a marc file: https://raw.githubusercontent.com/metafacture/metafacture-core/master/metafacture-runner/src/main/dist/examples/read/marc21/10.marc21
+Lets inscept a marc file: https://raw.githubusercontent.com/metafacture/metafacture-tutorial/main/data/sample.marc21
 
-https://metafacture.org/playground/?flux=%22https%3A//raw.githubusercontent.com/metafacture/metafacture-core/master/metafacture-runner/src/main/dist/examples/read/marc21/10.marc21%22%0A%7C+open-http%0A%7C+as-lines%0A%7C+print%0A%3B&active-editor=fix
+Use this flux:
+
+```
+"https://raw.githubusercontent.com/metafacture/metafacture-tutorial/main/data/sample.marc21"
+| open-http
+| as-lines
+| print
+;
+```
+
+[Use playground.](https://metafacture.org/playground/?flux=%22https%3A//raw.githubusercontent.com/metafacture/metafacture-tutorial/main/data/sample.marc21%22%0A%7C+open-http%0A%7C+as-lines%0A%7C+print%0A%3B)
 
 You should see something like this:
 
@@ -17,7 +27,6 @@ Screenshot_01_12_14_09_41
 Like JSON the MARC file contains structured data but the format is different. All the data is on one line, but there isn’t at first sight a clear separation between fields and values. The field/value structure there but you need to use a MARC parser to extract this information. Metafacture contains a MARC parser which can be used to interpret this file.
 
 Lets create a small Flux script to transform the Marc data into YAML:
-<https://metafacture.org/playground/?flux=%22https%3A//raw.githubusercontent.com/metafacture/metafacture-core/master/metafacture-runner/src/main/dist/examples/read/marc21/10.marc21%22%0A%7C+open-http%0A%7C+as-lines%0A%7C+decode-marc21%0A%7C+encode-yaml%0A%7C+print%0A%3B>
 
 ```default
 "https://raw.githubusercontent.com/metafacture/metafacture-core/master/metafacture-runner/src/main/dist/examples/read/marc21/10.marc21"
@@ -29,18 +38,21 @@ Lets create a small Flux script to transform the Marc data into YAML:
 ;
 ```
 
+[Try it in the the playground.](https://metafacture.org/playground/?flux=%22https%3A//raw.githubusercontent.com/metafacture/metafacture-tutorial/main/data/sample.marc21%22%0A%7C+open-http%0A%7C+as-lines%0A%7C+decode-marc21%0A%7C+encode-yaml%0A%7C+print%0A%3B)
+
 Running it in the playground or with the commandline you will see something like this
 
 Screenshot_01_12_14_10_01
 
-Metafacture has its own decoder for Marc21 data. The structure is translated as the following: The leader can either be translated in an entity or a single element. All `XXX` fields are translated in top elements with name of the field+indice numbers. Every subfield is translated in a subfield.
+Metafacture has its own decoder for Marc21 data. The structure is translated as the following: The [leader](https://www.loc.gov/marc/bibliographic/bdleader.html) can either be translated in an entity or a single element. All [control field `00X`](https://www.loc.gov/marc/bibliographic/bd00x.html) are translated into simple string fields with name `00X`.
+All `XXX` fields above `009` are translated in top elements with name of the field+indice numbers e.g. element 245 1. Ind 1 and 2. Ind 2 =>  `24512` . Every subfield is translated in a subfield.
 
-We can use catmandu to read the _id fields of the MARC record with the retain fix we learned in the Day 6 post:
+We can use metafacture fix to read the _id fields of the MARC record with the retain fix we learned in the Day 6 post:
 
 Flux:
 
 ```default
-"https://raw.githubusercontent.com/metafacture/metafacture-core/master/metafacture-runner/src/main/dist/examples/read/marc21/10.marc21"
+"https://raw.githubusercontent.com/metafacture/metafacture-tutorial/main/data/sample.marc21"
 | open-http
 | as-lines
 | decode-marc21
@@ -54,45 +66,48 @@ You will see:
 
 ```YAML
 ---
-_id: "946638705"
+_id: "020598225"
 
 ---
-_id: "94685887X"
+_id: "021175603"
 
 ---
-_id: "947459928"
+_id: "021641563"
 
 ---
-_id: "948469390"
+_id: "021645548"
 
 ---
-_id: "950561274"
+_id: "021649356"
 
 ---
-_id: "950592463"
+_id: "021720518"
 
 ---
-_id: "950974439"
+_id: "022147376"
 
 ---
-_id: "953176436"
+_id: "022497750"
 
 ---
-_id: "954369300"
+_id: "022583208"
 
 ---
-_id: "954377915"
+_id: "022609438"
+
 ```
 
-What is happening here? The MARC file Documents/10.marc21 contains more than one MARC record. For every MARC record catmandu extracts the _id field. This field is a hidden element in every record.
+[See it in the playground.](https://metafacture.org/playground/?flux=%22https%3A//raw.githubusercontent.com/metafacture/metafacture-tutorial/main/data/sample.marc21%22%0A%7C+open-http%0A%7C+as-lines%0A%7C+decode-marc21%0A%7C+fix%28%22retain%28%27_id%27%29%22%29%0A%7C+encode-yaml%0A%7C+print%0A%3B%0A)
 
-Extracting data out of the MARC record itself is a bit more difficult. This is a little different than in Catmandu. As I said Metafacture has a decoder. Fields with their indices are translated into fields and every subfield becomes a subfield. What makes it difficult is that some fields are repeatable and some are not. (Catmandu translates the record into an array MF does not.)
+What is happening here? The MARC file `sample.marc21` contains more than one MARC record. For every MARC record Metafacture extracts here the `_id` field. This field is a hidden element in every record.
+
+Extracting data out of the MARC record itself is a bit more difficult. This is a little different than in Catmandu. As I said Metafacture has a specific marc21 decoder. Fields with their indices are translated into fields and every subfield becomes a subfield. What makes it difficult is that some fields are repeatable and some are not. (Catmandu translates the record into an array of arrays MF does not.)
 
 
-MARC is an array-an-array, you need indexes to extract the data. For instance the MARC leader is usually in the first field of a MARC record. In the previous posts we learned that you need to use the 0 index to extract the first field out of an array:
+You need paths of the elements to extract the data. For instance the MARC leader is usually in the first field of a MARC record. In the previous posts about paths. To keep the `leader`element we need to retain the element `leader`.
 
 ```default
-"https://raw.githubusercontent.com/metafacture/metafacture-core/master/metafacture-runner/src/main/dist/examples/read/marc21/10.marc21"
+"https://raw.githubusercontent.com/metafacture/metafacture-tutorial/main/data/sample.marc21"
 | open-http
 | as-lines
 | decode-marc21
@@ -102,93 +117,30 @@ MARC is an array-an-array, you need indexes to extract the data. For instance th
 ;
 ```
 
+[See it in the playground.](https://metafacture.org/playground/?flux=%22https%3A//raw.githubusercontent.com/metafacture/metafacture-tutorial/main/data/sample.marc21%22%0A%7C+open-http%0A%7C+as-lines%0A%7C+decode-marc21%0A%7C+fix%28%22retain%28%27leader%27%29%22%29%0A%7C+encode-yaml%0A%7C+print%0A%3B%0A)
+
 ```YAML
 ---
+---
 leader:
-  status: "p"
+  status: "n"
   type: "a"
   bibliographicLevel: "m"
   typeOfControl: " "
   characterCodingScheme: "a"
   encodingLevel: " "
-  catalogingForm: "c"
+  catalogingForm: "a"
   multipartLevel: " "
 
 ---
 leader:
-  status: "p"
-  type: "a"
+  status: "n"
+  type: "e"
   bibliographicLevel: "m"
   typeOfControl: " "
   characterCodingScheme: "a"
   encodingLevel: " "
-  catalogingForm: "c"
-  multipartLevel: " "
-
----
-leader:
-  status: "p"
-  type: "a"
-  bibliographicLevel: "m"
-  typeOfControl: " "
-  characterCodingScheme: "a"
-  encodingLevel: " "
-  catalogingForm: "c"
-  multipartLevel: " "
-
----
-leader:
-  status: "p"
-  type: "a"
-  bibliographicLevel: "m"
-  typeOfControl: " "
-  characterCodingScheme: "a"
-  encodingLevel: " "
-  catalogingForm: "c"
-  multipartLevel: " "
-
----
-leader:
-  status: "p"
-  type: "a"
-  bibliographicLevel: "m"
-  typeOfControl: " "
-  characterCodingScheme: "a"
-  encodingLevel: " "
-  catalogingForm: "c"
-  multipartLevel: " "
-
----
-leader:
-  status: "p"
-  type: "a"
-  bibliographicLevel: "m"
-  typeOfControl: " "
-  characterCodingScheme: "a"
-  encodingLevel: " "
-  catalogingForm: "c"
-  multipartLevel: " "
-
----
-leader:
-  status: "p"
-  type: "a"
-  bibliographicLevel: "m"
-  typeOfControl: " "
-  characterCodingScheme: "a"
-  encodingLevel: " "
-  catalogingForm: "c"
-  multipartLevel: " "
-
----
-leader:
-  status: "p"
-  type: "a"
-  bibliographicLevel: "m"
-  typeOfControl: " "
-  characterCodingScheme: "a"
-  encodingLevel: " "
-  catalogingForm: "c"
+  catalogingForm: "i"
   multipartLevel: " "
 
 ---
@@ -198,8 +150,8 @@ leader:
   bibliographicLevel: "m"
   typeOfControl: " "
   characterCodingScheme: "a"
-  encodingLevel: " "
-  catalogingForm: "c"
+  encodingLevel: "K"
+  catalogingForm: "a"
   multipartLevel: " "
 
 ---
@@ -209,37 +161,107 @@ leader:
   bibliographicLevel: "m"
   typeOfControl: " "
   characterCodingScheme: "a"
-  encodingLevel: " "
-  catalogingForm: "c"
+  encodingLevel: "K"
+  catalogingForm: "a"
   multipartLevel: " "
+
+---
+leader:
+  status: "n"
+  type: "a"
+  bibliographicLevel: "m"
+  typeOfControl: " "
+  characterCodingScheme: "a"
+  encodingLevel: "K"
+  catalogingForm: "a"
+  multipartLevel: " "
+
+---
+leader:
+  status: "n"
+  type: "a"
+  bibliographicLevel: "m"
+  typeOfControl: " "
+  characterCodingScheme: "a"
+  encodingLevel: "K"
+  catalogingForm: "a"
+  multipartLevel: " "
+
+---
+leader:
+  status: "n"
+  type: "a"
+  bibliographicLevel: "m"
+  typeOfControl: " "
+  characterCodingScheme: "a"
+  encodingLevel: "K"
+  catalogingForm: "a"
+  multipartLevel: " "
+
+---
+leader:
+  status: "n"
+  type: "a"
+  bibliographicLevel: "m"
+  typeOfControl: " "
+  characterCodingScheme: "a"
+  encodingLevel: "K"
+  catalogingForm: "i"
+  multipartLevel: " "
+
+---
+leader:
+  status: "n"
+  type: "a"
+  bibliographicLevel: "m"
+  typeOfControl: " "
+  characterCodingScheme: "a"
+  encodingLevel: "K"
+  catalogingForm: "i"
+  multipartLevel: " "
+
+---
+leader:
+  status: "n"
+  type: "a"
+  bibliographicLevel: "m"
+  typeOfControl: " "
+  characterCodingScheme: "a"
+  encodingLevel: "K"
+  catalogingForm: "i"
+  multipartLevel: " "
+
 ```
 
-The leader value is translated into a leader element with the subfields.
-
-
-
+The leader value is translated into a leader element with the subfields. You also can emit the leader as a whole string if you use `decode-marc21` with a specific option: `| decode-marc21(emitLeaderAsWhole="true")`. [See it here.](https://metafacture.org/playground/?flux=%22https%3A//raw.githubusercontent.com/metafacture/metafacture-tutorial/main/data/sample.marc21%22%0A%7C+open-http%0A%7C+as-lines%0A%7C+decode-marc21%28emitLeaderAsWhole%3D%22true%22%29%0A%7C+fix%28%22retain%28%27leader%27%29%22%29%0A%7C+encode-yaml%0A%7C+print%0A%3B%0A)
 
 To work with MARC in Metafatcture is more easy than in CATMANDU. The difficulties are introduces with repeatable fields. This is something you usually don’t know. And you have to inspect this first.
 
+Flux:
+
 ```default
-"https://raw.githubusercontent.com/metafacture/metafacture-core/master/metafacture-runner/src/main/dist/examples/read/marc21/10.marc21"
+"https://raw.githubusercontent.com/metafacture/metafacture-tutorial/main/data/sample.marc21"
 | open-http
 | as-lines
 | decode-marc21
-| fix
+| fix(transformationFile)
 | encode-yaml
 | print
 ;
 ```
 
+with transformationFile.fix:
 ```PERL
 copy_field("245??.a", "title")
 retain("title")
 ```
 
+[See here in the playground.](https://metafacture.org/playground/?flux=%22https%3A//raw.githubusercontent.com/metafacture/metafacture-tutorial/main/data/sample.marc21%22%0A%7C+open-http%0A%7C+as-lines%0A%7C+decode-marc21%0A%7C+fix%28transformationFile%29%0A%7C+encode-yaml%0A%7C+print%0A%3B%0A&transformation=copy_field%28%22245%3F%3F.a%22%2C+%22title%22%29%0Aretain%28%22title%22%29)
+
+
 More elaborate mappings are possible. I’ll show you more complete examples in the next posts. As a warming up, here is some code to extract all the record identifiers, titles and isbn numbers in a MARC file into a CSV listing (which you can open in Excel).
 
-Step 1, create a fix file myfixes.txt containing:
+Step 1, create a fix file `transformationFile.fix` containing:
 
 ```PERL
 set_array("title")
@@ -256,19 +278,23 @@ retain("_id","title","isbn")
 ```
 
 
- Step 2, execute this worklow:
+ Step 2, create the flux workflow and execute this worklow either with CLI or the playground:
 
 ```default
 "https://raw.githubusercontent.com/metafacture/metafacture-core/master/metafacture-runner/src/main/dist/examples/read/marc21/10.marc21"
 | open-http
 | as-lines
 | decode-marc21
-| fix(transformationFile)
+| fix("transformationFile.fix")
 | encode-csv
 | print
 ;
 
 ```
+
+[See it in the Playground here.](https://metafacture.org/playground/?flux=%22https%3A//raw.githubusercontent.com/metafacture/metafacture-tutorial/main/data/sample.marc21%22%0A%7C+open-http%0A%7C+as-lines%0A%7C+decode-marc21%0A%7C+fix%28transformationFile%29%0A%7C+encode-yaml%0A%7C+print%0A%3B&transformation=set_array%28%22title%22%29%0Ado+list%28path%3A+%22245%3F%3F.%3F%22%2C%22var%22%3A%22%24i%22%29%0A++copy_field%28%22%24i%22%2C%22title.%24append%22%29%0Aend%0Ajoin_field%28title%2C%22+%22%29%0Aset_array%28%22isbn%22%29%0Ado+list%28path%3A+%22020%3F%3F.a%22%2C%22var%22%3A%22%24i%22%29%0A++copy_field%28%22%24i%22%2Cisbn.%24append%29%0Aend%0Ajoin_field%28isbn%2C%22%2C%22%29%0Aretain%28%22_id%22%2C%22title%22%2C%22isbn%22%29)
+
+TODO: The example has no ISBNs...
 
 You will see this as output:
 
