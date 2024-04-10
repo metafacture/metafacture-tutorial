@@ -1,5 +1,5 @@
 # TODO : Lesson 11 : From MARC to Dublin Core as loud JSON-LD
-TODO: Use better example.
+TODO: Use better example. https://github.com/metafacture/metafacture-examples/blob/master/Swissbib-Extensions/MARC-CSV/
 
 Today we will look a bit further into MARC processing with Metafacture. We already saw a bit of MARC processing in and today we will show you how to transform MARC records into Dublin Core and providing the data as linked open usable data.
 
@@ -19,7 +19,7 @@ set_array("isbn[]")
 do list(path:"020??","var":"$i")
     copy_field("$i.a","isbn[].$append")
 end
-set_array("isbn[]")
+set_array("issn[]")
 do list(path:"022??","var":"$i")
     copy_field("$i.a","issn[].$append")
 end
@@ -51,10 +51,10 @@ TODO: Explain how to run the function with CLI.
 
 
 ```default
-"https://raw.githubusercontent.com/metafacture/metafacture-core/master/metafacture-runner/src/main/dist/examples/read/marc21/10.marc21"
+"https://raw.githubusercontent.com/metafacture/metafacture-examples/master/Swissbib-Extensions/MARC-CSV/input.xml"
 | open-http
-| as-lines
-| decode-marc21
+| decode-xml
+| handle-marcxml
 | fix(transformationFile)
 | encode-yaml
 | print
@@ -106,7 +106,7 @@ do list(path:"020??","var":"$i")
 end
 replace_all("isbn.*"," .","")
 
-set_array("isbn[]")
+set_array("issn[]")
 do list(path:"022??","var":"$i")
     copy_field("$i.a","issn[].$append")
 end
