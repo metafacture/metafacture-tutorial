@@ -15,7 +15,19 @@ https://github.com/metafacture/metafacture-fix/releases
 
 Unzip the downloaded metafix-runner distribution to your choosen folder and you can run your workflows:
 
-Unix: `./bin/metafix-runner path/to/your.flux` or Windows: `./bin/metafix-runner.bat path/to/your.flux`.
+Unix: 
+
+```bash
+./bin/metafix-runner path/to/your.flux
+```
+
+or Windows: 
+
+```bash
+./bin/metafix-runner.bat path/to/your.flux
+```
+
+(Hint: You need to know the path to your file to run the function.)
 
 To get quick started let's revisit a Flux we toyed around with in the playground.
 The playground has a nice feature to export and import Metafacture Workflows.
@@ -24,7 +36,16 @@ The playground has a nice feature to export and import Metafacture Workflows.
 
 Export the workflow and lets run the flux.
 
-`./bin/metafix-runner downloads/playground.flux`
+```bash
+./bin/metafix-runner downloads/playground.flux
+```
+
+or 
+
+```bash
+./bin/metafix-runner.bat downloads/playground.flux
+```
+
 The result should be the same.
 
 The Metafacture ClI Tool expects a flux file for every workflow.
@@ -65,7 +86,40 @@ If we want to use fix we need to refrence the fix file that in the playground we
 ;
 ```
 
-(Hint: You can use the varliable FLUX_DIR to shorten the file path if the file is in the same folder as the flux-file.)
+Hint: You can use the varliable FLUX_DIR to shorten the file path if the file is in the same folder as the flux-file.
+
+```default
+FLUX_DIR + "file.json"
+| open-file
+| as-lines
+| decode-json
+| fix(FLUX_DIR + "fixFile.json")
+| encode-yaml
+| print
+;
+```
+
+If you are using variables, that are not defined in the flux, you can pass them on with the CLI:
+
+e.g.
+```default
+FILE
+| open-file
+| as-lines
+| decode-json
+| fix(FLUX_DIR + "fixFile.json")
+| encode-yaml
+| print
+;
+```
+
+You could use:
+
+```bash
+./bin/metafix-runner path/to/your.flux FILE="path/to/your/file.json"
+```
+
+
 
 TODO: Give homework:
 	- Provide a file or a file-folder.
