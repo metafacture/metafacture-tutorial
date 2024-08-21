@@ -133,6 +133,7 @@ FLUX_DIR + "file.json"
 If you are using variables, that are not defined in the flux, you can pass them on with the CLI:
 
 e.g.
+
 ```default
 FILE
 | open-file
