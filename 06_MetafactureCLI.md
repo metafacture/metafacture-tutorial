@@ -1,5 +1,7 @@
 # Lesson 7: Using Metafacture as Command Line Tool
 
+## Get Metafacture Runner as CLI Tool
+
 While we had fun with our Metafacture Playground another way to use Metafacture is
 the command line. For running a Metafacture flux process we need a terminal and installed JAVA 11 ore higher.
 For creating and editing Flux and Fix files we need an texteditor like Codium/VS Code or others.
@@ -11,17 +13,21 @@ If not, install JAVA 11 or higher.
 
 To use Metafacture on the commandline we can download the latest runner of Metafacture Fix:
 
-https://github.com/metafacture/metafacture-fix/releases
+[https://github.com/metafacture/metafacture-fix/releases](https://github.com/metafacture/metafacture-fix/releases)
 
-Unzip the downloaded metafix-runner distribution to your choosen folder and you can run your workflows:
+Unzip the downloaded metafix-runner distribution to your choosen folder
 
-Unix: 
+## How to run Metafacture via CLI
+
+You can run your workflows:
+
+Unix:
 
 ```bash
 ./bin/metafix-runner path/to/your.flux
 ```
 
-or Windows: 
+or Windows:
 
 ```bash
 ./bin/metafix-runner.bat path/to/your.flux
@@ -32,24 +38,28 @@ or Windows:
 To get quick started let's revisit a Flux we toyed around with in the playground.
 The playground has a nice feature to export and import Metafacture Workflows.
 
-`https://metafacture.org/playground/?flux=%22https%3A//weather-proxy.freecodecamp.rocks/api/current%3Flat%3D50.93414%26lon%3D6.93147%22%0A%7C+open-http%0A%7C+as-lines%0A%7C+decode-json%0A%7C+encode-yaml%0A%7C+print%0A%3B&active-editor=fix`
+[So lets go to the Playground.](https://metafacture.org/playground/?flux=%22https%3A//weather-proxy.freecodecamp.rocks/api/current%3Flat%3D50.93414%26lon%3D6.93147%22%0A%7C+open-http%0A%7C+as-lines%0A%7C+decode-json%0A%7C+encode-yaml%0A%7C+print%0A%3B&active-editor=fix)
 
-Export the workflow and lets run the flux.
+Export the workflow with the Export Button and lets run the flux.
+
+![Shows Export Button in Playground.](images/Export.png)
+
+Linux:
 
 ```bash
 ./bin/metafix-runner downloads/playground.flux
 ```
 
-or 
+or Windows:
 
 ```bash
 ./bin/metafix-runner.bat downloads/playground.flux
 ```
 
-The result should be the same.
+The result of running the Flux-Script via CLI should be the same as with the Playground.
 
-The Metafacture ClI Tool expects a flux file for every workflow.
-Our runned workflow only has a flux and no additional files since it i querring data from the web and it has no fix transformations.
+The Metafacture CLI Tool expects a flux file for every workflow.
+Our runned workflow only has the following flux and no additional files since it i querring data from the web and it has no fix transformations.
 
 ```default
 "https://weather-proxy.freecodecamp.rocks/api/current?lat=50.93414&lon=6.93147"
@@ -61,10 +71,16 @@ Our runned workflow only has a flux and no additional files since it i querring 
 ;
 ```
 
+## Use local files for transformation
+
 If you want to load a local file instead of fetching data from the web we need to change the flux a little bit with an texteditor.
+Download the following file [11942150X.json](/home/tobias/git/metafacture-tutorial/sample-scripts/lesson_06/11942150X.json)
+and adjust the path to your file.
+
+Adjust your `downloads/playground.flux` script:
 
 ```default
-"path/to/your/file.json"
+"path/to/your/file/11942150X.json" // Adjust your path!
 | open-file
 | as-lines
 | decode-json
@@ -72,19 +88,34 @@ If you want to load a local file instead of fetching data from the web we need t
 | print
 ;
 ```
+
+Run it again as shown above.
 
 If we want to use fix we need to refrence the fix file that in the playground we only refrenced via `|fix`
 
 ```default
-"path/to/your/file.json"
+"path/to/your/file/11942150X.json"
 | open-file
 | as-lines
 | decode-json
-| fix("path/to/your/fixFile.json")
+| fix("path/to/your/fixFile.fix")
 | encode-yaml
 | print
 ;
 ```
+
+Create a new file with a `fixFile.fix`, files with fix scripts should have a `.fix` file suffix.
+
+Add the follwoing line as content:
+
+```PEARL
+retain("preferredName","id","type[]")
+
+```
+
+Save it in the same folder as the flux file. (Hint: It does not always have to be in the same folder.)
+
+## Use variables
 
 Hint: You can use the varliable FLUX_DIR to shorten the file path if the file is in the same folder as the flux-file.
 
@@ -93,7 +124,7 @@ FLUX_DIR + "file.json"
 | open-file
 | as-lines
 | decode-json
-| fix(FLUX_DIR + "fixFile.json")
+| fix(FLUX_DIR + "fixFile.fix")
 | encode-yaml
 | print
 ;

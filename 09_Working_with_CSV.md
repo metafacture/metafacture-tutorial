@@ -18,7 +18,17 @@ It shows a CSV file with a header row at the beginnung.
 
 Now you can convert the data to different formats, like JSON, YAML and XML by decoding the data as csv and encoding it in the desired format:
 
-https://metafacture.org/playground/?flux=%22https%3A//lib.ugent.be/download/librecat/data/goodreads.csv%22%0A%7C+open-http%0A%7C+as-lines%0A%7C+decode-csv%0A%7C+encode-json%28prettyPrinting%3D%22true%22%29+//+or+encode-xml+or+encode-yaml%0A%7C+print%0A%3B
+```
+"https://lib.ugent.be/download/librecat/data/goodreads.csv"
+| open-http
+| as-lines
+| decode-csv
+| encode-json(prettyPrinting="true") // or encode-xml or encode-yaml
+| print
+;
+```
+
+[See in playground.](https://metafacture.org/playground/?flux=%22https%3A//lib.ugent.be/download/librecat/data/goodreads.csv%22%0A%7C+open-http%0A%7C+as-lines%0A%7C+decode-csv%0A%7C+encode-json%28prettyPrinting%3D%22true%22%29+//+or+encode-xml+or+encode-yaml%0A%7C+print%0A%3B)
 
 See that the elements have no name literal names but are only numbers.
 But the csv has a header we need to add the option `(hasHeader="true")` to `decode-csv` in the flux.

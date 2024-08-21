@@ -91,7 +91,7 @@ When you encode it as yaml you see the magic behind it:
 https://metafacture.org/playground/?flux=inputFile%0A%7C+open-file%0A%7C+decode-xml%0A%7C+handle-generic-xml%28attributeMarker%3D%22@%22%29%0A%7C+encode-yaml%0A%7C+print%0A%3B&data=%3C%3Fxml+version%3D%221.0%22+encoding%3D%22utf-8%22%3F%3E%0A%3Crecord%3E%0A++%3Ctitle+attribute%3D%22test%22%3ETest+value%3C/title%3E%0A%3C/record%3E
 
 
-Another important thing, when working with xml data sets is to specify the record tag. Default is the tag record. But other data sets have other tags that devide between records:
+Another important thing, when working with xml data sets is to specify the record tag. Default is the tag record. But other data sets have different tags that separate records:
 
 https://metafacture.org/playground/?flux=%22http%3A//www.lido-schema.org/documents/examples/LIDO-v1.1-Example_FMobj00154983-LaPrimavera.xml%22%0A%7C+open-http%0A%7C+decode-xml%0A%7C+handle-generic-xml%28recordtagname%3D%22lido%22%29%0A%7C+encode-yaml%0A%7C+print%0A%3B
 

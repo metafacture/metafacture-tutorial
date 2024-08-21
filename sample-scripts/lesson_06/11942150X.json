@@ -1,0 +1,165 @@
+{
+  "professionOrOccupation" : [ {
+    "id" : "https://d-nb.info/gnd/4629643-8",
+    "label" : "Politologin"
+  }, {
+    "id" : "https://d-nb.info/gnd/4025243-7",
+    "label" : "Hochschullehrer"
+  } ],
+  "placeOfBirth" : [ {
+    "id" : "https://d-nb.info/gnd/4050042-1",
+    "label" : "Riga"
+  } ],
+  "gender" : [ {
+    "id" : "https://d-nb.info/standards/vocab/gnd/gender#female",
+    "label" : "Weiblich"
+  } ],
+  "dateOfDeath" : [ "1992-09-17" ],
+  "dateOfBirth" : [ "1928-09-24" ],
+  "placeOfDeath" : [ {
+    "id" : "https://d-nb.info/gnd/4009352-9",
+    "label" : "Cambridge, Mass."
+  } ],
+  "variantNameEntityForThePerson" : [ {
+    "forename" : [ "Judith Nisse" ],
+    "surname" : [ "Shklar" ]
+  }, {
+    "forename" : [ "Judita" ],
+    "surname" : [ "Nisse" ]
+  }, {
+    "forename" : [ "Judith" ],
+    "surname" : [ "Shklar" ]
+  } ],
+  "type" : [ "Person", "AuthorityResource", "DifferentiatedPerson" ],
+  "@context" : "https://lobid.org/gnd/context.jsonld",
+  "gndSubjectCategory" : [ {
+    "id" : "https://d-nb.info/standards/vocab/gnd/gnd-sc#8.1p",
+    "label" : "Personen (Politologen, Staatstheoretiker)"
+  } ],
+  "oldAuthorityNumber" : [ "(DE-588a)11942150X", "(DE-588c)4439975-3", "(DE-588)158461525", "(DE-588a)158461525" ],
+  "geographicAreaCode" : [ {
+    "id" : "https://d-nb.info/standards/vocab/gnd/geographic-area-code#XD-US",
+    "label" : "USA"
+  } ],
+  "deprecatedUri" : [ "https://d-nb.info/gnd/158461525" ],
+  "affiliation" : [ {
+    "id" : "https://d-nb.info/gnd/2012974-9",
+    "label" : "Harvard University"
+  } ],
+  "describedBy" : {
+    "id" : "https://d-nb.info/gnd/11942150X/about",
+    "license" : {
+      "id" : "http://creativecommons.org/publicdomain/zero/1.0/",
+      "label" : "http://creativecommons.org/publicdomain/zero/1.0/"
+    },
+    "dateModified" : "2019-07-11T15:58:51.000",
+    "descriptionLevel" : {
+      "id" : "https://d-nb.info/standards/vocab/gnd/description-level#1",
+      "label" : "Allgemeines, Interdisziplinäre Allgemeinwörter"
+    }
+  },
+  "gndIdentifier" : "11942150X",
+  "id" : "https://d-nb.info/gnd/11942150X",
+  "preferredName" : "Shklar, Judith N.",
+  "wikipedia" : [ {
+    "id" : "https://de.wikipedia.org/wiki/Judith_N._Shklar",
+    "label" : "https://de.wikipedia.org/wiki/Judith_N._Shklar"
+  } ],
+  "variantName" : [ "Shklar, Judith", "Nisse, Judita", "Shklar, Judith Nisse" ],
+  "preferredNameEntityForThePerson" : {
+    "forename" : [ "Judith N." ],
+    "surname" : [ "Shklar" ]
+  },
+  "sameAs" : [ {
+    "id" : "http://id.loc.gov/rwo/agents/n82231811",
+    "collection" : {
+      "id" : "http://www.wikidata.org/entity/Q13219454",
+      "abbr" : "LC",
+      "publisher" : "Library of Congress",
+      "icon" : "http://www.loc.gov/favicon.ico",
+      "name" : "NACO Authority File"
+    }
+  }, {
+    "id" : "http://viaf.org/viaf/7412367",
+    "collection" : {
+      "id" : "http://www.wikidata.org/entity/Q54919",
+      "abbr" : "VIAF",
+      "publisher" : "OCLC",
+      "icon" : "http://viaf.org/viaf/images/viaf.ico",
+      "name" : "Virtual International Authority File (VIAF)"
+    }
+  }, {
+    "id" : "http://www.wikidata.org/entity/Q455736",
+    "collection" : {
+      "id" : "http://www.wikidata.org/entity/Q2013",
+      "abbr" : "WIKIDATA",
+      "publisher" : "Wikimedia Foundation Inc.",
+      "icon" : "https://www.wikidata.org/static/favicon/wikidata.ico",
+      "name" : "Wikidata"
+    }
+  }, {
+    "collection" : {
+      "abbr" : "DNB",
+      "name" : "Gemeinsame Normdatei (GND) im Katalog der Deutschen Nationalbibliothek",
+      "publisher" : "Deutsche Nationalbibliothek",
+      "icon" : "https://www.dnb.de/SiteGlobals/Frontend/DNBWeb/Images/favicon.png?__blob=normal&v=4",
+      "id" : "http://www.wikidata.org/entity/Q36578"
+    },
+    "id" : "https://d-nb.info/gnd/11942150X/about"
+  }, {
+    "id" : "https://d-nb.info/gnd/158461525",
+    "collection" : {
+      "id" : "http://www.wikidata.org/entity/Q36578",
+      "abbr" : "DNB",
+      "publisher" : "Deutsche Nationalbibliothek",
+      "icon" : "http://www.dnb.de/SiteGlobals/StyleBundles/Bilder/favicon.png?__blob=normal&v=1",
+      "name" : "Gemeinsame Normdatei (GND) im Katalog der Deutschen Nationalbibliothek"
+    }
+  }, {
+    "id" : "https://dbpedia.org/resource/Judith_N._Shklar",
+    "collection" : {
+      "id" : "https://dbpedia.org"
+    }
+  }, {
+    "collection" : {
+      "abbr" : "dewiki",
+      "name" : "Wikipedia (Deutsch)",
+      "publisher" : "Wikimedia Foundation Inc.",
+      "icon" : "https://de.wikipedia.org/static/favicon/wikipedia.ico",
+      "id" : "http://www.wikidata.org/entity/Q48183"
+    },
+    "id" : "https://de.wikipedia.org/wiki/Judith_N._Shklar"
+  }, {
+    "collection" : {
+      "abbr" : "enwiki",
+      "name" : "Wikipedia (English)",
+      "publisher" : "Wikimedia Foundation Inc.",
+      "icon" : "https://en.wikipedia.org/static/favicon/wikipedia.ico",
+      "id" : "http://www.wikidata.org/entity/Q328"
+    },
+    "id" : "https://en.wikipedia.org/wiki/Judith_N._Shklar"
+  }, {
+    "id" : "https://isni.org/isni/0000000121193284",
+    "collection" : {
+      "id" : "https://isni.org"
+    }
+  }, {
+    "collection" : {
+      "abbr" : "DE-611",
+      "name" : "Kalliope Verbundkatalog",
+      "publisher" : "Staatsbibliothek zu Berlin - Preußischer Kulturbesitz",
+      "icon" : "https://kalliope-verbund.info/img/favicon.ico",
+      "id" : "https://kalliope-verbund.info"
+    },
+    "id" : "https://kalliope-verbund.info/gnd/11942150X"
+  }, {
+    "collection" : {
+      "abbr" : "DDB",
+      "name" : "Deutsche Digitale Bibliothek",
+      "publisher" : "Deutsche Digitale Bibliothek",
+      "icon" : "https://www.deutsche-digitale-bibliothek.de/favicon.ico",
+      "id" : "http://www.wikidata.org/entity/Q621630"
+    },
+    "id" : "https://www.deutsche-digitale-bibliothek.de/person/gnd/11942150X"
+  } ]
+}

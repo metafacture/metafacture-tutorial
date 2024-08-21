@@ -1,12 +1,12 @@
-> TODO: Use a better MARC-Example. Perhaps? https://github.com/metafacture/metafacture-examples/blob/master/Swissbib-Extensions/MARC-CSV/input.xml for marcXML
-
-Lesson 7: Processing MARC with Metafacture
+# Lesson 7: Processing MARC with Metafacture
 
 In the previous days we learned how we can use Metafacture to process structured data like JSON. Today we will use Metafacture to process MARC metadata records. In this process we will see that MARC can be processed using FIX paths.
 
+[Transformation marc data with metafacture can be used for multiple things, e.g. you could transform marc binary files to marc xml.](https://metafacture.org/playground/?flux=%22https%3A//raw.githubusercontent.com/metafacture/metafacture-tutorial/main/data/sample.marc21%22%0A%7C+open-http%0A%7C+as-lines%0A%7C+decode-marc21%28emitleaderaswhole%3D%22true%22%29%0A%7C+encode-marcxml%0A%7C+print%0A%3B)
+
 As always, we will need to set up a small metafacture flux script.
 
-Lets inscept a marc file: https://raw.githubusercontent.com/metafacture/metafacture-tutorial/main/data/sample.marc21
+Lets inscpt a marc file: https://raw.githubusercontent.com/metafacture/metafacture-tutorial/main/data/sample.marc21
 
 Use this flux:
 
@@ -22,7 +22,9 @@ Use this flux:
 
 You should see something like this:
 
-Screenshot_01_12_14_09_41
+![Results Marc in Binary in Playground](images/ResultMarc01.png)
+
+## Get to know your marc data
 
 Like JSON the MARC file contains structured data but the format is different. All the data is on one line, but there isn’t at first sight a clear separation between fields and values. The field/value structure there but you need to use a MARC parser to extract this information. Metafacture contains a MARC parser which can be used to interpret this file.
 
@@ -42,10 +44,24 @@ Lets create a small Flux script to transform the Marc data into YAML:
 
 Running it in the playground or with the commandline you will see something like this
 
-Screenshot_01_12_14_10_01
+![Results Marc as Yaml](images/ResultMarc02.png)
 
 Metafacture has its own decoder for Marc21 data. The structure is translated as the following: The [leader](https://www.loc.gov/marc/bibliographic/bdleader.html) can either be translated in an entity or a single element. All [control field `00X`](https://www.loc.gov/marc/bibliographic/bd00x.html) are translated into simple string fields with name `00X`.
 All `XXX` fields above `009` are translated in top elements with name of the field+indice numbers e.g. element 245 1. Ind 1 and 2. Ind 2 =>  `24512` . Every subfield is translated in a subfield.
+
+Lets use `list-fix-paths(count="false")` to show the pathes that are used in the records. It helps to get a overview of the records:
+
+```default
+"https://raw.githubusercontent.com/metafacture/metafacture-core/master/metafacture-runner/src/main/dist/examples/read/marc21/10.marc21"
+| open-http
+| as-lines
+| decode-marc21
+| list-fix-paths(count="false")
+| print
+;
+```
+
+## Transform some marc data
 
 We can use metafacture fix to read the _id fields of the MARC record with the retain fix we learned in the Day 6 post:
 
@@ -102,7 +118,6 @@ _id: "022609438"
 What is happening here? The MARC file `sample.marc21` contains more than one MARC record. For every MARC record Metafacture extracts here the `_id` field. This field is a hidden element in every record.
 
 Extracting data out of the MARC record itself is a bit more difficult. This is a little different than in Catmandu. As I said Metafacture has a specific marc21 decoder. Fields with their indices are translated into fields and every subfield becomes a subfield. What makes it difficult is that some fields are repeatable and some are not. (Catmandu translates the record into an array of arrays MF does not.)
-
 
 You need paths of the elements to extract the data. For instance the MARC leader is usually in the first field of a MARC record. In the previous posts about paths. To keep the `leader`element we need to retain the element `leader`.
 
