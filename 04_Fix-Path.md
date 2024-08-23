@@ -57,7 +57,12 @@ name: "Cologne"
 cod: "200"
 ```
 
-`main.temp` is called a *Path* that is JSON Path-like and points to a part of the data set - here our Yaml record - you are interested in. The data, as shown above, is structured like a tree. There are top level simple fields like: `base`, `cod`, `dt`, `id` which contain only text values or numbers. There are also fields like `coord` that contain a deeper structure like `lat` and `lon`.
+`main.temp` is called a *Path* that is JSON Path-like and points to a part of the data set - here our Yaml record - you are interested in. The data, as shown above, is structured like a tree. 
+
+
+There are top level simple fields like: `base`, `cod`, `dt`, `id` which contain only text values or numbers. Depending on the context simple fields can also be named: elemente, properties, attribute or key.
+
+There are also fields like `coord` that contain a deeper structure like `lat` and `lon`. Nested elements that contain one or more subfields or subelements are also called objects or hash.
 
 Metafacture Fix is using Fix Path, a path-syntax that is JSON Path like but not identical. It also uses the dot notation but there are some differences with the path structure of arrays and repeated fields. Especially when working with JSON or YAML.
 
@@ -70,7 +75,7 @@ Using a JSON path you can point to every part of the JSON file using a dot-notat
 * `name`
 
 
-For the fields with deeper structure you add a dot `.` to point to the leaves:
+For the nested objects with deeper structure you add a dot `.` to point to the subfields:
 
 * `clouds.all`
 * `coord.lat`
@@ -79,7 +84,7 @@ For the fields with deeper structure you add a dot `.` to point to the leaves:
 * `etc…
 
 
-So for example. If you would have a deeply nested structure like:
+So for example. If you would have a deeply nested structure like this object:
 
 ```YAML
 x:
@@ -107,7 +112,16 @@ There are two extra path structures that need to be explained:
 * repeatable fields
 * arrays
 
-In an data set an element sometimes an element can have multiple instances. Different data models solve this possibility differently. XML-Records can have all elements multiple times, element repition is possible and in many schemas (partly) allowed. Repeatable elements also exist e.g. in JSON and YAML but are unusual:
+In an data set an element sometimes can have multiple instances. Different data models solve this possibility differently. XML-Records can have all elements multiple times, element repition is possible and in many schemas it is (partly) allowed. E.g. the subject element exists three times:
+
+```XML
+<subject>Metadata</subject>
+<subject>Datatransformation</subject>
+<subject>ETL</subject>
+```
+
+
+Repeatable elements also exist e.g. in JSON and YAML but are unusual:
 
 ```YAML
 creator: Justus
@@ -115,9 +129,9 @@ creator: Peter
 creator: Bob
 ```
 
-In this example `creator`-element exists three times. To point to one of the colors you need to use an index. The index is one-based: The first index in a array has value 1, the second the value 2, the third the value 3. So, the path of the creator Bob would be `creator.3`. (This is a main difference between Catmandu and Metafacture because Catmandu has an zero based index.)
+In our two examples the `subject`- and `creator`-element exists three times. To point to one of the elements you need to use an index. The index is one-based: The first index has value 1, the second the value 2, the third the value 3. So, the path of the creator Bob would be `creator.3`. (This is a main difference between Catmandu and Metafacture because Catmandu has an zero based index.)
 
-If you want to refer to all creators then you can use the array wildcard `*` which can replace the concrete index number: `creator.*` refers to all creator elements. You can also select the the first instance with the array wildcard `$first` and the last `$last`. This is espacially handy if you do not know how often an element is repeated.
+If you want to refer to all creators then you can use the array wildcard `*` which can replace the concrete index number: `creator.*` refers to all creator elements. You can also select the the first instance with the array wildcard `$first` and the last `$last`. This is espacially handy if you do not know how often an element is repeated. When adding an additional repeated element you usually use the `$append` wildcard.
 
 [Prepend the correct last name to the three investigators: Justus Jonas, Peter Shaw and Bob Andrews. Also append Investigator to all of them.](https://metafacture.org/playground/?flux=inputFile%0A%7Copen-file%0A%7Cas-records%0A%7Cdecode-yaml%0A%7Cfix%28transformationFile%29%0A%7Cencode-json%28prettyPrinting%3D%22true%22%29%0A%7Cprint%0A%3B&transformation=&data=---%0Acreator%3A+Justus%0Acreator%3A+Peter%0Acreator%3A+Bob%0A)
 
@@ -147,7 +161,7 @@ my:
     - yellow
 ```
 
-Also lists can be deeply nested, if they are not just lists of strings (array of strings) but of objects.
+Also lists can be deeply nested, if they are not just lists of strings (array of strings) but of objects (array of objects).
 
 ```YAML
 characters:
@@ -159,12 +173,18 @@ characters:
     role: Research & Archive
 ```
 
-In the example above you see a field `my` which contains a deeper field `colors` which has 3 values. To point to one of the colors you need to use an index but also genuin arrays have a marker in Metafacture: `[]`. Also here the first index in a array has value 1, the second the value 2, the third the value 3. The array markers are generated by the [JSON-Decoder](https://github.com/metafacture/metafacture-documentation/blob/master/flux-commands.md#decode-json) and the [YAML-Decoder](https://github.com/metafacture/metafacture-documentation/blob/master/flux-commands.md#decode-yaml). Also if you want to generate an array in the target schema, then you need to add `[]` at the end of an list-element like `newArray[]`. (While sofare the path handling of Catmandu and Metafacture are similar, they differ at this point.)
+In the example above you see a field `my` which contains a deeper field `colors` which has 3 values. To point to one of the colors you need to use an index but also genuin arrays have a marker in Metafacture: `[]`. Also here the first index in a array has value 1, the second the value 2, the third the value 3. The array markers are generated by the [JSON-Decoder](https://github.com/metafacture/metafacture-documentation/blob/master/flux-commands.md#decode-json) and the [YAML-Decoder](https://github.com/metafacture/metafacture-documentation/blob/master/flux-commands.md#decode-yaml). Also if you want to generate an array in the target format, then you need to add `[]` at the end of an list-element like `newArray[]`. (While sofare the path handling of Catmandu and Metafacture are similar, they differ at this point.)
 
 So, the path of the `red` would be: `my.color[].2`
 And the path for `Peter` would be `characters[].2.name`
 
-There is one array type in our JSON report from above and that is the `weather` field. To point to the description of the weather you need the path `weather[].1.description`.
+There is one array type in our JSON report from our example at the beginning above and that is the `weather` field. To point to the description of the weather you need the path `weather[].1.description`.
+
+| elements  | objects | array/repeated field  |
+|---|---|---|
+| need path  | need dots to mark nested structure |  need index/array-wildcards to refer to specific position |
+| `id`  | `title.subtitle` | `author.*.firstName` |
+| `name`  | `very.nested.element` | `my.color.2` |
 
 Excercise:
 
