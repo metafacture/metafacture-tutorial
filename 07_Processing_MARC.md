@@ -8,7 +8,7 @@ As always, we will need to set up a small metafacture flux script.
 
 Lets inscpt a marc file: https://raw.githubusercontent.com/metafacture/metafacture-tutorial/main/data/sample.marc
 
-Use this flux:
+Create the following flux in a new file e.g. name it `marc1.flux`:
 
 ```
 "https://raw.githubusercontent.com/metafacture/metafacture-tutorial/main/data/sample.mrc"
@@ -17,8 +17,9 @@ Use this flux:
 | print
 ;
 ```
+Run this Flux via CLI (e.g.  '/path/to/your/metafix-runner' 'path/to/your/marc1.flux'`)
 
-[Use playground.](https://metafacture.org/playground/?flux=%22https%3A//raw.githubusercontent.com/metafacture/metafacture-tutorial/main/data/sample.mrc%22%0A%7C+open-http%0A%7C+as-lines%0A%7C+print%0A%3B)
+[Or use playground.](https://metafacture.org/playground/?flux=%22https%3A//raw.githubusercontent.com/metafacture/metafacture-tutorial/main/data/sample.mrc%22%0A%7C+open-http%0A%7C+as-lines%0A%7C+print%0A%3B)
 
 You should see something like this:
 
@@ -28,7 +29,7 @@ You should see something like this:
 
 Like JSON the MARC file contains structured data but the format is different. All the data is on one line, but there isn’t at first sight a clear separation between fields and values. The field/value structure there but you need to use a MARC parser to extract this information. Metafacture contains a MARC parser which can be used to interpret this file.
 
-Lets create a small Flux script to transform the Marc data into YAML:
+Lets create a new small Flux script to transform the Marc data into YAML, name it `marc2.flux`:
 
 ```default
 "https://raw.githubusercontent.com/metafacture/metafacture-core/master/metafacture-runner/src/main/dist/examples/read/marc21/10.marc21"
@@ -40,7 +41,9 @@ Lets create a small Flux script to transform the Marc data into YAML:
 ;
 ```
 
-[Try it in the the playground.](https://metafacture.org/playground/?flux=%22https%3A//raw.githubusercontent.com/metafacture/metafacture-tutorial/main/data/sample.mrc%22%0A%7C+open-http%0A%7C+as-lines%0A%7C+decode-marc21%0A%7C+encode-yaml%0A%7C+print%0A%3B)
+Run this FLUX script with your MF Runner on the CLI.
+
+[Or try it in the the playground.](https://metafacture.org/playground/?flux=%22https%3A//raw.githubusercontent.com/metafacture/metafacture-tutorial/main/data/sample.mrc%22%0A%7C+open-http%0A%7C+as-lines%0A%7C+decode-marc21%0A%7C+encode-yaml%0A%7C+print%0A%3B)
 
 Running it in the playground or with the commandline you will see something like this
 
@@ -60,6 +63,7 @@ Lets use `list-fix-paths(count="false")` to show the pathes that are used in the
 | print
 ;
 ```
+Lets run it.
 
 [See in the playground.](https://metafacture.org/playground/?flux=%22https%3A//raw.githubusercontent.com/metafacture/metafacture-core/master/metafacture-runner/src/main/dist/examples/read/marc21/10.marc21%22%0A%7C+open-http%0A%7C+as-lines%0A%7C+decode-marc21%0A%7C+list-fix-paths%28count%3D%22false%22%29%0A%7C+print%0A%3B%0A)
 
