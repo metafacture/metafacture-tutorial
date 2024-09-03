@@ -70,7 +70,7 @@ Now you can run an ETL process (extract, transform, load) with this worklflow:
 | json-to-elasticsearch-bulk(idkey="_id", type="resource", index="resources-alma-fix-staging")
 | print
 ;
-```default
+```
 
 
 Next lesson:
