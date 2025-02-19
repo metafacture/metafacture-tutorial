@@ -1,11 +1,11 @@
 # Lesson 4: Fix Path and more complex transfromations in Fix
 
-Last sessions we learned the how to construct a metafacture workflow, how to use the Playground and how and how Metafacture Fix can be used to parse structured information. Today we will go deeper into Metafacture Fix and describe how to pluck data out of structured information.
+Last sessions we learned the how to construct a metafacture workflow, how to use the Playground and how and how Metafacture Flux and Fix can be used to parse structured information. Today we will go deeper into Metafacture Fix and describe how to pluck data out of structured information.
 
-Today will we fetch a new weather report with the Metafacture Playground:
+Today will we fetch of a new book with the Metafacture Playground:
 
-```JAVA
-"https://fcc-weather-api.glitch.me/api/current?lat=50.93414&lon=6.93147"
+```
+"https://openlibrary.org/books/OL27333998M.json"
 | open-http
 | as-lines
 | decode-json
@@ -16,73 +16,85 @@ Today will we fetch a new weather report with the Metafacture Playground:
 
 We also saw in the previous post how you can use Metafacture to transform the JSON format into the YAML format which is easier to read and contains the same information.
 
-We also learned some fixes to retrieve information out of the JSON file like `retain("name","main.temp")`.
+We also learned some fixes e.g. to retrieve information out of the JSON file like `retain("title", "publish_date", "type.key")`.
 
 In this post we delve a bit deeper into ways how to point to fields in a JSON or a YAML file:
 
 ```YAML
 ---
-coord:
-  lon: "6.9315"
-  lat: "50.9341"
-weather:
-- id: "800"
-  main: "Clear"
-  description: "clear sky"
-  icon: "https://cdn.glitch.com/6e8889e5-7a72-48f0-a061-863548450de5%2F01d.png?1499366022009"
-base: "stations"
-main:
-  temp: "12.56"
-  feels_like: "11.93"
-  temp_min: "11.62"
-  temp_max: "14.68"
-  pressure: "1022"
-  humidity: "79"
-visibility: "10000"
-wind:
-  speed: "1.03"
-  deg: "0"
-clouds:
-  all: "0"
-dt: "1654153727"
-sys:
-  type: "2"
-  id: "43069"
-  country: "DE"
-  sunrise: "1654140191"
-  sunset: "1654198658"
-timezone: "7200"
-id: "2886242"
-name: "Cologne"
-cod: "200"
+publishers:
+- "Simon & Schuster"
+number_of_pages: "368"
+subtitle: "A Theory"
+covers:
+- "8798647"
+physical_format: "paperback"
+full_title: "Bullshit Jobs A Theory"
+key: "/books/OL27333998M"
+authors:
+- key: "/authors/OL1395062A"
+source_records:
+- "amazon:1501143336"
+- "bwb:9781501143335"
+- "marc:marc_columbia/Columbia-extract-20221130-034.mrc:71583959:3725"
+- "promise:bwb_daily_pallets_2023-05-10:W8-BRV-242"
+title: "Bullshit Jobs"
+notes: "Source title: Bullshit Jobs: A Theory"
+identifiers:
+  amazon:
+  - "1501143336"
+publish_date: "May 07, 2019"
+works:
+- key: "/works/OL20153626W"
+type:
+  key: "/type/edition"
+local_id:
+- "urn:bwbsku:W8-BRV-242"
+isbn_10:
+- "1501143336"
+isbn_13:
+- "9781501143335"
+lccn:
+- "2021276048"
+oclc_numbers:
+- "1056738022"
+classifications: {}
+lc_classifications:
+- "HF5549.5.J63 G73 2019"
+languages:
+- key: "/languages/eng"
+latest_revision: "6"
+revision: "6"
+created:
+  type: "/type/datetime"
+  value: "2019-10-04T04:03:07.194846"
+last_modified:
+  type: "/type/datetime"
+  value: "2023-08-05T12:37:41.711036"
 ```
 
-`main.temp` is called a *Path* that is JSON Path-like and points to a part of the data set - here our Yaml record - you are interested in. The data, as shown above, is structured like a tree. 
+`type.key` is called a *Path* that is JSON Path-like and points to a part of the data set - here our Yaml record - you are interested in. The data, as shown above, is structured like a tree. 
 
+There are top level simple fields like: `title`, `publish_date`, `notes` and `latest_revision` which contain only text values or numbers. Depending on the context simple fields can also be named: elemente, properties, attribute or key.
 
-There are top level simple fields like: `base`, `cod`, `dt`, `id` which contain only text values or numbers. Depending on the context simple fields can also be named: elemente, properties, attribute or key.
+There are also fields like `created` that contain a deeper structure like `type` and `value`.Nested elements that contain one or more subfields or subelements are also called objects or hash.
 
-There are also fields like `coord` that contain a deeper structure like `lat` and `lon`. Nested elements that contain one or more subfields or subelements are also called objects or hash.
+And there are lists like `source_records[]` to which I come back later.
 
 Metafacture Fix is using Fix Path, a path-syntax that is JSON Path like but not identical. It also uses the dot notation but there are some differences with the path structure of arrays and repeated fields. Especially when working with JSON or YAML.
 
 Using a JSON path you can point to every part of the JSON file using a dot-notation. For simple top level fields the path is just the name of the field:
 
-* `base`
-* `cod`
-* `dt`
-* `id`
-* `name`
-
+* `title`
+* `publish_date`
+* `notes`
+* `latest_revision`
 
 For the nested objects with deeper structure you add a dot `.` to point to the subfields:
 
-* `clouds.all`
-* `coord.lat`
-* `coord.lon`
-* `main.temp`
-* `etc…
-
+* `type.key`
+* `created.type`
+* `last_modified.value`
 
 So for example. If you would have a deeply nested structure like this object:
 
@@ -95,7 +107,7 @@ x:
           c: Hello :-)
 ```
 
-Then you would point to the c field with the path to reference the element woulf be `x.y.z.a.b.c`.
+Then you would point to the c field with the path to reference the element would be `x.y.z.a.b.c`.
 
 So lets do some simple excercises:
 
@@ -142,6 +154,16 @@ If you want to refer to all creators then you can use the array wildcard `*` whi
 
 In JSON or YAML element repetion is possible but unusual. Instead of repeating elements repetition is constructed as list so that an element can have more than one value. This is called an array and looks like this in YAML:
 
+In our book example e.g. we have the following array:
+
+```
+source_records:
+  - "amazon:1501143336"
+  - "bwb:9781501143335"
+  - "marc:marc_columbia/Columbia-extract-20221130-034.mrc:71583959:3725"
+  - "promise:bwb_daily_pallets_2023-05-10:W8-BRV-242"
+```
+
 Our example from above would look like this if creator was a list instead of an repeated field:
 
 ```YAML
@@ -173,7 +195,7 @@ characters:
     role: Research & Archive
 ```
 
-In the example above you see a field `my` which contains a deeper field `colors` which has 3 values. To point to one of the colors you need to use an index but also genuin arrays have a marker in Metafacture: `[]`. Also here the first index in a array has value 1, the second the value 2, the third the value 3. The array markers are generated by the [JSON-Decoder](https://github.com/metafacture/metafacture-documentation/blob/master/flux-commands.md#decode-json) and the [YAML-Decoder](https://github.com/metafacture/metafacture-documentation/blob/master/flux-commands.md#decode-yaml). Also if you want to generate an array in the target format, then you need to add `[]` at the end of an list-element like `newArray[]`. (While sofare the path handling of Catmandu and Metafacture are similar, they differ at this point.)
+In the colour example above you see a field `my` which contains a deeper field `colors` which has 3 values. To point to one of the colors you need to use an index but also genuin arrays have a marker in Metafacture: `[]`. Also here the first index in a array has value 1, the second the value 2, the third the value 3. The array markers are generated by the [JSON-Decoder](https://github.com/metafacture/metafacture-documentation/blob/master/flux-commands.md#decode-json) and the [YAML-Decoder](https://github.com/metafacture/metafacture-documentation/blob/master/flux-commands.md#decode-yaml). Also if you want to generate an array in the target format, then you need to add `[]` at the end of an list-element like `newArray[]`. (While sofare the path handling of Catmandu and Metafacture are similar, they differ at this point.)
 
 So, the path of the `red` would be: `my.color[].2`
 And the path for `Peter` would be `characters[].2.name`
@@ -188,9 +210,12 @@ There is one array type in our JSON report from our example at the beginning abo
 
 Excercise:
 
-[Only `retain` the elements of title, the element of the series and the role of Bob Andrews. You have to identify the paths for said elements.](https://metafacture.org/playground/?flux=inputFile%0A%7Copen-file%0A%7Cas-records%0A%7Cdecode-json%0A%7Cencode-yaml%0A%7Cprint%0A%3B&data=%7B%0A++%22title%22+%3A+%22The+Secret+of+Terror+Castle%22%2C%0A++%22isPartOf%22+%3A+%7B%0A++++%22series%22+%3A+%22The+Three+Investigators%22%2C%0A++++%22volume%22+%3A+%221%22%0A++%7D%2C%0A++%22releaseDate%22+%3A+%221964%22%2C%0A++%22author%22+%3A+%22Robert+Arthur%22%2C%0A++%22characters%22+%3A+%5B+%7B%0A++++%22name%22+%3A+%22Jupiter+Jones%22%2C%0A++++%22role%22+%3A+%22Investigator%22%0A++%7D%2C+%7B%0A++++%22name%22+%3A+%22Peter+Crenshaw%22%2C%0A++++%22role%22+%3A+%22Investigator%22%0A++%7D%2C+%7B%0A++++%22name%22+%3A+%22Bob+Andrews%22%2C%0A++++%22role%22+%3A+%22Research+%26+Archive%22%0A++%7D+%5D%0A%7D)
+[Only `retain` the elements of title, the element of the series and the role of Bob Andrews. You have to identify the paths for said elements.](https://metafacture.org/playground/?flux=inputFile%0A%7Copen-file%0A%7Cas-records%0A%7Cdecode-json%0A%7Cfix%28transformationFile%29%0A%7Cencode-yaml%0A%7Cprint%0A%3B&transformation=retain%28...%29&data=%7B%0A++%22title%22+%3A+%22The+Secret+of+Terror+Castle%22%2C%0A++%22isPartOf%22+%3A+%7B%0A++++%22series%22+%3A+%22The+Three+Investigators%22%2C%0A++++%22volume%22+%3A+%221%22%0A++%7D%2C%0A++%22releaseDate%22+%3A+%221964%22%2C%0A++%22author%22+%3A+%22Robert+Arthur%22%2C%0A++%22characters%22+%3A+%5B+%7B%0A++++%22name%22+%3A+%22Jupiter+Jones%22%2C%0A++++%22role%22+%3A+%22Investigator%22%0A++%7D%2C+%7B%0A++++%22name%22+%3A+%22Peter+Crenshaw%22%2C%0A++++%22role%22+%3A+%22Investigator%22%0A++%7D%2C+%7B%0A++++%22name%22+%3A+%22Bob+Andrews%22%2C%0A++++%22role%22+%3A+%22Research+%26+Archive%22%0A++%7D+%5D%0A%7D)
 
-TODO: Solution
+<details>
+<summary>Answer</summary>
+[See here](https://metafacture.org/playground/?flux=inputFile%0A%7Copen-file%0A%7Cas-records%0A%7Cdecode-json%0A%7Cfix%28transformationFile%29%0A%7Cencode-yaml%0A%7Cprint%0A%3B&transformation=retain%28%22title%22%2C%22isPartOf.series%22%2C%22characters%5B%5D.3.name%22%29&data=%7B%0A++%22title%22+%3A+%22The+Secret+of+Terror+Castle%22%2C%0A++%22isPartOf%22+%3A+%7B%0A++++%22series%22+%3A+%22The+Three+Investigators%22%2C%0A++++%22volume%22+%3A+%221%22%0A++%7D%2C%0A++%22releaseDate%22+%3A+%221964%22%2C%0A++%22author%22+%3A+%22Robert+Arthur%22%2C%0A++%22characters%22+%3A+%5B+%7B%0A++++%22name%22+%3A+%22Jupiter+Jones%22%2C%0A++++%22role%22+%3A+%22Investigator%22%0A++%7D%2C+%7B%0A++++%22name%22+%3A+%22Peter+Crenshaw%22%2C%0A++++%22role%22+%3A+%22Investigator%22%0A++%7D%2C+%7B%0A++++%22name%22+%3A+%22Bob+Andrews%22%2C%0A++++%22role%22+%3A+%22Research+%26+Archive%22%0A++%7D+%5D%0A%7D)
+</details>
 
 [Again append the last names to the specific character Justus Jonas, Peter Shaw and Bob Andrews. Also add a field to each character "type":"Person"`](https://metafacture.org/playground/?flux=inputFile%0A%7Copen-file%0A%7Cas-records%0A%7Cdecode-yaml%0A%7Cfix%28transformationFile%29%0A%7Cencode-json%28prettyPrinting%3D%22true%22%29%0A%7Cprint%0A%3B&transformation=&data=---%0Acharacters%3A+%0A++-+name%3A+Justus%0A++++role%3A+Investigator%0A++-+name%3A+Peter%0A++++role%3A+Investigator%0A++-+name%3A+Bob%0A++++role%3A+Research+%26+Archive%0A)
 
