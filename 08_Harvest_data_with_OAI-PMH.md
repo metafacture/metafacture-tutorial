@@ -52,7 +52,7 @@ Add the following fixes to the file:
 ```PEARL
 copy_field("001","_id")
 copy_field("245??.a","title")
-set_array("creator[]")
+add_arrayy("creator[]")
 copy_field("100??.a","creator[].$append")
 copy_field("260??.c","date")
 retain("_id","title","creator[]","date")
