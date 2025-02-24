@@ -1,12 +1,12 @@
 # Lesson 7: Processing MARC with Metafacture
 
-In the previous days we learned how we can use Metafacture to process structured data like JSON. Today we will use Metafacture to process MARC metadata records. In this process we will see that MARC can be processed using FIX paths.
+In the previous lessons we learned how we can use Metafacture to process structured data like JSON. Today we will use Metafacture to process MARC metadata records. In this process we will see that MARC can be processed using FIX paths.
 
 [Transformation marc data with metafacture can be used for multiple things, e.g. you could transform marc binary files to marc xml.](https://metafacture.org/playground/?flux=%22https%3A//raw.githubusercontent.com/metafacture/metafacture-tutorial/main/data/sample.mrc%22%0A%7C+open-http%0A%7C+as-lines%0A%7C+decode-marc21%28emitleaderaswhole%3D%22true%22%29%0A%7C+encode-marcxml%0A%7C+print%0A%3B)
 
 As always, we will need to set up a small metafacture flux script.
 
-Lets inscpt a marc file: https://raw.githubusercontent.com/metafacture/metafacture-tutorial/main/data/sample.marc
+Lets inspect a marc file: https://raw.githubusercontent.com/metafacture/metafacture-tutorial/main/data/sample.marc
 
 Create the following flux in a new file e.g. name it `marc1.flux`:
 
@@ -17,6 +17,7 @@ Create the following flux in a new file e.g. name it `marc1.flux`:
 | print
 ;
 ```
+
 Run this Flux via CLI (e.g.  '/path/to/your/metafix-runner' 'path/to/your/marc1.flux'`)
 
 [Or use playground.](https://metafacture.org/playground/?flux=%22https%3A//raw.githubusercontent.com/metafacture/metafacture-tutorial/main/data/sample.mrc%22%0A%7C+open-http%0A%7C+as-lines%0A%7C+print%0A%3B)
@@ -24,6 +25,8 @@ Run this Flux via CLI (e.g.  '/path/to/your/metafix-runner' 'path/to/your/marc1.
 You should see something like this:
 
 ![Results Marc in Binary in Playground](images/ResultMarc01.png)
+
+You also can try to run the examples via CLI.
 
 ## Get to know your marc data
 
@@ -63,6 +66,7 @@ Lets use `list-fix-paths(count="false")` to show the pathes that are used in the
 | print
 ;
 ```
+
 Lets run it.
 
 [See in the playground.](https://metafacture.org/playground/?flux=%22https%3A//raw.githubusercontent.com/metafacture/metafacture-core/master/metafacture-runner/src/main/dist/examples/read/marc21/10.marc21%22%0A%7C+open-http%0A%7C+as-lines%0A%7C+decode-marc21%0A%7C+list-fix-paths%28count%3D%22false%22%29%0A%7C+print%0A%3B%0A)
@@ -122,7 +126,7 @@ _id: "1049752414"
 
 [See it in the playground.](https://metafacture.org/playground/?flux=%22https%3A//raw.githubusercontent.com/metafacture/metafacture-tutorial/main/data/sample.mrc%22%0A%7C+open-http%0A%7C+as-lines%0A%7C+decode-marc21%0A%7C+fix%28%22retain%28%27_id%27%29%22%29%0A%7C+encode-yaml%0A%7C+print%0A%3B%0A)
 
-What is happening here? The MARC file `sample.mrc` contains more than one MARC record. For every MARC record Metafacture extracts here the `_id` field. This field is a hidden element in every record.
+What is happening here? The MARC file `sample.mrc` contains more than one MARC record. For every MARC record Metafacture extracts here the `_id` field. This field is a hidden element in every record and for MARC Records it uses the value of the `001` element.
 
 Extracting data out of the MARC record itself is a bit more difficult. This is a little different than in Catmandu. As I said Metafacture has a specific marc21 decoder. Fields with their indices are translated into fields and every subfield becomes a subfield. What makes it difficult is that some fields are repeatable and some are not. (Catmandu translates the record into an array of arrays MF does not.)
 
@@ -258,7 +262,7 @@ The leader value is translated into a leader element with the subfields. You als
 
 To work with MARC and transform it in Metafatcture is more generic than in CATMANDU since no marc specific maps are needed. But some difficulties come with repeatable fields. This is something you usually don’t know. And you have to inspect this first.
 
-Here you see, a simple mapping from the element `245 any indicators $a`  to a new field names `title`.
+Here you see, a simple mapping from the element `245 any indicators $a`  to a new field names `title`. To map any incicator we use the wildcard ? for each indicator so the path is: `245??.a`
 
 Flux:
 
