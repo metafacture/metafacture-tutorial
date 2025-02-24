@@ -11,11 +11,11 @@ For this lesson basic knowledge of the commandline is recommended.
 Check if Java 11 or higher is installed with `java -version` in your terminal.
 If not, install JAVA 11 or higher.
 
-To use Metafacture on the commandline we can download the latest runner of Metafacture Fix:
+To use Metafacture on the commandline we can download the latest distribution e.g.: `metafacture-core-7.0.0-dist.zip`:
 
-[https://github.com/metafacture/metafacture-fix/releases](https://github.com/metafacture/metafacture-fix/releases)
+[https://github.com/metafacture/metafacture-core/releases](https://github.com/metafacture/metafacture-core/releases)
 
-Unzip the downloaded metafix-runner distribution to your choosen folder
+Unzip the downloaded metafacture distribution to your choosen folder
 
 ## How to run Metafacture via CLI
 
@@ -24,13 +24,13 @@ You can run your workflows:
 Unix:
 
 ```bash
-./bin/metafix-runner path/to/your.flux
+./metafacture-core-.../flux.sh path/to/your.flux
 ```
 
 or Windows:
 
 ```bash
-./bin/metafix-runner.bat path/to/your.flux
+./metafacture-core-.../flux.bat path/to/your.flux
 ```
 
 (Hint: You need to know the path to your file to run the function.)
@@ -47,13 +47,13 @@ Export the workflow with the Export Button and lets run the flux.
 Linux:
 
 ```bash
-./bin/metafix-runner downloads/playground.flux
+./metafacture-core-.../flux.sh  downloads/playground.flux
 ```
 
 or Windows:
 
 ```bash
-./bin/metafix-runner.bat downloads/playground.flux
+./metafacture-core-.../flux.bat downloads/playground.flux
 ```
 
 The result of running the Flux-Script via CLI should be the same as with the Playground.
@@ -148,15 +148,16 @@ FILE
 You could use:
 
 ```bash
-./bin/metafix-runner path/to/your.flux FILE="path/to/your/file.json"
+./metafacture-core-.../flux.sh path/to/your.flux FILE="path/to/your/file.json"
 ```
 
 
+Excercise: Download the following folder with three test examples and run them. Adjust them if needed:
 
-TODO: Give homework:
-	- Provide a file or a file-folder.
-	- Give a homework.
-	- Give the solution.
-
+- Run example script locally.
+- Adjust example script so that all json files but no other in the folder are read. Get inspired by https://github.com/metafacture/metafacture-core/blob/master/metafacture-runner/src/main/dist/examples/misc/reading-dirs/read-dirs.flux.
+- Change the FLUX script so that you write the output in the local file instead of stoudt.
+- Add a fix file and add the fix module in the flux. With `nothing()` as content.
+- Add some transformations to the fix e.g. add fields.
 
  Next lesson: [07 Processing MARC](./07_Processing_MARC.md)

@@ -160,7 +160,7 @@ end
 
 Metafacture supports lots of conditionals, find a list of all of them [here](https://github.com/metafacture/metafacture-documentation/blob/master/Fix-function-and-Cookbook.md#conditionals).
 
-Hint: Some conditionals have variations with `all_` or `any_` while they behave in the same way if you process them on simple string-elements. They also can be used with arrays/lists then the conditional has different out-come depending on the fact that all (`all_`) or at least one (`any_`) value of an array matches the requierement.
+Hint: Some conditionals have variations with `all_`, `any_` or `none` while they behave in the same way if you process them on simple string-elements. They also can be used with arrays/lists then the conditional has different out-come depending on the fact that all (`all_`) or at least one (`any_`) value of an array matches the requierement. `none` checks if the conditionally does not match.
 
 ## Selectors
 

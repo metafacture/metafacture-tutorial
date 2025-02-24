@@ -95,7 +95,33 @@ Another important thing, when working with xml data sets is to specify the recor
 
 https://metafacture.org/playground/?flux=%22http%3A//www.lido-schema.org/documents/examples/LIDO-v1.1-Example_FMobj00154983-LaPrimavera.xml%22%0A%7C+open-http%0A%7C+decode-xml%0A%7C+handle-generic-xml%28recordtagname%3D%22lido%22%29%0A%7C+encode-yaml%0A%7C+print%0A%3B
 
-> TODO: Add namespace handling.
+
+## Bonus: Working with namespaces
+
+XML elements often come with namespaces. By default namespaces are not emitted, only the element names are provided.
+When elements have the name but belong to different namespaces, or you want to emit the incoming namespaces you can use
+the option `emitnamespace="true"` for the `handle-generic-xml` command.
+
+Add this option to the previous example and see that there are elements belonging to lido as well as skos.
+
+See this in the Playground [here](https://metafacture.org/playground/?flux=%22http%3A//www.lido-schema.org/documents/examples/LIDO-v1.1-Example_FMobj00154983-LaPrimavera.xml%22%0A%7C+open-http%0A%7C+decode-xml%0A%7C+handle-generic-xml%28recordtagname%3D%22lido%22%2C+emitnamespace%3D%22true%22%29%0A%7C+encode-yaml%0A%7C+print%0A%3B).
+
+When you want to add the namespace definition to the output metafacture does not know that by itself but you have to tell metafacture
+the new namespace when `encoding-xml` either by a file with the option `namespacefile` or in the flux with the option `namespaces`.
+
+See here an example for adding namespaces in the flux:
+
+```
+inputFile
+| open-file
+| as-lines
+| decode-formeta
+| fix(transformationFile)
+| encode-xml(rootTag="collection",namespaces="__default=http://www.w3.org/TR/html4/\ndcterms=http://purl.org/dc/terms/\nschema=http://schema.org/")
+| print
+;
+```
+
 > Add excercises.
 
 Next lesson: [11 Mapping Marc to Dublin Core](./11_MARC_to_Dublin_Core.md)

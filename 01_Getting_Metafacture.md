@@ -15,8 +15,10 @@ installation is needed. The Playground is a web interface that helps you getting
 It is useful to test, share and export metafacture workflows.
 
 Starting with [Chapter 6](https://github.com/metafacture/metafacture-tutorial/blob/main/06_MetafactureCLI.md)
-we switch from using Playground to running Metafacture on our own Hardware.
-At this point, to be able to follow the examples, you need a Linux/Unix Bash Shell (part of every Linux, MacOS and Windows >=10)
-with Metafacture Core and Metafacture Fix installed.
+we can switch from using Playground to running Metafacture on our own Hardware.
+But the examples are still provided in the playground.
+
+To run Metafacture on your local maschine you need you need a Linux/Unix Bash Shell (part of every Linux, MacOS and Windows >=10) with Metafacture Core installed. In this course we are not teaching you how to use the command line. For that see:
+
 
 **Next lesson**: [02 Introduction into Metafacture Flux](./02_Introduction_into_Metafacture-Flux.md)

@@ -31,19 +31,17 @@ To get some Dublin Core records from the collection of Ghent University Library 
 
 But if you just want to use the specific metadata records and not the oai-pmh specific metadata wrappers then specify the xml handler like this: `| handle-generic-xml(recordtagname="dc")`
 
-You can also harvest MARC data and store it in a file:
+You can also harvest MARC data, serialze it to marc-binary and store it in a file:
 
 ```default
 "https://lib.ugent.be/oai"
 | open-oaipmh(metadataPrefix="marcxml", setSpec="flandrica")
 | decode-xml
 | handle-marcxml
-| encode-json(prettyPrinting="true")
-| print
+| encode-marc21
+| write("ugent.mrc")
 ;
 ```
-
-> TODO: Revisit this example when https://github.com/metafacture/metafacture-core/issues/454 is fixed.
 
 You can also transform incoming data and immediately store/index it with MongoDB or Elasticsearch. For the transformation you need to create a fix (see Lesson 3) in the playground or in a text editor:
 
@@ -52,7 +50,6 @@ Add the following fixes to the file:
 ```PEARL
 copy_field("001","_id")
 copy_field("245??.a","title")
-add_arrayy("creator[]")
 copy_field("100??.a","creator[].$append")
 copy_field("260??.c","date")
 retain("_id","title","creator[]","date")
@@ -66,12 +63,13 @@ Now you can run an ETL process (extract, transform, load) with this worklflow:
 | decode-xml
 | handle-marcxml
 | fix(transformationFile)
-| encode-json(prettyPrinting="true")
+| encode-json
 | json-to-elasticsearch-bulk(idkey="_id", type="resource", index="resources-alma-fix-staging")
 | print
 ;
 ```
 
+Excercise: Try to fetch data from a OAI-PMH you know. (Add an example for people who do not know.)
 
 Next lesson:
 [09 Working with CSV and TSV](./09_Working_with_CSV.md)

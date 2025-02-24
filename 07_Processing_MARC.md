@@ -304,6 +304,8 @@ join_field(isbn,",")
 retain("id","title","isbn")
 ```
 
+HINT: Sometimes it makes sense to create an empty array by `add_array` or an empty hash/object by `add_hash` before adding content to the array or hash. The is depending to the use-cases. In our case we need empty values if no field is mapped for the csv. 
+
  Step 2, create the flux workflow and execute this worklow either with CLI or the playground:
 
 ```default
@@ -337,15 +339,14 @@ You will see this as output:
 "1080278184","Renfro Valley Kentucky Rainer H. Schmeissner",""
 ```
 
-In the fix above we mapped the 245-field to the title, and iterated over every subfield with the help of the list-bind and the `?`- wildcard.
-. The ISBN is in the 020-field. Because MARC records can contain one or more 020 fields we created an isbn array with add_arrayy and added the values using the isbn.$append syntax. Next we turned the isbn array back into a comma separated string using the join_field fix. As last step we deleted all the fields we didn’t need in the output with the `retain` syntax.
+In the fix above we mapped the 245-field to the title, and iterated over every subfield with the help of the list-bind and the `?`- wildcard. The ISBN is in the 020-field. Because MARC records can contain one or more 020 fields we created an isbn array with add_arrayy and added the values using the isbn.$append syntax. Next we turned the isbn array back into a comma separated string using the join_field fix. As last step we deleted all the fields we didn’t need in the output with the `retain` syntax.
+
+Different versions of MARC-Serialization need different workflows: e.g. h[ere see an example of Aseq-Marc Files that are transformed to marcxml.](https://test.metafacture.org/playground/?flux=%22https%3A//raw.githubusercontent.com/LibreCat/Catmandu-MARC/dev/t/rug01.aleph%22%0A%7C+open-http%0A%7C+as-lines%0A%7C+decode-aseq%0A%7C+merge-same-ids%0A%7C+encode-marcxml%0A%7C+print%0A%3B)
 
 In this post we demonstrated how to process MARC data. In the next post we will show some examples how catmandu typically can be used to process library data.
 
 ## Excercise.
 
-
-
-# TODO_ Add example that transforms aleph sequential. Also open ticket, that enables the transformation.
+TODO: ADD some examples for MARC, e.g. the examples from our last workshop.
 
 Next lesson: [08 Harvest data with OAI-PMH](./08_Harvest_data_with_OAI-PMH.md)
