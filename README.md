@@ -30,7 +30,7 @@ Lesson plan:
 
 [07 Processing MARC](./07_Processing_MARC.md)
 
-[08 Harvest data with OAI-PMH](./08_Harvest_data_with_OAI-PMH.md) (TODO)
+[08 Harvest data with OAI-PMH](./08_Harvest_data_with_OAI-PMH.md)
 
 [09 Working with CSV and TSV](./09_Working_with_CSV.md)
 

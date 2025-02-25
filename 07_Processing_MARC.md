@@ -291,12 +291,12 @@ Step 1, create a fix file `transformationFile.fix` containing:
 
 ```PERL
 copy_field("001","id")
-add_arrayy("title")
+add_array("title")
 do list(path: "245??.?","var":"$i")
   copy_field("$i","title.$append")
 end
 join_field(title," ")
-add_arrayy("isbn")
+add_array("isbn")
 do list(path: "020??","var":"$i")
   copy_field("$i.a",isbn.$append)
 end
@@ -320,7 +320,7 @@ HINT: Sometimes it makes sense to create an empty array by `add_array` or an emp
 
 ```
 
-[See it in the Playground here.](https://metafacture.org/playground/?flux=%22https%3A//raw.githubusercontent.com/metafacture/metafacture-tutorial/main/data/sample.mrc%22%0A%7C+open-http%0A%7C+as-lines%0A%7C+decode-marc21%0A%7C+fix%28transformationFile%29%0A%7C+encode-csv%28includeheader%3D%22true%22%29%0A%7C+print%0A%3B%0A%0A&transformation=copy_field%28%22001%22%2C%22id%22%29%0Aadd_arrayy%28%22title%22%29%0Ado+list%28path%3A+%22245%3F%3F.%3F%22%2C%22var%22%3A%22%24i%22%29%0A++copy_field%28%22%24i%22%2C%22title.%24append%22%29%0Aend%0Ajoin_field%28title%2C%22+%22%29%0Aadd_arrayy%28%22isbn%22%29%0Ado+list%28path%3A+%22020%3F%3F.a%22%2C%22var%22%3A%22%24i%22%29%0A++copy_field%28%22%24i%22%2Cisbn.%24append%29%0Aend%0Ajoin_field%28isbn%2C%22%2C%22%29%0Aretain%28%22id%22%2C%22title%22%2C%22isbn%22%29)
+[See it in the Playground here.](https://metafacture.org/playground/?flux=%22https%3A//raw.githubusercontent.com/metafacture/metafacture-tutorial/main/data/sample.mrc%22%0A%7C+open-http%0A%7C+as-lines%0A%7C+decode-marc21%0A%7C+fix%28transformationFile%29%0A%7C+encode-csv%28includeheader%3D%22true%22%29%0A%7C+print%0A%3B%0A%0A&transformation=copy_field%28%22001%22%2C%22id%22%29%0Aadd_array%28%22title%22%29%0Ado+list%28path%3A+%22245%3F%3F.%3F%22%2C%22var%22%3A%22%24i%22%29%0A++copy_field%28%22%24i%22%2C%22title.%24append%22%29%0Aend%0Ajoin_field%28title%2C%22+%22%29%0Aadd_array%28%22isbn%22%29%0Ado+list%28path%3A+%22020%3F%3F.a%22%2C%22var%22%3A%22%24i%22%29%0A++copy_field%28%22%24i%22%2Cisbn.%24append%29%0Aend%0Ajoin_field%28isbn%2C%22%2C%22%29%0Aretain%28%22id%22%2C%22title%22%2C%22isbn%22%29)
 
 
 You will see this as output:
@@ -339,7 +339,7 @@ You will see this as output:
 "1080278184","Renfro Valley Kentucky Rainer H. Schmeissner",""
 ```
 
-In the fix above we mapped the 245-field to the title, and iterated over every subfield with the help of the list-bind and the `?`- wildcard. The ISBN is in the 020-field. Because MARC records can contain one or more 020 fields we created an isbn array with add_arrayy and added the values using the isbn.$append syntax. Next we turned the isbn array back into a comma separated string using the join_field fix. As last step we deleted all the fields we didn’t need in the output with the `retain` syntax.
+In the fix above we mapped the 245-field to the title, and iterated over every subfield with the help of the list-bind and the `?`- wildcard. The ISBN is in the 020-field. Because MARC records can contain one or more 020 fields we created an isbn array with add_array and added the values using the isbn.$append syntax. Next we turned the isbn array back into a comma separated string using the join_field fix. As last step we deleted all the fields we didn’t need in the output with the `retain` syntax.
 
 Different versions of MARC-Serialization need different workflows: e.g. h[ere see an example of Aseq-Marc Files that are transformed to marcxml.](https://test.metafacture.org/playground/?flux=%22https%3A//raw.githubusercontent.com/LibreCat/Catmandu-MARC/dev/t/rug01.aleph%22%0A%7C+open-http%0A%7C+as-lines%0A%7C+decode-aseq%0A%7C+merge-same-ids%0A%7C+encode-marcxml%0A%7C+print%0A%3B)
 

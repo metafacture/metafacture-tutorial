@@ -1,5 +1,5 @@
-# TODO : Lesson 11 : From MARC to Dublin Core as loud JSON-LD
-TODO: Use better example. https://github.com/metafacture/metafacture-examples/blob/master/Swissbib-Extensions/MARC-CSV/
+# Lesson 11 : From MARC to Dublin Core as loud JSON-LD
+TODO: Use better example. But the following is missing isbns: https://github.com/metafacture/metafacture-examples/blob/master/Swissbib-Extensions/MARC-CSV/
 
 Today we will look a bit further into MARC processing with Metafacture. We already saw a bit of MARC processing in and today we will show you how to transform MARC records into Dublin Core and providing the data as linked open usable data.
 
@@ -9,22 +9,22 @@ And type into this textfile the following fixes:
 
 ```PERL
 copy_field("245??.a","title")
-add_arrayy("creator[]")
+add_array("creator[]")
 copy_field("100??.a","creator[].$append")
 copy_field("700??.a","creator[].$append")
 copy_field("260??.c","date")
 copy_field("260??.b","publisher")
 
-add_arrayy("isbn[]")
+add_array("isbn[]")
 do list(path:"020??","var":"$i")
     copy_field("$i.a","isbn[].$append")
 end
-add_arrayy("issn[]")
+add_array("issn[]")
 do list(path:"022??","var":"$i")
     copy_field("$i.a","issn[].$append")
 end
 
-add_arrayy("subject[]")
+add_array("subject[]")
 do list(path:"650??","var":"$i")
     copy_field("$i.a","subject[].$append")
 end
@@ -87,10 +87,10 @@ Congratulations, you’ve created your first mapping file to transform library d
 Below you’ll find a complete example. You can read more about our Fix language online.
 
 ```PERL
-add_arrayy("title")
+add_array("title")
 copy_field("245??.?","title.$append")
 join_field("title", " ")
-add_arrayy("creator[]")
+add_array("creator[]")
 copy_field("100??.a","creator[].$append")
 copy_field("700??.a","creator[].$append")
 copy_field("260??.c","date")
@@ -100,19 +100,19 @@ replace_all("publisher",",$","")
 
 add_field("type","BibliographicResource")
 
-add_arrayy("isbn[]")
+add_array("isbn[]")
 do list(path:"020??","var":"$i")
     copy_field("$i.a","isbn[].$append")
 end
 replace_all("isbn.*"," .","")
 
-add_arrayy("issn[]")
+add_array("issn[]")
 do list(path:"022??","var":"$i")
     copy_field("$i.a","issn[].$append")
 end
 replace_all("issn.*"," .","")
 
-add_arrayy("subject[]")
+add_array("subject[]")
 do list(path:"650??","var":"$i")
     copy_field("$i.a","subject[].$append")
 end
@@ -135,11 +135,6 @@ add_field("@context.issn","http://purl.org/ontology/bibo/issn")
 ```
 
 The result should look like this:
-https://metafacture.org/playground/?flux=%22https%3A//raw.githubusercontent.com/metafacture/metafacture-core/master/metafacture-runner/src/main/dist/examples/read/marc21/10.marc21%22%0A%7C+open-http%0A%7C+as-lines%0A%7C+decode-marc21%0A%7C+fix%28transformationFile%29%0A%7C+encode-json%28prettyPrinting%3D%22true%22%29%0A%7C+print%0A%3B&transformation=add_arrayy%28%22title%22%29%0Acopy_field%28%22245%3F%3F.%3F%22%2C%22title.%24append%22%29%0Ajoin_field%28%22title%22%2C+%22+%22%29%0Aadd_arrayy%28%22creator%5B%5D%22%29%0Acopy_field%28%22100%3F%3F.a%22%2C%22creator%5B%5D.%24append%22%29%0Acopy_field%28%22700%3F%3F.a%22%2C%22creator%5B%5D.%24append%22%29%0Acopy_field%28%22260%3F%3F.c%22%2C%22date%22%29%0Areplace_all%28%22date%22%2C%22\\D%2B%22%2C%22%22%29%0Acopy_field%28%22260%3F%3F.b%22%2C%22publisher%22%29%0Areplace_all%28%22publisher%22%2C%22%2C%24%22%2C%22%22%29%0A%0Aadd_field%28%22type%22%2C%22BibliographicResource%22%29%0A%0Aadd_arrayy%28%22isbn%5B%5D%22%29%0Ado+list%28path%3A%22020%3F%3F%22%2C%22var%22%3A%22%24i%22%29%0A++++copy_field%28%22%24i.a%22%2C%22isbn%5B%5D.%24append%22%29%0Aend%0Areplace_all%28%22isbn.%2A%22%2C%22+.%22%2C%22%22%29%0A%0Aadd_arrayy%28%22isbn%5B%5D%22%29%0Ado+list%28path%3A%22022%3F%3F%22%2C%22var%22%3A%22%24i%22%29%0A++++copy_field%28%22%24i.a%22%2C%22issn%5B%5D.%24append%22%29%0Aend%0Areplace_all%28%22issn.%2A%22%2C%22+.%22%2C%22%22%29%0A%0Aadd_arrayy%28%22subject%5B%5D%22%29%0Ado+list%28path%3A%22650%3F%3F%22%2C%22var%22%3A%22%24i%22%29%0A++++copy_field%28%22%24i.a%22%2C%22subject%5B%5D.%24append%22%29%0Aend%0A%0Aadd_field%28%22@context.title%22%2C%22http%3A//purl.org/dc/terms/title%22%29%0Aadd_field%28%22@context.creator%22%2C%22http%3A//purl.org/dc/elements/1.1/creator%22%29%0Aadd_field%28%22@context.date%22%2C%22http%3A//purl.org/dc/elements/1.1/date%22%29%0Aadd_field%28%22@context.publisher%22%2C%22http%3A//purl.org/dc/elements/1.1/publisher%22%29%0Aadd_field%28%22@context.subject%22%2C%22http%3A//purl.org/dc/elements/1.1/subject%22%29%0Aadd_field%28%22@context.isbn%22%2C%22http%3A//purl.org/ontology/bibo/isbn%22%29%0Aadd_field%28%22@context.issn%22%2C%22http%3A//purl.org/ontology/bibo/issn%22%29%0A%0Aretain%28%22@context%22%2C%22title%22%2C%22creator%5B%5D%22%2C%22date%22%2C%22publisher%22%2C%22isbn%5B%5D%22%2C%22issn%5B%5D%22%2C%22subject%5B%5D%22%29
+https://metafacture.org/playground/?flux=%22https%3A//raw.githubusercontent.com/metafacture/metafacture-core/master/metafacture-runner/src/main/dist/examples/read/marc21/10.marc21%22%0A%7C+open-http%0A%7C+as-lines%0A%7C+decode-marc21%0A%7C+fix%28transformationFile%29%0A%7C+encode-json%28prettyPrinting%3D%22true%22%29%0A%7C+print%0A%3B&transformation=add_array%28%22title%22%29%0Acopy_field%28%22245%3F%3F.%3F%22%2C%22title.%24append%22%29%0Ajoin_field%28%22title%22%2C+%22+%22%29%0Aadd_array%28%22creator%5B%5D%22%29%0Acopy_field%28%22100%3F%3F.a%22%2C%22creator%5B%5D.%24append%22%29%0Acopy_field%28%22700%3F%3F.a%22%2C%22creator%5B%5D.%24append%22%29%0Acopy_field%28%22260%3F%3F.c%22%2C%22date%22%29%0Areplace_all%28%22date%22%2C%22\\D%2B%22%2C%22%22%29%0Acopy_field%28%22260%3F%3F.b%22%2C%22publisher%22%29%0Areplace_all%28%22publisher%22%2C%22%2C%24%22%2C%22%22%29%0A%0Aadd_field%28%22type%22%2C%22BibliographicResource%22%29%0A%0Aadd_array%28%22isbn%5B%5D%22%29%0Ado+list%28path%3A%22020%3F%3F%22%2C%22var%22%3A%22%24i%22%29%0A++++copy_field%28%22%24i.a%22%2C%22isbn%5B%5D.%24append%22%29%0Aend%0Areplace_all%28%22isbn.%2A%22%2C%22+.%22%2C%22%22%29%0A%0Aadd_array%28%22isbn%5B%5D%22%29%0Ado+list%28path%3A%22022%3F%3F%22%2C%22var%22%3A%22%24i%22%29%0A++++copy_field%28%22%24i.a%22%2C%22issn%5B%5D.%24append%22%29%0Aend%0Areplace_all%28%22issn.%2A%22%2C%22+.%22%2C%22%22%29%0A%0Aadd_array%28%22subject%5B%5D%22%29%0Ado+list%28path%3A%22650%3F%3F%22%2C%22var%22%3A%22%24i%22%29%0A++++copy_field%28%22%24i.a%22%2C%22subject%5B%5D.%24append%22%29%0Aend%0A%0Aadd_field%28%22@context.title%22%2C%22http%3A//purl.org/dc/terms/title%22%29%0Aadd_field%28%22@context.creator%22%2C%22http%3A//purl.org/dc/elements/1.1/creator%22%29%0Aadd_field%28%22@context.date%22%2C%22http%3A//purl.org/dc/elements/1.1/date%22%29%0Aadd_field%28%22@context.publisher%22%2C%22http%3A//purl.org/dc/elements/1.1/publisher%22%29%0Aadd_field%28%22@context.subject%22%2C%22http%3A//purl.org/dc/elements/1.1/subject%22%29%0Aadd_field%28%22@context.isbn%22%2C%22http%3A//purl.org/ontology/bibo/isbn%22%29%0Aadd_field%28%22@context.issn%22%2C%22http%3A//purl.org/ontology/bibo/issn%22%29%0A%0Aretain%28%22@context%22%2C%22title%22%2C%22creator%5B%5D%22%2C%22date%22%2C%22publisher%22%2C%22isbn%5B%5D%22%2C%22issn%5B%5D%22%2C%22subject%5B%5D%22%29
 
-
-> TODO:
-> Create the metafacture workflow to transform Marc to JSON.
-> Map the marc data to DC.
-> Also add an context for creating JSON LD.
-> Add excersise.
+Excercice: Add additional dublincore elements that you would like to add.
