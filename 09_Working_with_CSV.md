@@ -59,7 +59,7 @@ You can transform the data to an tsv file with the separator \t which has no hea
 
 https://metafacture.org/playground/?flux=%22https%3A//lib.ugent.be/download/librecat/data/goodreads.csv%22%0A%7C+open-http%0A%7C+as-lines%0A%7C+decode-csv%28hasheader%3D%22true%22%29%0A%7C+fix%28transformationFile%29%0A%7C+encode-csv%28separator%3D%22\t%22%2C+noQuotes%3D%22true%22%29%0A%7C+print%3B&transformation=retain%28%22ISBN%22%2C%22Title%22%2C%22Author%22%29
 
-If you want to export complex/nested data structures to a tabular format, you must “flatten” the datastructure. This could be done with Metafacture. But be aware that the nested structure if repeatble elements are provided have to be the same every time. Otherwise the header and the csv file do not fit:
+If you want to export complex/nested data structures to a tabular format, you must “flatten” the datastructure. This could be done with Metafacture. But be aware that the nested structure if repeatble elements are provided have to be the identical every time. Otherwise the header and the csv file do not fit:
 
 https://metafacture.org/playground/?flux=%22https%3A//lobid.org/organisations/search%3Fq%3Dk%25C3%25B6ln%26size%3D10%22%0A%7C+open-http%28accept%3D%22application/json%22%29%0A%7C+as-records%0A%7C+decode-json%28recordpath%3D%22member%22%29%0A%7C+flatten%0A%7C+encode-csv%28includeheader%3D%22true%22%29%0A%7C+print%3B
 

@@ -122,6 +122,6 @@ inputFile
 ;
 ```
 
-> Add excercises.
+> TODO: Add excercises.
 
 Next lesson: [11 Mapping Marc to Dublin Core](./11_MARC_to_Dublin_Core.md)
