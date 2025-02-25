@@ -4,6 +4,8 @@ CSV and TSV files are widely-used to store and exchange simple structured data. 
 
 Metafacture implements an decoder and encoder for both formats: decode-csv and encode-csv.
 
+## Reading CSVs
+
 So get some CSV data to work with:
 
 ```default
@@ -51,6 +53,8 @@ The string is then read each line by `as-lines` and decoded as csv with the sepa
 
 With a little fix you can
 
+## Writing CSVs
+
 When exporting data a tabular format you can change the field names in the header or omit the header:
 
 https://metafacture.org/playground/?flux=%22https%3A//lib.ugent.be/download/librecat/data/goodreads.csv%22%0A%7C+open-http%0A%7C+as-lines%0A%7C+decode-csv%28hasheader%3D%22true%22%29%0A%7C+fix%28transformationFile%29%0A%7C+encode-csv%28includeHeader%3D%22true%22%29%0A%7C+print%3B&transformation=move_field%28%22ISBN%22%2C%22A%22%29%0Amove_field%28%22Title%22%2C%22B%22%29%0Amove_field%28%22Author%22%2C%22C%22%29%0A%0Aretain%28%22A%22%2C%22B%22%2C%22C%22%29
@@ -59,11 +63,17 @@ You can transform the data to an tsv file with the separator \t which has no hea
 
 https://metafacture.org/playground/?flux=%22https%3A//lib.ugent.be/download/librecat/data/goodreads.csv%22%0A%7C+open-http%0A%7C+as-lines%0A%7C+decode-csv%28hasheader%3D%22true%22%29%0A%7C+fix%28transformationFile%29%0A%7C+encode-csv%28separator%3D%22\t%22%2C+noQuotes%3D%22true%22%29%0A%7C+print%3B&transformation=retain%28%22ISBN%22%2C%22Title%22%2C%22Author%22%29
 
-If you want to export complex/nested data structures to a tabular format, you must “flatten” the datastructure. This could be done with Metafacture. But be aware that the nested structure if repeatble elements are provided have to be the identical every time. Otherwise the header and the csv file do not fit:
+When you create a CSV from a by export complex/nested data structures to a tabular format, you must “flatten” the datastructure. Also 
+you have to be aware that the order and number of elements in every record is the same otherwise the header does not match the records.
+
+But could be done with Metafacture. But be aware that the nested structure if repeatble elements are provided have to be the identical every time. Otherwise the header and the csv file do not fit:
 
 https://metafacture.org/playground/?flux=%22https%3A//lobid.org/organisations/search%3Fq%3Dk%25C3%25B6ln%26size%3D10%22%0A%7C+open-http%28accept%3D%22application/json%22%29%0A%7C+as-records%0A%7C+decode-json%28recordpath%3D%22member%22%29%0A%7C+flatten%0A%7C+encode-csv%28includeheader%3D%22true%22%29%0A%7C+print%3B
 
-> TODO: Add excercises.
+Excercises:
+
+- [Decode this csv keep the header.](https://metafacture.org/playground/?flux=inputFile%0A%7C+open-file%0A...%0A...%0A%7C+encode-yaml%0A%7C+print%0A%3B&data=%22id%22%2C%22name%22%2C%22creator%22%0A%221%22%2C%22Book+1%22%2C%22Maxi+Muster%22%0A%222%22%2C%22Book+2%22%2C%22Sandy+Sample%22)
+- [Create a tsv with the record idenfier (`_id`), title (`245` > `title`) and isbn (`020` > `isbn`) from a marc dump.](https://metafacture.org/playground/?flux=%22https%3A//raw.githubusercontent.com/metafacture/metafacture-core/master/metafacture-runner/src/main/dist/examples/read/marc21/10.marc21%22%0A%7C+open-http%0A%7C+as-lines%0A%7C+decode-marc21%0A%7C+fix%28transformationFile%29%0A%7C+flatten%0A%7C+encode-csv%28includeHeader%3D%22TRUE%22%2C+separator%3D%22\t%22%2C+noQuotes%3D%22false%22%29%0A%7C+print%0A%3B&transformation=)
 
 
 Next lesson: [10 Working with XML](./10_Working_with_XML.md)
