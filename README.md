@@ -10,7 +10,7 @@ The Catmandu tutorial was created by [@phochste](https://github.com/phochste). I
 
 Since [Metafacture Fix](https://github.com/metafacture/metafacture-fix) is introducing a catmandu-fix like transformation language to Metafacture the addaption of the Catmandu Tutorial for Metafacture purposes seem to me obvioous.
 
-It should help you to get accostumed with Metafacture Core and Metafacture Fix.
+It should help you to get accustomed with Metafacture Core and Metafacture Fix.
 Have fun.
 
 Lesson plan:

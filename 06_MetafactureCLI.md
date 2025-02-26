@@ -1,4 +1,4 @@
-# Lesson 7: Using Metafacture as Command Line Tool
+# Lesson 6: Using Metafacture as Command Line Tool
 
 ## Get Metafacture Runner as CLI Tool
 

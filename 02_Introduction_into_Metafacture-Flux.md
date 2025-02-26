@@ -1,6 +1,6 @@
 # Lesson 2: Introduction into Metafacture Flux
 
-To perform data processing with Metafacture transformation workflows are configured with **Metafacture Flux**, a domain-specific scripting language(DSL).
+To perform data processing with Metafacture transformation workflows are configured with **Metafacture Flux**, a domain-specific scripting language (DSL).
 With Metafacture Flux we combine different modules for reading, opening, transforming, and writing data sets.
 
 In this lesson we will learn about Metafacture Flux, what Flux workflows are and how to combine different Flux modules to create a workflow in order to process datasets.
@@ -9,9 +9,9 @@ In this lesson we will learn about Metafacture Flux, what Flux workflows are and
 
 To process data Metafacture can be used with the command line, as JAVA library or you can use the Metafacture Playground.
 
-For this introduction we will start with the Playground since it allows a quick start without additional installing. The [Metafacture Playground](https://metafacture.org/playground) is a webinterface to test and share Metafacture.  The commandline handling will be subject in lesson 6. TODO: Add link.
+For this introduction we will start with the Playground since it allows a quick start without additional installing. The [Metafacture Playground](https://metafacture.org/playground) is a web interface to test and share Metafacture workflows.  The commandline handling will be subject in [lesson 6](./06_MetafactureCLI.md)
 
-In this tutorial we are going to process *structured information*. We call data structured when it organised in such a way is that it easy processable by computers. Literary text documents like War and Peace are structured only in words and sentences, but a computer doesn’t know which words are part of the title or which words contain names. We had to tell the computer that. Today we will download a weather report in a structured format called JSON and inspect it with Metafacture.
+In this tutorial we are going to process *structured information*. We call data structured when it organised in such a way that is easy processable by computers. Literary text documents like War and Peace are structured only in words and sentences, but a computer doesn’t know which words are part of the title or which words contain names. We had to tell the computer that. Today we will download a weather report in a structured format called JSON and inspect it with Metafacture.
 
 ## Flux Workflows
 
