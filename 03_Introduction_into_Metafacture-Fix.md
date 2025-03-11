@@ -85,7 +85,7 @@ Fix:
 retain("title", "publish_date", "type.key")
 ```
 
-Using a separate Fix file is recommended if you will need to write many Fix functions. It will keep the Flux workflow clear and legible.
+Using a separate Fix file is recommended if you need to write many Fix functions. It will keep the Flux workflow clear and legible.
 
 To add more fixes we can again edit the Fix file. 
 Lets add these lines in front of the retain function:
