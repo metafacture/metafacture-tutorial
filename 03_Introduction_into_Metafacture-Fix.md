@@ -3,7 +3,7 @@
 In the last session we learned about Flux moduls.
 Flux moduls can do a lot of things. They configure the "high-level" transformation pipeline.
 
-But the main transformation of incoming data at record, elemenet and value level is usually done by the transformation moduls `Fix` or `Morph` as one step in the pipeline.
+But the main transformation of incoming data at record, elemenet and value level is usually done by the transformation moduls Fix or Morph as one step in the pipeline.
 
 By transformation we mean things like:
 
