@@ -46,7 +46,7 @@ source_records:
 - "promise:bwb_daily_pallets_2023-05-10:W8-BRV-242"
 ```
 
-Metafacture Fix is using FixPath to access and selectively extract data out of YAML and JSON documents. It is JSONPath like but not identical. It also uses the dot notation but there are some differences with the path structure of arrays and repeated fields.
+Metafacture Fix is using FixPath to access and selectively extract data out of (semi) structured documents. It is JSONPath like but not identical. It also uses the dot notation but there are some differences with the path structure of arrays and repeated fields.
 
 You can point to every part of the YAML file using a dot-notation. For simple top level fields the path is just the name of the field:
 
