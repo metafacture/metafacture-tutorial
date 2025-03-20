@@ -18,7 +18,11 @@ To use Metafacture on the commandline we can download the latest distribution e.
 
 [https://github.com/metafacture/metafacture-core/releases](https://github.com/metafacture/metafacture-core/releases)
 
-Unzip the downloaded metafacture distribution to your choosen folder
+Hint: If 7.0.0 is not published yet use the runner version of the [prerelease 7.0.0-rc1](https://github.com/metafacture/metafacture-core/releases/tag/metafacture-core-7.0.0-rc1).
+
+The code below assumes you moved the resulting folder to your home directory and renamed it to `'metafacture'`
+
+$ ~/metafacture/flux.sh # or flux.bat on Windows
 
 ## How to run Metafacture via CLI
 
@@ -27,13 +31,13 @@ You can run your workflows:
 Unix:
 
 ```bash
-./metafacture-core-.../flux.sh path/to/your.flux
+~/metafacture/flux.sh path/to/your.flux
 ```
 
 or Windows:
 
 ```bash
-./metafacture-core-.../flux.bat path/to/your.flux
+~/metafacture/flux.bat path/to/your.flux
 ```
 
 (Hint: You need to know the path to your file to run the function.)
@@ -50,13 +54,13 @@ Export the workflow with the Export Button and lets run the flux.
 Linux:
 
 ```bash
-./metafacture-core-.../flux.sh  downloads/playground.flux
+~/metafacture/flux.sh  downloads/playground.flux
 ```
 
 or Windows:
 
 ```bash
-./metafacture-core-.../flux.bat downloads/playground.flux
+~/metafacture/flux.bat downloads/playground.flux
 ```
 
 The result of running the Flux-Script via CLI should be the same as with the Playground.
@@ -151,7 +155,7 @@ FILE
 You could use:
 
 ```bash
-./metafacture-core-.../flux.sh path/to/your.flux FILE="path/to/your/file.json"
+~/metafacture/flux.sh path/to/your.flux FILE="path/to/your/file.json"
 ```
 
 
