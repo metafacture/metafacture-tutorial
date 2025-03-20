@@ -9,22 +9,19 @@ And type into this textfile the following fixes:
 
 ```PERL
 copy_field("245??.a","title")
-add_array("creator[]")
 copy_field("100??.a","creator[].$append")
 copy_field("700??.a","creator[].$append")
 copy_field("260??.c","date")
 copy_field("260??.b","publisher")
 
-add_array("isbn[]")
 do list(path:"020??","var":"$i")
     copy_field("$i.a","isbn[].$append")
 end
-add_array("issn[]")
+
 do list(path:"022??","var":"$i")
     copy_field("$i.a","issn[].$append")
 end
 
-add_array("subject[]")
 do list(path:"650??","var":"$i")
     copy_field("$i.a","subject[].$append")
 end
@@ -87,10 +84,8 @@ Congratulations, you’ve created your first mapping file to transform library d
 Below you’ll find a complete example. You can read more about our Fix language online.
 
 ```PERL
-add_array("title")
 copy_field("245??.?","title.$append")
 join_field("title", " ")
-add_array("creator[]")
 copy_field("100??.a","creator[].$append")
 copy_field("700??.a","creator[].$append")
 copy_field("260??.c","date")
@@ -100,19 +95,16 @@ replace_all("publisher",",$","")
 
 add_field("type","BibliographicResource")
 
-add_array("isbn[]")
 do list(path:"020??","var":"$i")
     copy_field("$i.a","isbn[].$append")
 end
 replace_all("isbn.*"," .","")
 
-add_array("issn[]")
 do list(path:"022??","var":"$i")
     copy_field("$i.a","issn[].$append")
 end
 replace_all("issn.*"," .","")
 
-add_array("subject[]")
 do list(path:"650??","var":"$i")
     copy_field("$i.a","subject[].$append")
 end

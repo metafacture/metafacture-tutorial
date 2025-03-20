@@ -197,8 +197,6 @@ colours:
 and you use the fix
 
 ```PERL
-add_array("result") # To create a new array named result
-
 upcase("colours[].*")
 append("colours[].*"," is a nice color")
 copy_field("colours[].*","result.$append")
@@ -221,20 +219,18 @@ If you want to only change it, under a certain condition:
 
 ```PERL
 if any_equal("colours[]","green")
-  add_array("result[]") # To create a new array named result
   upcase("colours[].*")
   append("colours[].*"," is a nice color")
   copy_field("colours[].*","result[].$append")
 end
 ```
 
-[This still transforms the all elements of an array because the conditional tests all elements not each individually.](https://metafacture.org/playground/?flux=inputFile%0A%7C+open-file%0A%7C+as-records%0A%7C+decode-yaml%0A%7C+fix%28transformationFile%29%0A%7C+encode-yaml%0A%7C+print%0A%3B&transformation=if+any_equal%28%22colours%5B%5D%22%2C%22green%22%29%0A++add_array%28%22result%22%29+%23+To+create+a+new+array+named+result%0A%0A++upcase%28%22colours%5B%5D.%2A%22%29%0A++append%28%22colours%5B%5D.%2A%22%2C%22+is+a+nice+color%22%29%0A++copy_field%28%22colours%5B%5D.%2A%22%2C%22result.%24append%22%29%0Aend&data=---%0Acolours%3A%0A+-+red%0A+-+yellow%0A+-+green)
+[This still transforms the all elements of an array because the conditional tests all elements not each individually.](https://metafacture.org/playground/?flux=inputFile%0A%7C+open-file%0A%7C+as-records%0A%7C+decode-yaml%0A%7C+fix%28transformationFile%29%0A%7C+encode-yaml%0A%7C+print%0A%3B&transformation=if+any_equal%28%22colours%5B%5D%22%2C%22green%22%29%0A++upcase%28%22colours%5B%5D.%2A%22%29%0A++append%28%22colours%5B%5D.%2A%22%2C%22+is+a+nice+color%22%29%0A++copy_field%28%22colours%5B%5D.%2A%22%2C%22result.%24append%22%29%0Aend&data=---%0Acolours%3A%0A+-+red%0A+-+yellow%0A+-+green)
 To only tranform and copy the value `green` to an X you have to use the `do list`-Bind:
 
 ```PERL
 do list(path:"colours[]","var":"$i")
     if any_equal("$i","green")
-        add_array("result[]") # To create a new array named result
         upcase("$i")
         append("$i"," is a nice color")
         copy_field("$i","result[].$append")
@@ -242,7 +238,7 @@ do list(path:"colours[]","var":"$i")
 end
 ```
 
-[See this example here in the playground.](https://metafacture.org/playground/?flux=inputFile%0A%7C+open-file%0A%7C+as-records%0A%7C+decode-yaml%0A%7C+fix%28transformationFile%29%0A%7C+encode-yaml%0A%7C+print%0A%3B&transformation=do+list%28path%3A%22colours%5B%5D%22%2C%22var%22%3A%22%24i%22%29%0A++++if+any_equal%28%22%24i%22%2C%22green%22%29%0A++++++++add_array%28%22result%5B%5D%22%29+%23+To+create+a+new+array+named+result%0A++++++++upcase%28%22%24i%22%29%0A++++++++append%28%22%24i%22%2C%22+is+a+nice+color%22%29%0A++++++++copy_field%28%22%24i%22%2C%22result%5B%5D.%24append%22%29%0A++++end%0Aend&data=---%0Acolours%3A%0A+-+red%0A+-+yellow%0A+-+green)
+[See this example here in the playground.](https://metafacture.org/playground/?flux=inputFile%0A%7C+open-file%0A%7C+as-records%0A%7C+decode-yaml%0A%7C+fix%28transformationFile%29%0A%7C+encode-yaml%0A%7C+print%0A%3B&transformation=do+list%28path%3A%22colours%5B%5D%22%2C%22var%22%3A%22%24i%22%29%0A++++if+any_equal%28%22%24i%22%2C%22green%22%29%0A++++++++upcase%28%22%24i%22%29%0A++++++++append%28%22%24i%22%2C%22+is+a+nice+color%22%29%0A++++++++copy_field%28%22%24i%22%2C%22result%5B%5D.%24append%22%29%0A++++end%0Aend&data=---%0Acolours%3A%0A+-+red%0A+-+yellow%0A+-+green)
 
 For the supported binds see: https://metafacture.github.io/metafacture-documentation/docs/fix/Fix-functions.html#selectors
 
