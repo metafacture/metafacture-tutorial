@@ -35,5 +35,5 @@ Lesson plan:
 
 [10 Working with XML](./10_Working_with_XML.md)
 
-[11 Mapping Marc to Dublin Core](./11_MARC_to_Dublin_Core.md) (TODO)
+[11 Mapping Marc to Dublin Core](./11_MARC_to_Dublin_Core.md)
 
