@@ -127,19 +127,19 @@ end
 
 ### if...else
 
-[You can also use conditionals `if` they meet the requirements and handle all others differently with `else`:](https://metafacture.org/playground/?flux=inputFile%0A%7C+open-file%0A%7C+as-records%0A%7C+decode-yaml%0A%7C+fix%28transformationFile%29%0A%7C+encode-yaml%0A%7C+print%0A%3B&transformation=if+all_equal%28%22medium%22%2C%22Book%22%29%0A++++add_field%28%22type%22%2C%22BibliographicResource%22%29%0Aelse%0A++++add_field%28%22type%22%2C%22Other%22%29%0Aend&data=---%0Aname%3A+%22The+13+1/2+lives+of+Captain+Bluebear%22%0Amedium%3A+%22Book%22%0Aauthor%3A+%22Walter+Moers%22%0Alanguage%3A+%22eng%22%0A%0A---%0Aname%3A+%22The+13+1/2+lives+of+Captain+Bluebear%22%0Amedium%3A+%22eBook%22%0Aauthor%3A+%22Walter+Moers%22%0Alanguage%3A+%22eng%22%0A%0A---%0Aname%3A+%22Die+13%C2%BD+Leben+des+K%C3%A4pt%E2%80%99n+Blaub%C3%A4r%22%0Amedium%3A+%22Book%22%0Aauthor%3A+%22Walter+Moers%22%0Alanguage%3A+%22ger%22%0A%0A---%0Aname%3A+%22The+13+1/2+lives+of+Captain+Bluebear%22%0Amedium%3A+%22Audio+Book%22%0Aauthor%3A+%22Walter+Moers%22%0Anarrator%3A+%22Bronson+Pinchot%22%0Alanguage%3A+%22eng%22%0A%0A---%0Aname%3A+%22K%C3%A4pt%27n+Blaub%C3%A4r+-+Der+Film%22%0Amedium%3A+%22Movie%22%0Aauthor%3A+%22Walter+Moers%22%0Adirector%3A+%22Hayo+Freitag%22%0Alanguage%3A+%22ger%22)
+[You can add an `else`-block to any `if` conditional if you want to process fixes only if the contition is `falsy`:](https://metafacture.org/playground/?flux=inputFile%0A%7C+open-file%0A%7C+as-records%0A%7C+decode-yaml%0A%7C+fix%28transformationFile%29%0A%7C+encode-yaml%0A%7C+print%0A%3B&transformation=if+all_equal%28%22medium%22%2C%22Book%22%29%0A++++add_field%28%22type%22%2C%22BibliographicResource%22%29%0Aelse%0A++++add_field%28%22type%22%2C%22Other%22%29%0Aend&data=---%0Aname%3A+%22The+13+1/2+lives+of+Captain+Bluebear%22%0Amedium%3A+%22Book%22%0Aauthor%3A+%22Walter+Moers%22%0Alanguage%3A+%22eng%22%0A%0A---%0Aname%3A+%22The+13+1/2+lives+of+Captain+Bluebear%22%0Amedium%3A+%22eBook%22%0Aauthor%3A+%22Walter+Moers%22%0Alanguage%3A+%22eng%22%0A%0A---%0Aname%3A+%22Die+13%C2%BD+Leben+des+K%C3%A4pt%E2%80%99n+Blaub%C3%A4r%22%0Amedium%3A+%22Book%22%0Aauthor%3A+%22Walter+Moers%22%0Alanguage%3A+%22ger%22%0A%0A---%0Aname%3A+%22The+13+1/2+lives+of+Captain+Bluebear%22%0Amedium%3A+%22Audio+Book%22%0Aauthor%3A+%22Walter+Moers%22%0Anarrator%3A+%22Bronson+Pinchot%22%0Alanguage%3A+%22eng%22%0A%0A---%0Aname%3A+%22K%C3%A4pt%27n+Blaub%C3%A4r+-+Der+Film%22%0Amedium%3A+%22Movie%22%0Aauthor%3A+%22Walter+Moers%22%0Adirector%3A+%22Hayo+Freitag%22%0Alanguage%3A+%22ger%22)
 
 ```PERL
 if all_equal("medium","Book")
     add_field("type","BibliographicResource")
-else
+else # if previous condition is false.
     add_field("type","Other")
 end
 ```
 
-### if...elseif...else
+### if...elsif(...else)
 
-[You can also use conditionals `if` they meet the requirements and handle all others differently with an additional conditionals with `elsif` and the rest with `else`:](https://metafacture.org/playground/?flux=inputFile%0A%7C+open-file%0A%7C+as-records%0A%7C+decode-yaml%0A%7C+fix%28transformationFile%29%0A%7C+encode-yaml%0A%7C+print%0A%3B&transformation=if+all_equal%28%22medium%22%2C%22Book%22%29%0A++++add_field%28%22type%22%2C%22BibliographicResource%22%29%0Aelsif+all_contain%28%22medium%22%2C%22Audio%22%29%0A++++add_field%28%22type%22%2C%22AudioResource%22%29%0Aelsif+all_match%28%22medium%22%2C%22.%2AMovie.%2A%22%29%0A++++add_field%28%22type%22%2C%22AudioVisualResource%22%29%0Aelse%0A++++add_field%28%22type%22%2C%22Other%22%29%0Aend&data=---%0Aname%3A+%22The+13+1/2+lives+of+Captain+Bluebear%22%0Amedium%3A+%22Book%22%0Aauthor%3A+%22Walter+Moers%22%0Alanguage%3A+%22eng%22%0A%0A---%0Aname%3A+%22The+13+1/2+lives+of+Captain+Bluebear%22%0Amedium%3A+%22eBook%22%0Aauthor%3A+%22Walter+Moers%22%0Alanguage%3A+%22eng%22%0A%0A---%0Aname%3A+%22Die+13%C2%BD+Leben+des+K%C3%A4pt%E2%80%99n+Blaub%C3%A4r%22%0Amedium%3A+%22Book%22%0Aauthor%3A+%22Walter+Moers%22%0Alanguage%3A+%22ger%22%0A%0A---%0Aname%3A+%22The+13+1/2+lives+of+Captain+Bluebear%22%0Amedium%3A+%22Audio+Book%22%0Aauthor%3A+%22Walter+Moers%22%0Anarrator%3A+%22Bronson+Pinchot%22%0Alanguage%3A+%22eng%22%0A%0A---%0Aname%3A+%22K%C3%A4pt%27n+Blaub%C3%A4r+-+Der+Film%22%0Amedium%3A+%22Movie%22%0Aauthor%3A+%22Walter+Moers%22%0Adirector%3A+%22Hayo+Freitag%22%0Alanguage%3A+%22ger%22)
+[You can also use additional `elsif`-blocks in as part of an `if`-conditional if you want to process data if the previous contitional is `falsy` but add a condition when the defined transformations should be processed:](https://metafacture.org/playground/?flux=inputFile%0A%7C+open-file%0A%7C+as-records%0A%7C+decode-yaml%0A%7C+fix%28transformationFile%29%0A%7C+encode-yaml%0A%7C+print%0A%3B&transformation=if+all_equal%28%22medium%22%2C%22Book%22%29%0A++++add_field%28%22type%22%2C%22BibliographicResource%22%29%0Aelsif+all_contain%28%22medium%22%2C%22Audio%22%29%0A++++add_field%28%22type%22%2C%22AudioResource%22%29%0Aelsif+all_match%28%22medium%22%2C%22.%2AMovie.%2A%22%29%0A++++add_field%28%22type%22%2C%22AudioVisualResource%22%29%0Aelse%0A++++add_field%28%22type%22%2C%22Other%22%29%0Aend&data=---%0Aname%3A+%22The+13+1/2+lives+of+Captain+Bluebear%22%0Amedium%3A+%22Book%22%0Aauthor%3A+%22Walter+Moers%22%0Alanguage%3A+%22eng%22%0A%0A---%0Aname%3A+%22The+13+1/2+lives+of+Captain+Bluebear%22%0Amedium%3A+%22eBook%22%0Aauthor%3A+%22Walter+Moers%22%0Alanguage%3A+%22eng%22%0A%0A---%0Aname%3A+%22Die+13%C2%BD+Leben+des+K%C3%A4pt%E2%80%99n+Blaub%C3%A4r%22%0Amedium%3A+%22Book%22%0Aauthor%3A+%22Walter+Moers%22%0Alanguage%3A+%22ger%22%0A%0A---%0Aname%3A+%22The+13+1/2+lives+of+Captain+Bluebear%22%0Amedium%3A+%22Audio+Book%22%0Aauthor%3A+%22Walter+Moers%22%0Anarrator%3A+%22Bronson+Pinchot%22%0Alanguage%3A+%22eng%22%0A%0A---%0Aname%3A+%22K%C3%A4pt%27n+Blaub%C3%A4r+-+Der+Film%22%0Amedium%3A+%22Movie%22%0Aauthor%3A+%22Walter+Moers%22%0Adirector%3A+%22Hayo+Freitag%22%0Alanguage%3A+%22ger%22)
 
 ```PERL
 if all_equal("medium","Book")
@@ -244,8 +244,8 @@ end
 
 [See this example here in the playground.](https://metafacture.org/playground/?flux=inputFile%0A%7C+open-file%0A%7C+as-records%0A%7C+decode-yaml%0A%7C+fix%28transformationFile%29%0A%7C+encode-yaml%0A%7C+print%0A%3B&transformation=do+list%28path%3A%22colours%5B%5D%22%2C%22var%22%3A%22%24i%22%29%0A++++if+any_equal%28%22%24i%22%2C%22green%22%29%0A++++++++add_array%28%22result%5B%5D%22%29+%23+To+create+a+new+array+named+result%0A++++++++upcase%28%22%24i%22%29%0A++++++++append%28%22%24i%22%2C%22+is+a+nice+color%22%29%0A++++++++copy_field%28%22%24i%22%2C%22result%5B%5D.%24append%22%29%0A++++end%0Aend&data=---%0Acolours%3A%0A+-+red%0A+-+yellow%0A+-+green)
 
-TO BE CONTINUED ...
+For the supported binds see: https://metafacture.github.io/metafacture-documentation/docs/fix/Fix-functions.html#selectors
 
-TODO: Add more Excercises.
+TODO: Add excercises.
 
 Next lesson: [06 Metafacture CLI](./06_MetafactureCLI.md)

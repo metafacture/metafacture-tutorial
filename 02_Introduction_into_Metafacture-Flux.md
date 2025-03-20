@@ -1,6 +1,6 @@
 # Lesson 2: Introduction into Metafacture Flux
 
-To perform data processing with Metafacture transformation workflows are configured with **Metafacture Flux**, a domain-specific scripting language (DSL).
+To perform data processing with Metafacture transformation workflows are configured with **Metafacture Flux**, a [domain-specific scripting language (DSL)](https://en.wikipedia.org/wiki/Domain-specific_language).
 With Metafacture Flux we combine different modules for reading, opening, transforming, and writing data sets.
 
 In this lesson we will learn about Metafacture Flux, what Flux workflows are and how to combine different Flux modules to create a workflow in order to process datasets.
@@ -9,9 +9,9 @@ In this lesson we will learn about Metafacture Flux, what Flux workflows are and
 
 To process data Metafacture can be used with the command line, as JAVA library or you can use the Metafacture Playground.
 
-For this introduction we will start with the Playground since it allows a quick start without additional installing. The [Metafacture Playground](https://metafacture.org/playground) is a web interface to test and share Metafacture workflows.  The commandline handling will be subject in [lesson 6](./06_MetafactureCLI.md)
+For this introduction we will start with the Playground since it allows a quick start without additional installing. The [Metafacture Playground](https://metafacture.org/playground) is a web interface to test and share Metafacture workflows. The commandline handling will be subject in [lesson 6](./06_MetafactureCLI.md)
 
-In this tutorial we are going to process *structured information*. We call data structured when it organised in such a way that is easy processable by computers. Literary text documents like *War and Peace* are structured only in words and sentences, but a computer doesn’t know which words are part of the title or which words contain names. We had to tell the computer that. Today we will download a weather report in a structured format called JSON and inspect it with Metafacture.
+In this tutorial we are going to process *structured information*. We call data structured when it organised in such a way that is easy processable by computers. Literary text documents like *War and Peace* are structured only in words and sentences, but a computer doesn’t know which words are part of the title or which words contain names. We had to tell the computer that. Today we will download a book record in a structured format called JSON and inspect it with Metafacture.
 
 ## Flux Workflows
 
@@ -56,7 +56,7 @@ But the result is the same if you process the flux.
 
 Often you want to process data stored in a file.
 
-The playground has an input area called `ìnputFile-content`. In this text area you can insert data that you have usually stored in a file. The variable `inputFile` can be used at the beginning of the workflow and it refers to the input file.
+The playground has an input area called `ìnputFile-content`. In this text area you can insert data that you have usually stored in a file. The variable `inputFile` can be used at the beginning of the workflow and it refers to the input file represented by the `ìnputFile-content`-area.
 
 e.g.
 
@@ -65,7 +65,7 @@ e.g.
 
 So lets use `inputFile` instead of `INPUT` and copy the value of the text string in the Data field above the Flux.
 
-Data:
+Data for `inputFile-content`:
 
 `Hello, friend. I'am Metafacture!`
 
@@ -81,7 +81,7 @@ Oops... There seems to be unusual output. Its a file path. Why?
 Because the variable `inputFile` refers to a file (path).
 To read the content of the file we need to handle the incoming file path differently.
 
-(You will learn how to process files on your computer in lesson 06 when we show how to run metafacture on the command line.)
+(You will learn how to process files on your computer in lesson 06 when we show how to run metafacture on the command line on your computer.)
 
 We need to add two additional Metafacture commands: `open-file` and `as-lines`
 
@@ -215,13 +215,13 @@ last_modified:
 
 This is better readable, right?
 
-But we cannot only open the data we have in our `ìnputFile-content` field, we also can open stuff on the web:
+But we cannot only open the data we have in our `inputFile-content` field, we also can open stuff on the web:
 
 Instead of using `inputFile` lets read the book data which is provided by the URL from above:
 
 Clear your playground and copy the following Flux workflow:
 
-```
+```default
 "https://openlibrary.org/books/OL2838758M.json"
 | open-http
 | as-lines
@@ -259,7 +259,7 @@ Now take some time and play around a little bit more and use some other modules.
 
 <summary>Click to see the new workflow</summary>
 
-```
+```default
 "https://openlibrary.org/books/OL2838758M.json"
 | open-http
 | as-lines

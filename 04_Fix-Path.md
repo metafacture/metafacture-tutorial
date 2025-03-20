@@ -1,12 +1,12 @@
 # Lesson 4: FixPath and more complex transformations in Fix
 
-Over the last lessons we learned how to construct a Metafacture workflow, how to use the Playground and how Metafacture Flux and Fix can be used to parse structured information. We saw how you can use Flux to transform the JSON format into the YAML format which is easier to read and contains the same information. We also learned how to retrieve information out of the JSON file using a Fix function like `retain("title", "publish_date", "type.key")`.
+Over the last lessons we learned how to construct a Metafacture workflow, how to use the Playground and how Metafacture Flux and Fix can be used to parse structured information. We saw how you can use Flux to transform the JSON format into the YAML format which is easier to read and contains the same information. We also learned how to retrieve information out of the JSON file using a Fix function like `retain("title", "publish_date", "notes.value", "type.key")`.
 
 In this lesson we will go deeper into Metafacture Fix and describe how to pluck data out of structured information.
 
 First, let's fetch of a new book with the Metafacture Playground:
 
-```
+```default
 "https://openlibrary.org/books/OL27333998M.json"
 | open-http
 | as-lines
@@ -115,7 +115,7 @@ If you want to refer to all creators then you can use the `*` sign as a wildcard
 [See here](https://metafacture.org/playground/?flux=inputFile%0A%7Copen-file%0A%7Cas-records%0A%7Cdecode-yaml%0A%7Cfix%28transformationFile%29%0A%7Cencode-json%28prettyPrinting%3D%22true%22%29%0A%7Cprint%0A%3B&transformation=append%28%22creator.1%22%2C%22+Jonas%22%29%0Aappend%28%22creator.2%22%2C%22+Shaw%22%29%0Aappend%28%22creator.3%22%2C%22+Andrews%22%29%0Aprepend%28%22creator.%2A%22%2C%22Investigator+%22%29&data=---%0Acreator%3A+Justus%0Acreator%3A+Peter%0Acreator%3A+Bob%0A)
 </details>
 
-### Working with arrays
+### Working with JSON and YAML arrays
 
 In JSON or YAML element repetion is possible but unusual. Instead of repeating elements an element can have a list or array of values.
 
@@ -166,7 +166,7 @@ So, the path of the `red` would be: `my.colors[].2`
 
 And the path for `Peter` would be `characters[].2.name`
 
-Also if you want to generate an array in the target format, then you need to add `[]` at the end of an list element like `newArray[]`.
+Also if you want to generate an array in the target format JSON or YAML, then you need to add `[]` at the end of an list element like `newArray[]`.
 
 ## Excercise:
 

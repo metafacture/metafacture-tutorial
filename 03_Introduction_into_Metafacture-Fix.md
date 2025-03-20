@@ -3,7 +3,7 @@
 In the last session we learned about Flux moduls.
 Flux moduls can do a lot of things. They configure the "high-level" transformation pipeline.
 
-But the main transformation of incoming data at record, elemenet and value level is usually done by the transformation moduls Fix or Morph as one step in the pipeline.
+But the main transformation of incoming data at record, elemenet and value level is usually done by the transformation moduls [Fix](https://metafacture.github.io/metafacture-documentation/docs/flux/flux-commands.html#fix) or [Morph](https://metafacture.github.io/metafacture-documentation/docs/flux/flux-commands.html#morph) as one step in the pipeline.
 
 By transformation we mean things like:
 
@@ -13,7 +13,7 @@ By transformation we mean things like:
 
 But not changing serialization that is part of encoding and decoding.
 
-In this tutorial we focus on Fix. If you want to learn about Morph have a look at https://slides.lobid.org/metafacture-2020/#/
+In this tutorial we focus on [Fix](https://metafacture.github.io/metafacture-documentation/docs/flux/flux-commands.html#fix). If you want to learn about Morph have a look [at this presentation](https://slides.lobid.org/metafacture-2020/#/) and the [great documentation by Swiss Bib](https://sschuepbach.github.io/metamorph-hacks/).
 
 
 ## Metafacture Fix and Fix Functions
@@ -22,7 +22,7 @@ So let's dive into Metafacture Fix and get back to the [Playground](https://meta
 
 Clear it if needed and paste the following Flux in the Flux-File area.
 
-```
+```default
 "https://openlibrary.org/books/OL2838758M.json"
 | open-http
 | as-lines
@@ -47,12 +47,12 @@ and single quotes in the fix functions. As we did here: `fix ("retain('title')")
 
 Now let us additionally keep the info that is given in the element `"publish_date"` and the subfield `"key"` in `'type'` by adding `'publish_date', 'type.key'` to `retain`:
 
-```
+```default
 "https://openlibrary.org/books/OL2838758M.json"
 | open-http
 | as-lines
 | decode-json
-| fix ("retain('title', 'publish_date', 'type.key')")
+| fix ("retain('title', 'publish_date', 'notes.value', 'type.key')")
 | encode-yaml
 | print
 ;
@@ -64,11 +64,10 @@ You should now see something like this:
 ---
 title: "Ordinary vices"
 publish_date: "1984"
-type:
-  key: "/type/edition"
+notes:
+  value: "Bibliography: p. 251-260.\nIncludes index."
 
 ```
-**TODO**: In diesem Beispiel macht es im Ergebnis keinen Unterscheid, ob man `type` oder `type.key` adressiert. Vielleicht ein anderes Beispiel wählen wie z. B. `identifiers`, wo mehrere Unterfelder vorhanden sind?
 
 When manipulating data you often need to create many fixes to process a data file in the format and structure you need. With a text editor you can write all fix functions in a singe separate Fix file.
 
@@ -82,7 +81,7 @@ Like this.
 Fix:
 
 ```PERL
-retain("title", "publish_date", "type.key")
+retain("title", "publish_date", "notes.value", "type.key")
 ```
 
 Using a separate Fix file is recommended if you need to write many Fix functions. It will keep the Flux workflow clear and legible.
@@ -98,7 +97,7 @@ Also change the `retain` function so that you keep the new element `"pub_type"` 
 
 ```
 move_field("type.key","pub_type")
-retain("title", "publish_date", "pub_type")
+retain("title", "publish_date",  "notes.value", "pub_type")
 ```
 
 The output should be something like this:
@@ -108,6 +107,8 @@ The output should be something like this:
 title: "Ordinary vices"
 publish_date: "1984"
 pub_type: "/type/edition"
+notes:
+  value: "Bibliography: p. 251-260.\nIncludes index."
 ```
 
 With `move_field` we moved and renamed an existing element.
@@ -124,6 +125,8 @@ If you execute your last workflow with the "Process" button again, you should no
 title: "Ordinary vices"
 publish_date: "1984"
 pub_type: "edition"
+notes:
+  value: "Bibliography: p. 251-260.\nIncludes index."
 ```
 
 We cleaned up the value of `"pub_type"` element for better readability.
@@ -142,7 +145,7 @@ Comments in Fix start with a hash mark `#`, while in Flux they start with `//`.
 
 Example:
 
-```
+```PERL
 # Make type.key a top level element.
 move_field("type.key","pub_type")
 
