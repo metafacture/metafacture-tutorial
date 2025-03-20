@@ -2,6 +2,9 @@
 
 ## Get Metafacture Runner as CLI Tool
 
+Hint: This lesson requires basic practical knowledge of the command line and Shell.
+If you want to get familiar with tit, have a look at the great intro to Unix Shell by Library Carpentry: https://librarycarpentry.github.io/lc-shell/ (Session 1 - 3) You could also have a look at the great introdution by the Programming Historian to Powershell: https://programminghistorian.org/en/lessons/intro-to-powershell
+
 While we had fun with our Metafacture Playground another way to use Metafacture is
 the command line. For running a Metafacture flux process we need a terminal and installed JAVA 11 ore higher.
 For creating and editing Flux and Fix files we need an texteditor like Codium/VS Code or others.
@@ -38,7 +41,7 @@ or Windows:
 To get quick started let's revisit a Flux we toyed around with in the playground.
 The playground has a nice feature to export and import Metafacture Workflows.
 
-[So lets go to the Playground.](https://metafacture.org/playground/?flux=%22https%3A//weather-proxy.freecodecamp.rocks/api/current%3Flat%3D50.93414%26lon%3D6.93147%22%0A%7C+open-http%0A%7C+as-lines%0A%7C+decode-json%0A%7C+encode-yaml%0A%7C+print%0A%3B&active-editor=fix)
+[So lets go to the Playground.](https://metafacture.org/playground/?flux=%22https%3A//openlibrary.org/books/OL2838758M.json%22%0A%7C+open-http%0A%7C+as-lines%0A%7C+decode-json%0A%7C+encode-yaml%0A%7C+print%0A%3B)
 
 Export the workflow with the Export Button and lets run the flux.
 
@@ -62,7 +65,7 @@ The Metafacture CLI Tool expects a flux file for every workflow.
 Our runned workflow only has the following flux and no additional files since it i querring data from the web and it has no fix transformations.
 
 ```default
-"https://weather-proxy.freecodecamp.rocks/api/current?lat=50.93414&lon=6.93147"
+"https://openlibrary.org/books/OL2838758M.json"
 | open-http
 | as-lines
 | decode-json
@@ -152,7 +155,7 @@ You could use:
 ```
 
 
-Excercise: Download the following folder with three test examples and run them. Adjust them if needed:
+Excercise: Download the following folder (TODO) with three test examples and run them. Adjust them if needed:
 
 - Run example script locally.
 - Adjust example script so that all json files but no other in the folder are read. Get inspired by https://github.com/metafacture/metafacture-core/blob/master/metafacture-runner/src/main/dist/examples/misc/reading-dirs/read-dirs.flux.
