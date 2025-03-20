@@ -20,6 +20,8 @@ To use Metafacture on the commandline we can download the latest distribution e.
 
 Hint: If 7.0.0 is not published yet use the runner version of the [prerelease 7.0.0-rc1](https://github.com/metafacture/metafacture-core/releases/tag/metafacture-core-7.0.0-rc1).
 
+Download `metafacture-core-$VERSION-dist.tar.gz` or the zip version and extract the archive.
+
 The code below assumes you moved the resulting folder to your home directory and renamed it to `'metafacture'`
 
 $ ~/metafacture/flux.sh # or flux.bat on Windows
