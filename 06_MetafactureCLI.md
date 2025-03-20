@@ -1,6 +1,9 @@
-# Lesson 6: Using Metafacture as Command Line Tool
+# Lesson 7: Using Metafacture as Command Line Tool
 
 ## Get Metafacture Runner as CLI Tool
+
+Hint: This lesson requires basic practical knowledge of the command line and Shell.
+If you want to get familiar with tit, have a look at the great intro to Unix Shell by Library Carpentry: https://librarycarpentry.github.io/lc-shell/ (Session 1 - 3) You could also have a look at the great introdution by the Programming Historian to Powershell: https://programminghistorian.org/en/lessons/intro-to-powershell
 
 While we had fun with our Metafacture Playground another way to use Metafacture is
 the command line. For running a Metafacture flux process we need a terminal and installed JAVA 11 ore higher.
@@ -11,11 +14,11 @@ For this lesson basic knowledge of the commandline is recommended.
 Check if Java 11 or higher is installed with `java -version` in your terminal.
 If not, install JAVA 11 or higher.
 
-To use Metafacture on the commandline we can download the latest distribution e.g.: `metafacture-core-7.0.0-dist.zip`:
+To use Metafacture on the commandline we can download the latest runner of Metafacture Fix:
 
-[https://github.com/metafacture/metafacture-core/releases](https://github.com/metafacture/metafacture-core/releases)
+[https://github.com/metafacture/metafacture-fix/releases](https://github.com/metafacture/metafacture-fix/releases)
 
-Unzip the downloaded metafacture distribution to your choosen folder
+Unzip the downloaded metafix-runner distribution to your choosen folder
 
 ## How to run Metafacture via CLI
 
@@ -24,13 +27,13 @@ You can run your workflows:
 Unix:
 
 ```bash
-./metafacture-core-.../flux.sh path/to/your.flux
+./bin/metafix-runner path/to/your.flux
 ```
 
 or Windows:
 
 ```bash
-./metafacture-core-.../flux.bat path/to/your.flux
+./bin/metafix-runner.bat path/to/your.flux
 ```
 
 (Hint: You need to know the path to your file to run the function.)
@@ -38,7 +41,7 @@ or Windows:
 To get quick started let's revisit a Flux we toyed around with in the playground.
 The playground has a nice feature to export and import Metafacture Workflows.
 
-[So lets go to the Playground.](https://metafacture.org/playground/?flux=%22https%3A//weather-proxy.freecodecamp.rocks/api/current%3Flat%3D50.93414%26lon%3D6.93147%22%0A%7C+open-http%0A%7C+as-lines%0A%7C+decode-json%0A%7C+encode-yaml%0A%7C+print%0A%3B&active-editor=fix)
+[So lets go to the Playground.](https://metafacture.org/playground/?flux=%22https%3A//openlibrary.org/books/OL2838758M.json%22%0A%7C+open-http%0A%7C+as-lines%0A%7C+decode-json%0A%7C+encode-yaml%0A%7C+print%0A%3B)
 
 Export the workflow with the Export Button and lets run the flux.
 
@@ -47,13 +50,13 @@ Export the workflow with the Export Button and lets run the flux.
 Linux:
 
 ```bash
-./metafacture-core-.../flux.sh  downloads/playground.flux
+./bin/metafix-runner downloads/playground.flux
 ```
 
 or Windows:
 
 ```bash
-./metafacture-core-.../flux.bat downloads/playground.flux
+./bin/metafix-runner.bat downloads/playground.flux
 ```
 
 The result of running the Flux-Script via CLI should be the same as with the Playground.
@@ -62,7 +65,7 @@ The Metafacture CLI Tool expects a flux file for every workflow.
 Our runned workflow only has the following flux and no additional files since it i querring data from the web and it has no fix transformations.
 
 ```default
-"https://weather-proxy.freecodecamp.rocks/api/current?lat=50.93414&lon=6.93147"
+"https://openlibrary.org/books/OL2838758M.json"
 | open-http
 | as-lines
 | decode-json
@@ -75,7 +78,7 @@ Our runned workflow only has the following flux and no additional files since it
 
 If you want to load a local file instead of fetching data from the web we need to change the flux a little bit with an texteditor.
 Download the following file [11942150X.json](/home/tobias/git/metafacture-tutorial/sample-scripts/lesson_06/11942150X.json)
-and adjust the path to your file.
+and adjust the path to your file. Path refrences are given 
 
 Adjust your `downloads/playground.flux` script:
 
@@ -148,16 +151,15 @@ FILE
 You could use:
 
 ```bash
-./metafacture-core-.../flux.sh path/to/your.flux FILE="path/to/your/file.json"
+./bin/metafix-runner path/to/your.flux FILE="path/to/your/file.json"
 ```
 
 
-Excercise: Download the following folder with three test examples and run them. Adjust them if needed:
 
-- Run example script locally.
-- Adjust example script so that all json files but no other in the folder are read. Get inspired by https://github.com/metafacture/metafacture-core/blob/master/metafacture-runner/src/main/dist/examples/misc/reading-dirs/read-dirs.flux.
-- Change the FLUX script so that you write the output in the local file instead of stoudt.
-- Add a fix file and add the fix module in the flux. With `nothing()` as content.
-- Add some transformations to the fix e.g. add fields.
+TODO: Give homework:
+	- Provide a file or a file-folder.
+	- Give a homework.
+	- Give the solution.
+
 
  Next lesson: [07 Processing MARC](./07_Processing_MARC.md)
