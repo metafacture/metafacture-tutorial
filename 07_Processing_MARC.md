@@ -90,7 +90,7 @@ Flux:
 
 You will see:
 
-```YAML
+```yaml
 ---
 _id: "1098313828"
 
@@ -145,7 +145,7 @@ You need paths of the elements to extract the data. For instance the MARC leader
 
 [See it in the playground.](https://metafacture.org/playground/?flux=%22https%3A//raw.githubusercontent.com/metafacture/metafacture-tutorial/main/data/sample.mrc%22%0A%7C+open-http%0A%7C+as-lines%0A%7C+decode-marc21%0A%7C+fix%28%22retain%28%27leader%27%29%22%29%0A%7C+encode-yaml%0A%7C+print%0A%3B%0A)
 
-```YAML
+```yaml
 ---
 leader:
   status: "n"
@@ -278,7 +278,7 @@ Flux:
 ```
 
 with transformationFile.fix:
-```PERL
+```perl
 copy_field("245??.a", "title")
 retain("title")
 ```
@@ -289,7 +289,7 @@ More elaborate mappings can be done too. I’ll show you more complete examples 
 
 Step 1, create a fix file `transformationFile.fix` containing:
 
-```PERL
+```perl
 copy_field("001","id")
 add_array("title")
 do list(path: "245??.?","var":"$i")

@@ -8,7 +8,7 @@ These Fix concepts were introduced by Catmandu (see [functions](https://librecat
 
 The following code snippet shows examples of each of these concepts:
 
-```PERL
+```perl
 # Simple Fix function
 add_field("hello", "world")
 remove_field("my.deep.nested.junk")
@@ -46,7 +46,7 @@ The other three concepts help when you intend to use more complex transformation
 
 *[Binds](https://metafacture.github.io/metafacture-documentation/docs/fix/Fix-functions.html#binds)* are wrappers for one or more fixes. They give extra control functionality for fixes such as loops. All binds have the same syntax:
 
-```PERL
+```perl
 do Bind(params,…)
    fix(..)
    fix(..)
@@ -59,7 +59,7 @@ Conditionals are a common concept in programming and scripting languages. They c
 
 For example, [we have records some of them are of type book](https://metafacture.org/playground/?flux=inputFile%0A%7C+open-file%0A%7C+as-records%0A%7C+decode-yaml%0A%7C+fix%28transformationFile%29%0A%7C+encode-yaml%0A%7C+print%0A%3B&transformation=add_field%28%22type%22%2C%22BibliographicResource%22%29&data=---%0Aname%3A+%22The+13+1/2+lives+of+Captain+Bluebear%22%0Amedium%3A+%22Book%22%0Aauthor%3A+%22Walter+Moers%22%0Alanguage%3A+%22eng%22%0A%0A---%0Aname%3A+%22The+13+1/2+lives+of+Captain+Bluebear%22%0Amedium%3A+%22eBook%22%0Aauthor%3A+%22Walter+Moers%22%0Alanguage%3A+%22eng%22%0A%0A---%0Aname%3A+%22Die+13%C2%BD+Leben+des+K%C3%A4pt%E2%80%99n+Blaub%C3%A4r%22%0Amedium%3A+%22Book%22%0Aauthor%3A+%22Walter+Moers%22%0Alanguage%3A+%22ger%22%0A%0A---%0Aname%3A+%22The+13+1/2+lives+of+Captain+Bluebear%22%0Amedium%3A+%22Audio+Book%22%0Aauthor%3A+%22Walter+Moers%22%0Anarrator%3A+%22Bronson+Pinchot%22%0Alanguage%3A+%22eng%22%0A%0A---%0Aname%3A+%22K%C3%A4pt%27n+Blaub%C3%A4r+-+Der+Film%22%0Amedium%3A+%22Movie%22%0Aauthor%3A+%22Walter+Moers%22%0Adirector%3A+%22Hayo+Freitag%22%0Alanguage%3A+%22ger%22):
 
-```YAML
+```yaml
 ---
 name: "The 13 1/2 lives of Captain Bluebear"
 medium: "Book"
@@ -101,7 +101,7 @@ But if you want to add more specific type depending on the medium then we use co
 
 only `add_field("type","BibliographicResource")` [if medium **contains** Book](https://metafacture.org/playground/?flux=inputFile%0A%7C+open-file%0A%7C+as-records%0A%7C+decode-yaml%0A%7C+fix%28transformationFile%29%0A%7C+encode-yaml%0A%7C+print%0A%3B&transformation=if+all_contain%28%22medium%22%2C%22Book%22%29%0A++++add_field%28%22type%22%2C%22BibliographicResource%22%29%0Aend&data=---%0Aname%3A+%22The+13+1/2+lives+of+Captain+Bluebear%22%0Amedium%3A+%22Book%22%0Aauthor%3A+%22Walter+Moers%22%0Alanguage%3A+%22eng%22%0A%0A---%0Aname%3A+%22The+13+1/2+lives+of+Captain+Bluebear%22%0Amedium%3A+%22eBook%22%0Aauthor%3A+%22Walter+Moers%22%0Alanguage%3A+%22eng%22%0A%0A---%0Aname%3A+%22Die+13%C2%BD+Leben+des+K%C3%A4pt%E2%80%99n+Blaub%C3%A4r%22%0Amedium%3A+%22Book%22%0Aauthor%3A+%22Walter+Moers%22%0Alanguage%3A+%22ger%22%0A%0A---%0Aname%3A+%22The+13+1/2+lives+of+Captain+Bluebear%22%0Amedium%3A+%22Audio+Book%22%0Aauthor%3A+%22Walter+Moers%22%0Anarrator%3A+%22Bronson+Pinchot%22%0Alanguage%3A+%22eng%22%0A%0A---%0Aname%3A+%22K%C3%A4pt%27n+Blaub%C3%A4r+-+Der+Film%22%0Amedium%3A+%22Movie%22%0Aauthor%3A+%22Walter+Moers%22%0Adirector%3A+%22Hayo+Freitag%22%0Alanguage%3A+%22ger%22):
 
-```PERL
+```perl
 if all_contain("medium","Book")
     add_field("type","BibliographicResource")
 end
@@ -109,7 +109,7 @@ end
 
 or [if medium is **exact** Book](https://metafacture.org/playground/?flux=inputFile%0A%7C+open-file%0A%7C+as-records%0A%7C+decode-yaml%0A%7C+fix%28transformationFile%29%0A%7C+encode-yaml%0A%7C+print%0A%3B&transformation=if+all_equal%28%22medium%22%2C%22Book%22%29%0A++++add_field%28%22type%22%2C%22BibliographicResource%22%29%0Aend&data=---%0Aname%3A+%22The+13+1/2+lives+of+Captain+Bluebear%22%0Amedium%3A+%22Book%22%0Aauthor%3A+%22Walter+Moers%22%0Alanguage%3A+%22eng%22%0A%0A---%0Aname%3A+%22The+13+1/2+lives+of+Captain+Bluebear%22%0Amedium%3A+%22eBook%22%0Aauthor%3A+%22Walter+Moers%22%0Alanguage%3A+%22eng%22%0A%0A---%0Aname%3A+%22Die+13%C2%BD+Leben+des+K%C3%A4pt%E2%80%99n+Blaub%C3%A4r%22%0Amedium%3A+%22Book%22%0Aauthor%3A+%22Walter+Moers%22%0Alanguage%3A+%22ger%22%0A%0A---%0Aname%3A+%22The+13+1/2+lives+of+Captain+Bluebear%22%0Amedium%3A+%22Audio+Book%22%0Aauthor%3A+%22Walter+Moers%22%0Anarrator%3A+%22Bronson+Pinchot%22%0Alanguage%3A+%22eng%22%0A%0A---%0Aname%3A+%22K%C3%A4pt%27n+Blaub%C3%A4r+-+Der+Film%22%0Amedium%3A+%22Movie%22%0Aauthor%3A+%22Walter+Moers%22%0Adirector%3A+%22Hayo+Freitag%22%0Alanguage%3A+%22ger%22):
 
-```PERL
+```perl
 if all_equal("medium","Book")
     add_field("type","BibliographicResource")
 end
@@ -119,7 +119,7 @@ end
 
 Use `unless` [to add transformations for all that do **not** meet the condition:](https://metafacture.org/playground/?flux=inputFile%0A%7C+open-file%0A%7C+as-records%0A%7C+decode-yaml%0A%7C+fix%28transformationFile%29%0A%7C+encode-yaml%0A%7C+print%0A%3B&transformation=unless+all_equal%28%22medium%22%2C%22Book%22%29%0A++++add_field%28%22type%22%2C%22Other%22%29%0Aend&data=---%0Aname%3A+%22The+13+1/2+lives+of+Captain+Bluebear%22%0Amedium%3A+%22Book%22%0Aauthor%3A+%22Walter+Moers%22%0Alanguage%3A+%22eng%22%0A%0A---%0Aname%3A+%22The+13+1/2+lives+of+Captain+Bluebear%22%0Amedium%3A+%22eBook%22%0Aauthor%3A+%22Walter+Moers%22%0Alanguage%3A+%22eng%22%0A%0A---%0Aname%3A+%22Die+13%C2%BD+Leben+des+K%C3%A4pt%E2%80%99n+Blaub%C3%A4r%22%0Amedium%3A+%22Book%22%0Aauthor%3A+%22Walter+Moers%22%0Alanguage%3A+%22ger%22%0A%0A---%0Aname%3A+%22The+13+1/2+lives+of+Captain+Bluebear%22%0Amedium%3A+%22Audio+Book%22%0Aauthor%3A+%22Walter+Moers%22%0Anarrator%3A+%22Bronson+Pinchot%22%0Alanguage%3A+%22eng%22%0A%0A---%0Aname%3A+%22K%C3%A4pt%27n+Blaub%C3%A4r+-+Der+Film%22%0Amedium%3A+%22Movie%22%0Aauthor%3A+%22Walter+Moers%22%0Adirector%3A+%22Hayo+Freitag%22%0Alanguage%3A+%22ger%22)
 
-```PERL
+```perl
 unless all_equal("medium","Book")
     add_field("type","Other")
 end
@@ -129,7 +129,7 @@ end
 
 [You can add an `else`-block to any `if` conditional if you want to process fixes only if the contition is `falsy`:](https://metafacture.org/playground/?flux=inputFile%0A%7C+open-file%0A%7C+as-records%0A%7C+decode-yaml%0A%7C+fix%28transformationFile%29%0A%7C+encode-yaml%0A%7C+print%0A%3B&transformation=if+all_equal%28%22medium%22%2C%22Book%22%29%0A++++add_field%28%22type%22%2C%22BibliographicResource%22%29%0Aelse%0A++++add_field%28%22type%22%2C%22Other%22%29%0Aend&data=---%0Aname%3A+%22The+13+1/2+lives+of+Captain+Bluebear%22%0Amedium%3A+%22Book%22%0Aauthor%3A+%22Walter+Moers%22%0Alanguage%3A+%22eng%22%0A%0A---%0Aname%3A+%22The+13+1/2+lives+of+Captain+Bluebear%22%0Amedium%3A+%22eBook%22%0Aauthor%3A+%22Walter+Moers%22%0Alanguage%3A+%22eng%22%0A%0A---%0Aname%3A+%22Die+13%C2%BD+Leben+des+K%C3%A4pt%E2%80%99n+Blaub%C3%A4r%22%0Amedium%3A+%22Book%22%0Aauthor%3A+%22Walter+Moers%22%0Alanguage%3A+%22ger%22%0A%0A---%0Aname%3A+%22The+13+1/2+lives+of+Captain+Bluebear%22%0Amedium%3A+%22Audio+Book%22%0Aauthor%3A+%22Walter+Moers%22%0Anarrator%3A+%22Bronson+Pinchot%22%0Alanguage%3A+%22eng%22%0A%0A---%0Aname%3A+%22K%C3%A4pt%27n+Blaub%C3%A4r+-+Der+Film%22%0Amedium%3A+%22Movie%22%0Aauthor%3A+%22Walter+Moers%22%0Adirector%3A+%22Hayo+Freitag%22%0Alanguage%3A+%22ger%22)
 
-```PERL
+```perl
 if all_equal("medium","Book")
     add_field("type","BibliographicResource")
 else # if previous condition is false.
@@ -141,7 +141,7 @@ end
 
 [You can also use additional `elsif`-blocks in as part of an `if`-conditional if you want to process data if the previous contitional is `falsy` but add a condition when the defined transformations should be processed:](https://metafacture.org/playground/?flux=inputFile%0A%7C+open-file%0A%7C+as-records%0A%7C+decode-yaml%0A%7C+fix%28transformationFile%29%0A%7C+encode-yaml%0A%7C+print%0A%3B&transformation=if+all_equal%28%22medium%22%2C%22Book%22%29%0A++++add_field%28%22type%22%2C%22BibliographicResource%22%29%0Aelsif+all_contain%28%22medium%22%2C%22Audio%22%29%0A++++add_field%28%22type%22%2C%22AudioResource%22%29%0Aelsif+all_match%28%22medium%22%2C%22.%2AMovie.%2A%22%29%0A++++add_field%28%22type%22%2C%22AudioVisualResource%22%29%0Aelse%0A++++add_field%28%22type%22%2C%22Other%22%29%0Aend&data=---%0Aname%3A+%22The+13+1/2+lives+of+Captain+Bluebear%22%0Amedium%3A+%22Book%22%0Aauthor%3A+%22Walter+Moers%22%0Alanguage%3A+%22eng%22%0A%0A---%0Aname%3A+%22The+13+1/2+lives+of+Captain+Bluebear%22%0Amedium%3A+%22eBook%22%0Aauthor%3A+%22Walter+Moers%22%0Alanguage%3A+%22eng%22%0A%0A---%0Aname%3A+%22Die+13%C2%BD+Leben+des+K%C3%A4pt%E2%80%99n+Blaub%C3%A4r%22%0Amedium%3A+%22Book%22%0Aauthor%3A+%22Walter+Moers%22%0Alanguage%3A+%22ger%22%0A%0A---%0Aname%3A+%22The+13+1/2+lives+of+Captain+Bluebear%22%0Amedium%3A+%22Audio+Book%22%0Aauthor%3A+%22Walter+Moers%22%0Anarrator%3A+%22Bronson+Pinchot%22%0Alanguage%3A+%22eng%22%0A%0A---%0Aname%3A+%22K%C3%A4pt%27n+Blaub%C3%A4r+-+Der+Film%22%0Amedium%3A+%22Movie%22%0Aauthor%3A+%22Walter+Moers%22%0Adirector%3A+%22Hayo+Freitag%22%0Alanguage%3A+%22ger%22)
 
-```PERL
+```perl
 if all_equal("medium","Book")
     add_field("type","BibliographicResource")
 elsif all_contain("medium","Audio")
@@ -159,7 +159,7 @@ Metafacture supports lots of conditionals, find a list of all of them [here](htt
 
 At the moment Metafacture Fix only supports one of Catmandus selectors: `reject`. With `reject` you can kick out records that you do not want to process:
 
-```PERL
+```perl
 if all_contain("medium","Book")
     reject()
 end
@@ -175,7 +175,7 @@ For the supported selectors see: https://metafacture.github.io/metafacture-docum
 
 As mentioned above [Binds](https://metafacture.github.io/metafacture-documentation/docs/fix/Fix-functions.html#binds) are wrappers for one or more fixes. They give extra control functionality for fixes such as loops. All binds have the same syntax:
 
-```PERL
+```perl
 do Bind(params,…)
    fix(..)
    fix(..)
@@ -186,7 +186,7 @@ The most commonly used is `do list`. It allows to iterate over each element of a
 
 If we have a record:
 
-```YAML
+```yaml
 ---
 colours:
  - red
@@ -196,7 +196,7 @@ colours:
 
 and you use the fix
 
-```PERL
+```perl
 upcase("colours[].*")
 append("colours[].*"," is a nice color")
 copy_field("colours[].*","result.$append")
@@ -204,7 +204,7 @@ copy_field("colours[].*","result.$append")
 
 It [results](https://metafacture.org/playground/?flux=inputFile%0A%7C+open-file%0A%7C+as-records%0A%7C+decode-yaml%0A%7C+fix%28transformationFile%29%0A%7C+encode-yaml%0A%7C+print%0A%3B&transformation=replace_all%28%22colours%5B%5D.%2A%22%2C%22e%22%2C%22X%22%29&data=---%0Acolours%3A%0A+-+red%0A+-+yellow%0A+-+green) in:
 
-```YAML
+```yaml
 ---
 colours:
 - "RED is a nice color"
@@ -217,7 +217,7 @@ result: "GREEN is a nice color"
 
 If you want to only change it, under a certain condition:
 
-```PERL
+```perl
 if any_equal("colours[]","green")
   upcase("colours[].*")
   append("colours[].*"," is a nice color")
@@ -228,7 +228,7 @@ end
 [This still transforms the all elements of an array because the conditional tests all elements not each individually.](https://metafacture.org/playground/?flux=inputFile%0A%7C+open-file%0A%7C+as-records%0A%7C+decode-yaml%0A%7C+fix%28transformationFile%29%0A%7C+encode-yaml%0A%7C+print%0A%3B&transformation=if+any_equal%28%22colours%5B%5D%22%2C%22green%22%29%0A++upcase%28%22colours%5B%5D.%2A%22%29%0A++append%28%22colours%5B%5D.%2A%22%2C%22+is+a+nice+color%22%29%0A++copy_field%28%22colours%5B%5D.%2A%22%2C%22result.%24append%22%29%0Aend&data=---%0Acolours%3A%0A+-+red%0A+-+yellow%0A+-+green)
 To only tranform and copy the value `green` to an X you have to use the `do list`-Bind:
 
-```PERL
+```perl
 do list(path:"colours[]","var":"$i")
     if any_equal("$i","green")
         upcase("$i")

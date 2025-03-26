@@ -7,7 +7,7 @@ To transform this MARC file into Dublin Core we need to create a fix file. You c
 
 And type into this textfile the following fixes:
 
-```PERL
+```perl
 copy_field("245??.a","title")
 copy_field("100??.a","creator[].$append")
 copy_field("700??.a","creator[].$append")
@@ -60,7 +60,7 @@ TODO: Explain how to run the function with CLI.
 
 The results should look like this:
 
-```YAML
+```yaml
 ---
 _id: '000000002'
 creator:
@@ -83,7 +83,7 @@ Congratulations, you’ve created your first mapping file to transform library d
 
 Below you’ll find a complete example. You can read more about our Fix language online.
 
-```PERL
+```perl
 copy_field("245??.?","title.$append")
 join_field("title", " ")
 copy_field("100??.a","creator[].$append")
@@ -116,7 +116,7 @@ We can turn this data also to JSON-LD by adding a context that specifies the ele
 
 Add the following fix to the fix above:
 
-```PERL
+```perl
 add_field("@context.title","http://purl.org/dc/terms/title")
 add_field("@context.creator","http://purl.org/dc/elements/1.1/creator")
 add_field("@context.date","http://purl.org/dc/elements/1.1/date")

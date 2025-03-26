@@ -38,7 +38,7 @@ https://metafacture.org/playground/?flux=inputFile%0A%7C+open-file%0A%7C+decode-
 
 You see this as result:
 
-```YAML
+```yaml
 ---
 title:
   value: "GRM"
@@ -61,7 +61,7 @@ See:
 
 =>
 
-```YAML
+```yaml
 title:
   attribute: "test"
   value: "Test value"

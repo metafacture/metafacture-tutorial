@@ -35,7 +35,7 @@ Clear it if needed and paste the following Flux in the Flux-File area.
 
 You should end up with something like:
 
-```YAML
+```yaml
 ---
 title: "Ordinary vices"
 ```
@@ -60,7 +60,7 @@ Now let us additionally keep the info that is given in the element `"publish_dat
 
 You should now see something like this:
 
-```YAML
+```yaml
 ---
 title: "Ordinary vices"
 publish_date: "1984"
@@ -80,7 +80,7 @@ Like this.
 
 Fix:
 
-```PERL
+```perl
 retain("title", "publish_date", "notes.value", "type.key")
 ```
 
@@ -102,7 +102,7 @@ retain("title", "publish_date",  "notes.value", "pub_type")
 
 The output should be something like this:
 
-```YAML
+```yaml
 ---
 title: "Ordinary vices"
 publish_date: "1984"
@@ -120,7 +120,7 @@ replace_all("pub_type","/type/","")
 
 If you execute your last workflow with the "Process" button again, you should now see as ouput:
 
-```YAML
+```yaml
 ---
 title: "Ordinary vices"
 publish_date: "1984"
@@ -145,7 +145,7 @@ Comments in Fix start with a hash mark `#`, while in Flux they start with `//`.
 
 Example:
 
-```PERL
+```perl
 # Make type.key a top level element.
 move_field("type.key","pub_type")
 

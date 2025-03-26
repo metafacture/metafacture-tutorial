@@ -20,14 +20,14 @@ The printed output in YAML format contains a collection of key:value pairs.
 
 There are top level fields like: `title` or `publish_date` which contain only text values or numbers:
 
-```YAML
+```yaml
 ---
 title: "Bullshit Jobs"
 ```
 
 There are also fields like `created` that contain a nested structure where the value is again a key:value pair:
 
-```YAML
+```yaml
 ---
 created:
   type: "/type/datetime"
@@ -37,7 +37,7 @@ created:
 And fields like `source_records[]` do have a list as value:
 
 
-```YAML
+```yaml
 ---
 source_records:
 - "amazon:1501143336"
@@ -63,7 +63,7 @@ For nested objects with deeper structure you add a dot `.` to point to the subfi
 
 If you would have a deeply nested structure like this object:
 
-```YAML
+```yaml
 x:
   y:
     z:
@@ -98,7 +98,7 @@ For YAML and JSON-arrays specifically you also need to use an **array marker** t
 
 In a data set an element sometimes can have multiple instances:
 
-```YAML
+```yaml
 creator: Justus
 creator: Peter
 creator: Bob
@@ -108,10 +108,18 @@ To point to one of the `creator` elements you need to use an index. The first in
 
 If you want to refer to all creators then you can use the `*` sign as a wildcard: `creator.*` refers to all creator elements. The first instance can be selected by the `$first` wildcard and the last by `$last`. This is espacially handy if you do not know how often an element is repeated. When adding an additional repeated element you can use the `$append` or `$prepend` wildcards.
 
-[Append the correct last name to the three investigators: Justus Jonas, Peter Shaw and Bob Andrews. Also prepend "Investigator" to all of them.](https://metafacture.org/playground/?flux=inputFile%0A%7Copen-file%0A%7Cas-records%0A%7Cdecode-yaml%0A%7Cfix%28transformationFile%29%0A%7Cencode-json%28prettyPrinting%3D%22true%22%29%0A%7Cprint%0A%3B&transformation=&data=---%0Acreator%3A+Justus%0Acreator%3A+Peter%0Acreator%3A+Bob%0A)
+[`append` the correct last name to the three investigators: Justus Jonas, Peter Shaw and Bob Andrews. Also `prepend` "Investigator" to all of them.](https://metafacture.org/playground/?flux=inputFile%0A%7Copen-file%0A%7Cas-records%0A%7Cdecode-yaml%0A%7Cfix%28transformationFile%29%0A%7Cencode-json%28prettyPrinting%3D%22true%22%29%0A%7Cprint%0A%3B&transformation=&data=---%0Acreator%3A+Justus%0Acreator%3A+Peter%0Acreator%3A+Bob%0A)
 
 <details>
 <summary>Answer</summary>
+FIX:
+```perl
+append("creator.1"," Jonas")
+append("creator.2"," Shaw")
+append("creator.3"," Andrews")
+prepend("creator.*","Investigator ")
+```
+
 [See here](https://metafacture.org/playground/?flux=inputFile%0A%7Copen-file%0A%7Cas-records%0A%7Cdecode-yaml%0A%7Cfix%28transformationFile%29%0A%7Cencode-json%28prettyPrinting%3D%22true%22%29%0A%7Cprint%0A%3B&transformation=append%28%22creator.1%22%2C%22+Jonas%22%29%0Aappend%28%22creator.2%22%2C%22+Shaw%22%29%0Aappend%28%22creator.3%22%2C%22+Andrews%22%29%0Aprepend%28%22creator.%2A%22%2C%22Investigator+%22%29&data=---%0Acreator%3A+Justus%0Acreator%3A+Peter%0Acreator%3A+Bob%0A)
 </details>
 
@@ -134,7 +142,7 @@ source_records:
 
 Our example from above would look like this if creator was a list instead of a repeated field:
 
-```YAML
+```yaml
 creator:
 	- Justus
 	- Peter
@@ -143,7 +151,7 @@ creator:
 
 Lists can be deeply nested if the values are not just strings (list of strings) but objects (list of objects):
 
-```YAML
+```yaml
 characters:
   - name: Justus
     role: Investigator
@@ -155,7 +163,7 @@ characters:
 
 Here is another example:
 
-```YAML
+```yaml
 my:
   colors:
     - black
@@ -209,7 +217,7 @@ XMLs are not just simple elements with key-pair values or objects with subfields
 
 The path for the different attributs and elements are the following:
 
-```YAML
+```yaml
 title.value
 title.type
 title.lang

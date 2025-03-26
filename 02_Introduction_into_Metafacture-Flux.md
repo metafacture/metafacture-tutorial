@@ -104,7 +104,7 @@ Let's start with a link: https://openlibrary.org/books/OL2838758M.json
 
 You will see data that look like this:
 
-```JSON
+```json
 {"publishers": ["Belknap Press of Harvard University Press"], "identifiers": {"librarything": ["321843"], "goodreads": ["2439014"]}, "covers": [413726], "local_id": ["urn:trent:0116301499939", "urn:sfpl:31223009984353", "urn:sfpl:31223011345064", "urn:cst:10017055762"], "lc_classifications": ["JA79 .S44 1984", "HM216 .S44", "JA79.S44 1984"], "key": "/books/OL2838758M", "authors": [{"key": "/authors/OL381196A"}], "ocaid": "ordinaryvices0000shkl", "publish_places": ["Cambridge, Mass"], "subjects": ["Political ethics.", "Liberalism.", "Vices."], "pagination": "268 p. ;", "source_records": ["marc:OpenLibraries-Trent-MARCs/tier5.mrc:4020092:744", "marc:marc_openlibraries_sanfranciscopubliclibrary/sfpl_chq_2018_12_24_run01.mrc:195791766:1651", "ia:ordinaryvices0000shkl", "marc:marc_claremont_school_theology/CSTMARC1_barcode.mrc:137174387:3955", "bwb:9780674641754", "marc:marc_loc_2016/BooksAll.2016.part15.utf8:115755952:680", "marc:marc_claremont_school_theology/CSTMARC1_multibarcode.mrc:137367696:3955", "ia:ordinaryvices0000shkl_a5g0", "marc:marc_columbia/Columbia-extract-20221130-001.mrc:328870555:1311", "marc:harvard_bibliographic_metadata/ab.bib.01.20150123.full.mrc:156768969:815"], "title": "Ordinary vices", "dewey_decimal_class": ["172"], "notes": {"type": "/type/text", "value": "Bibliography: p. 251-260.\nIncludes index."}, "number_of_pages": 268, "languages": [{"key": "/languages/eng"}], "lccn": ["84000531"], "isbn_10": ["0674641752"], "publish_date": "1984", "publish_country": "mau", "by_statement": "Judith N. Shklar.", "works": [{"key": "/works/OL2617047W"}], "type": {"key": "/type/edition"}, "oclc_numbers": ["10348450"], "latest_revision": 16, "revision": 16, "created": {"type": "/type/datetime", "value": "2008-04-01T03:28:50.625462"}, "last_modified": {"type": "/type/datetime", "value": "2024-12-27T16:46:50.181109"}}
 ``` 
 
@@ -139,7 +139,7 @@ inputFile
 
 [When you process the data](https://metafacture.org/playground/?flux=inputFile%0A%7C+open-file%0A%7C+as-lines%0A%7C+decode-json%0A%7C+encode-yaml%0A%7C+print%0A%3B&data=%7B%22publishers%22%3A+%5B%22Belknap+Press+of+Harvard+University+Press%22%5D%2C+%22identifiers%22%3A+%7B%22librarything%22%3A+%5B%22321843%22%5D%2C+%22goodreads%22%3A+%5B%222439014%22%5D%7D%2C+%22covers%22%3A+%5B413726%5D%2C+%22local_id%22%3A+%5B%22urn%3Atrent%3A0116301499939%22%2C+%22urn%3Asfpl%3A31223009984353%22%2C+%22urn%3Asfpl%3A31223011345064%22%2C+%22urn%3Acst%3A10017055762%22%5D%2C+%22lc_classifications%22%3A+%5B%22JA79+.S44+1984%22%2C+%22HM216+.S44%22%2C+%22JA79.S44+1984%22%5D%2C+%22key%22%3A+%22/books/OL2838758M%22%2C+%22authors%22%3A+%5B%7B%22key%22%3A+%22/authors/OL381196A%22%7D%5D%2C+%22ocaid%22%3A+%22ordinaryvices0000shkl%22%2C+%22publish_places%22%3A+%5B%22Cambridge%2C+Mass%22%5D%2C+%22subjects%22%3A+%5B%22Political+ethics.%22%2C+%22Liberalism.%22%2C+%22Vices.%22%5D%2C+%22pagination%22%3A+%22268+p.+%3B%22%2C+%22source_records%22%3A+%5B%22marc%3AOpenLibraries-Trent-MARCs/tier5.mrc%3A4020092%3A744%22%2C+%22marc%3Amarc_openlibraries_sanfranciscopubliclibrary/sfpl_chq_2018_12_24_run01.mrc%3A195791766%3A1651%22%2C+%22ia%3Aordinaryvices0000shkl%22%2C+%22marc%3Amarc_claremont_school_theology/CSTMARC1_barcode.mrc%3A137174387%3A3955%22%2C+%22bwb%3A9780674641754%22%2C+%22marc%3Amarc_loc_2016/BooksAll.2016.part15.utf8%3A115755952%3A680%22%2C+%22marc%3Amarc_claremont_school_theology/CSTMARC1_multibarcode.mrc%3A137367696%3A3955%22%2C+%22ia%3Aordinaryvices0000shkl_a5g0%22%2C+%22marc%3Amarc_columbia/Columbia-extract-20221130-001.mrc%3A328870555%3A1311%22%2C+%22marc%3Aharvard_bibliographic_metadata/ab.bib.01.20150123.full.mrc%3A156768969%3A815%22%5D%2C+%22title%22%3A+%22Ordinary+vices%22%2C+%22dewey_decimal_class%22%3A+%5B%22172%22%5D%2C+%22notes%22%3A+%7B%22type%22%3A+%22/type/text%22%2C+%22value%22%3A+%22Bibliography%3A+p.+251-260.\nIncludes+index.%22%7D%2C+%22number_of_pages%22%3A+268%2C+%22languages%22%3A+%5B%7B%22key%22%3A+%22/languages/eng%22%7D%5D%2C+%22lccn%22%3A+%5B%2284000531%22%5D%2C+%22isbn_10%22%3A+%5B%220674641752%22%5D%2C+%22publish_date%22%3A+%221984%22%2C+%22publish_country%22%3A+%22mau%22%2C+%22by_statement%22%3A+%22Judith+N.+Shklar.%22%2C+%22works%22%3A+%5B%7B%22key%22%3A+%22/works/OL2617047W%22%7D%5D%2C+%22type%22%3A+%7B%22key%22%3A+%22/type/edition%22%7D%2C+%22oclc_numbers%22%3A+%5B%2210348450%22%5D%2C+%22latest_revision%22%3A+16%2C+%22revision%22%3A+16%2C+%22created%22%3A+%7B%22type%22%3A+%22/type/datetime%22%2C+%22value%22%3A+%222008-04-01T03%3A28%3A50.625462%22%7D%2C+%22last_modified%22%3A+%7B%22type%22%3A+%22/type/datetime%22%2C+%22value%22%3A+%222024-12-27T16%3A46%3A50.181109%22%7D%7D) our book record should now look like this:
 
-```YAML
+```yaml
 ---
 publishers:
 - "Belknap Press of Harvard University Press"
@@ -258,7 +258,6 @@ Now take some time and play around a little bit more and use some other modules.
 <details>
 
 <summary>Click to see the new workflow</summary>
-
 ```default
 "https://openlibrary.org/books/OL2838758M.json"
 | open-http
