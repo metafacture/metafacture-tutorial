@@ -355,4 +355,6 @@ As you surely already saw I mentioned transform as one step in a metafacture wor
 But aside from changing the serialisation we did not play around with transformations yet.
 This will be the theme of the next session.
 
-Next lesson: [03 Introduction into Metafacture-Fix](./03_Introduction_into_Metafacture-Fix.md)
+---------------
+
+**Next lesson**: [03 Introduction into Metafacture-Fix](./03_Introduction_into_Metafacture-Fix.md)

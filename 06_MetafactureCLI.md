@@ -169,4 +169,6 @@ Excercise: Download the following folder (TODO) with three test examples and run
 - Add a fix file and add the fix module in the flux. With `nothing()` as content.
 - Add some transformations to the fix e.g. add fields.
 
- Next lesson: [07 Processing MARC](./07_Processing_MARC.md)
+---------------
+
+**Next lesson**: [07 Processing MARC](./07_Processing_MARC.md)

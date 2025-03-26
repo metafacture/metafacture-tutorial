@@ -71,5 +71,6 @@ Now you can run an ETL process (extract, transform, load) with this worklflow:
 
 Excercise: Try to fetch data from a OAI-PMH you know. (e.g. the [DNB OAI](https://www.dnb.de/DE/Professionell/Metadatendienste/Datenbezug/OAI/oai_node.html))
 
-Next lesson:
-[09 Working with CSV and TSV](./09_Working_with_CSV.md)
+---------------
+
+**Next lesson**: [09 Working with CSV and TSV](./09_Working_with_CSV.md)

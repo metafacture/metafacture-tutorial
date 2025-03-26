@@ -19,5 +19,6 @@ But the examples are still provided in the Playground.
 
 To run Metafacture on your local machine you need a Linux/Unix Bash Shell (part of every Linux, MacOS and Windows >=10) with Metafacture Core installed. In this course we are not teaching you how to use the command line. For that see: [Chapter 6](./06_MetafactureCLI.md)
 
+---------------
 
 **Next lesson**: [02 Introduction into Metafacture Flux](./02_Introduction_into_Metafacture-Flux.md)

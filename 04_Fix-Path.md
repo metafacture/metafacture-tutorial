@@ -226,4 +226,6 @@ title.lang
 
 If you want to create xml with attributes then you need to map to this structure too. We will come back to lection working with xml in lesson 10.
 
-Next lessons: [05 More Fix Concepts](./05-More-Fix-Concepts.md)
+---------------
+
+**Next lesson**: [05 More Fix Concepts](./05-More-Fix-Concepts.md)

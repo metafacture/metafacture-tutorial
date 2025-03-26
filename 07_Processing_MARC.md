@@ -359,4 +359,6 @@ Try to fetch some data from GND or other MARC XML resource and use the flux comm
 
 - TODO: Add an example for a list bind or an conditional.
 
-Next lesson: [08 Harvest data with OAI-PMH](./08_Harvest_data_with_OAI-PMH.md)
+---------------
+
+**Next lesson**: [08 Harvest data with OAI-PMH](./08_Harvest_data_with_OAI-PMH.md)

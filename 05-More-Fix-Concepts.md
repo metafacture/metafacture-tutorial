@@ -244,4 +244,6 @@ For the supported binds see: https://metafacture.github.io/metafacture-documenta
 
 TODO: Add excercises.
 
-Next lesson: [06 Metafacture CLI](./06_MetafactureCLI.md)
+---------------
+
+**Next lesson**: [06 Metafacture CLI](./06_MetafactureCLI.md)
