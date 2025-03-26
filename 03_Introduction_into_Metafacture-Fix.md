@@ -86,7 +86,7 @@ retain("title", "publish_date", "notes.value", "type.key")
 
 Using a separate Fix file is recommended if you need to write many Fix functions. It will keep the Flux workflow clear and legible.
 
-To add more fixes we can again edit the Fix file. 
+To add more fixes we can again edit the Fix file.
 Lets add these lines in front of the retain function:
 
 ```
@@ -167,9 +167,8 @@ Have a look at the fix functions: https://metafacture.org/metafacture-documentat
 
 <details>
 <summary>Answer</summary>
-[See here](https://metafacture.org/playground/?flux=%22https%3A//openlibrary.org/books/OL2838758M.json%22%0A%7C+open-http%0A%7C+as-lines%0A%7C+decode-json%0A%7C+fix+%28transformationFile%29%0A%7C+encode-yaml%0A%7C+print%0A%3B&transformation=move_field%28%22type.key%22%2C%22pub_type%22%29%0Areplace_all%28%22pub_type%22%2C%22/type/%22%2C%22%22%29%0Aadd_field%28%22map_date%22%2C%222025-11-11%22%29%0Aretain%28%22title%22%2C+%22publish_date%22%2C+%22by_statement%22%2C+%22pub_type%22%2C+%22map_date%22%29)
-
-or [use timestamp](https://metafacture.org/playground/?flux=%22https%3A//openlibrary.org/books/OL2838758M.json%22%0A%7C+open-http%0A%7C+as-lines%0A%7C+decode-json%0A%7C+fix+%28transformationFile%29%0A%7C+encode-yaml%0A%7C+print%0A%3B&transformation=move_field%28%22type.key%22%2C%22pub_type%22%29%0Areplace_all%28%22pub_type%22%2C%22/type/%22%2C%22%22%29%0Atimestamp%28%22map_date%22%2Cformat%3A%22yyyy-MM-dd%27T%27HH%3Amm%3Ass%22%2C+timezone%3A%22Europe/Berlin%22%29%0Aretain%28%22title%22%2C+%22publish_date%22%2C+%22by_statement%22%2C+%22pub_type%22%2C+%22map_date%22%29)
+<a href="https://metafacture.org/playground/?flux=%22https%3A//openlibrary.org/books/OL2838758M.json%22%0A%7C+open-http%0A%7C+as-lines%0A%7C+decode-json%0A%7C+fix+%28transformationFile%29%0A%7C+encode-yaml%0A%7C+print%0A%3B&transformation=move_field%28%22type.key%22%2C%22pub_type%22%29%0Areplace_all%28%22pub_type%22%2C%22/type/%22%2C%22%22%29%0Aadd_field%28%22map_date%22%2C%222025-11-11%22%29%0Aretain%28%22title%22%2C+%22publish_date%22%2C+%22by_statement%22%2C+%22pub_type%22%2C+%22map_date%22%29">See here</a>
+or <a href="https://metafacture.org/playground/?flux=%22https%3A//openlibrary.org/books/OL2838758M.json%22%0A%7C+open-http%0A%7C+as-lines%0A%7C+decode-json%0A%7C+fix+%28transformationFile%29%0A%7C+encode-yaml%0A%7C+print%0A%3B&transformation=move_field%28%22type.key%22%2C%22pub_type%22%29%0Areplace_all%28%22pub_type%22%2C%22/type/%22%2C%22%22%29%0Atimestamp%28%22map_date%22%2Cformat%3A%22yyyy-MM-dd%27T%27HH%3Amm%3Ass%22%2C+timezone%3A%22Europe/Berlin%22%29%0Aretain%28%22title%22%2C+%22publish_date%22%2C+%22by_statement%22%2C+%22pub_type%22%2C+%22map_date%22%29">use timestamp</a>
 </details>
 
 Next lesson: [04 Fix Path](./04_Fix-Path.md)
