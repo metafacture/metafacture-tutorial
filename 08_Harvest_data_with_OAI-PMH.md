@@ -47,7 +47,7 @@ You can also transform incoming data and immediately store/index it with MongoDB
 
 Add the following fixes to the file:
 
-```PEARL
+```perl
 copy_field("001","_id")
 copy_field("245??.a","title")
 copy_field("100??.a","creator[].$append")
