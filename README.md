@@ -15,7 +15,7 @@ Have fun.
 
 Lesson plan:
 
-[01 Getting metafacture](./01_Getting_Metafacture.md)
+[01 Introducing metafacture](./01_Introducing_Metafacture.md)
 
 [02 Introduction into Metafacture Flux](./02_Introduction_into_Metafacture-Flux.md)
 
