@@ -16,5 +16,6 @@ Starting with [Chapter 6](./06_MetafactureCLI.md), we can switch from using Play
 
 To run Metafacture on your local machine you need a Linux/Unix Bash Shell (part of every Linux, MacOS and Windows >=10) with metafacture-core installed. See [Chapter 6](./06_MetafactureCLI.md) for details.
 
+---------------
 
 **Next lesson**: [02 Introduction into Metafacture Flux](./02_Introduction_into_Metafacture-Flux.md)

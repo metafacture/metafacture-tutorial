@@ -75,5 +75,6 @@ Excercises:
 - [Decode this csv keep the header.](https://metafacture.org/playground/?flux=inputFile%0A%7C+open-file%0A...%0A...%0A%7C+encode-yaml%0A%7C+print%0A%3B&data=%22id%22%2C%22name%22%2C%22creator%22%0A%221%22%2C%22Book+1%22%2C%22Maxi+Muster%22%0A%222%22%2C%22Book+2%22%2C%22Sandy+Sample%22)
 - [Create a tsv with the record idenfier (`_id`), title (`245` > `title`) and isbn (`020` > `isbn`) from a marc dump.](https://metafacture.org/playground/?flux=%22https%3A//raw.githubusercontent.com/metafacture/metafacture-core/master/metafacture-runner/src/main/dist/examples/read/marc21/10.marc21%22%0A%7C+open-http%0A%7C+as-lines%0A%7C+decode-marc21%0A%7C+fix%28transformationFile%29%0A%7C+flatten%0A%7C+encode-csv%28includeHeader%3D%22TRUE%22%2C+separator%3D%22\t%22%2C+noQuotes%3D%22false%22%29%0A%7C+print%0A%3B&transformation=)
 
+---------------
 
-Next lesson: [10 Working with XML](./10_Working_with_XML.md)
+**Next lesson**: [10 Working with XML](./10_Working_with_XML.md)

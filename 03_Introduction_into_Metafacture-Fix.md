@@ -35,7 +35,7 @@ Clear it if needed and paste the following Flux in the Flux-File area.
 
 You should end up with something like:
 
-```YAML
+```yaml
 ---
 title: "Ordinary vices"
 ```
@@ -60,7 +60,7 @@ Now let us additionally keep the info that is given in the element `"publish_dat
 
 You should now see something like this:
 
-```YAML
+```yaml
 ---
 title: "Ordinary vices"
 publish_date: "1984"
@@ -80,7 +80,7 @@ Like this.
 
 Fix:
 
-```PERL
+```perl
 retain("title", "publish_date", "notes.value", "type.key")
 ```
 
@@ -102,7 +102,7 @@ retain("title", "publish_date",  "notes.value", "pub_type")
 
 The output should be something like this:
 
-```YAML
+```yaml
 ---
 title: "Ordinary vices"
 publish_date: "1984"
@@ -120,7 +120,7 @@ replace_all("pub_type","/type/","")
 
 If you execute your last workflow with the "Process" button again, you should now see as ouput:
 
-```YAML
+```yaml
 ---
 title: "Ordinary vices"
 publish_date: "1984"
@@ -145,7 +145,7 @@ Comments in Fix start with a hash mark `#`, while in Flux they start with `//`.
 
 Example:
 
-```PERL
+```perl
 # Make type.key a top level element.
 move_field("type.key","pub_type")
 
@@ -171,4 +171,6 @@ Have a look at the fix functions: https://metafacture.org/metafacture-documentat
 or <a href="https://metafacture.org/playground/?flux=%22https%3A//openlibrary.org/books/OL2838758M.json%22%0A%7C+open-http%0A%7C+as-lines%0A%7C+decode-json%0A%7C+fix+%28transformationFile%29%0A%7C+encode-yaml%0A%7C+print%0A%3B&transformation=move_field%28%22type.key%22%2C%22pub_type%22%29%0Areplace_all%28%22pub_type%22%2C%22/type/%22%2C%22%22%29%0Atimestamp%28%22map_date%22%2Cformat%3A%22yyyy-MM-dd%27T%27HH%3Amm%3Ass%22%2C+timezone%3A%22Europe/Berlin%22%29%0Aretain%28%22title%22%2C+%22publish_date%22%2C+%22by_statement%22%2C+%22pub_type%22%2C+%22map_date%22%29">use timestamp</a>
 </details>
 
-Next lesson: [04 Fix Path](./04_Fix-Path.md)
+---------------
+
+**Next lesson**: [04 Fix Path](./04_Fix-Path.md)

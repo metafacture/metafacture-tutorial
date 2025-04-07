@@ -47,7 +47,7 @@ You can also transform incoming data and immediately store/index it with MongoDB
 
 Add the following fixes to the file:
 
-```PEARL
+```perl
 copy_field("001","_id")
 copy_field("245??.a","title")
 copy_field("100??.a","creator[].$append")
@@ -71,5 +71,6 @@ Now you can run an ETL process (extract, transform, load) with this worklflow:
 
 Excercise: Try to fetch data from a OAI-PMH you know. (e.g. the [DNB OAI](https://www.dnb.de/DE/Professionell/Metadatendienste/Datenbezug/OAI/oai_node.html))
 
-Next lesson:
-[09 Working with CSV and TSV](./09_Working_with_CSV.md)
+---------------
+
+**Next lesson**: [09 Working with CSV and TSV](./09_Working_with_CSV.md)

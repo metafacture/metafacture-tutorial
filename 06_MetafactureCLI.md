@@ -20,7 +20,8 @@ To use Metafacture on the commandline we can download the latest distribution e.
 
 Hint: If 7.0.0 is not published yet use the runner version of the [prerelease 7.0.0-rc1](https://github.com/metafacture/metafacture-core/releases/tag/metafacture-core-7.0.0-rc1).
 
-Download `metafacture-core-$VERSION-dist.tar.gz` or the zip version and extract the archive.
+Download `metafacture-core-$VERSION-dist.tar.gz` or the zip version and extract the archive to your choosen folder.
+In the folder you find the `flux.bat` and `flux.sh`
 
 The code below assumes you moved the resulting folder to your home directory and renamed it to `'metafacture'`
 
@@ -49,9 +50,11 @@ The playground has a nice feature to export and import Metafacture Workflows.
 
 [So lets go to the Playground.](https://metafacture.org/playground/?flux=%22https%3A//openlibrary.org/books/OL2838758M.json%22%0A%7C+open-http%0A%7C+as-lines%0A%7C+decode-json%0A%7C+encode-yaml%0A%7C+print%0A%3B)
 
-Export the workflow with the Export Button and lets run the flux.
+Export the workflow with the Export Button:
 
 ![Shows Export Button in Playground.](images/Export.png)
+
+Open your terminal and and lets run the flux with the following command:
 
 Linux:
 
@@ -59,7 +62,7 @@ Linux:
 ~/metafacture/flux.sh  downloads/playground.flux
 ```
 
-or Windows:
+Windows:
 
 ```bash
 ~/metafacture/flux.bat downloads/playground.flux
@@ -68,14 +71,16 @@ or Windows:
 The result of running the Flux-Script via CLI should be the same as with the Playground.
 
 The Metafacture CLI Tool expects a flux file for every workflow.
-Our runned workflow only has the following flux and no additional files since it i querring data from the web and it has no fix transformations.
+Our runned workflow only has the following flux and no additional files since it is fetching data from the web and it has no fix transformations.
+
+The downloaded file should have the following content, defining the playground specific variables and the flux workflow that you also saw in the playground. You can delete the playground specific variables since they are not needed here.
 
 ```default
 "https://openlibrary.org/books/OL2838758M.json"
 | open-http
 | as-lines
 | decode-json
-| encode-yaml
+| encode-json(prettyPrinting="true")
 | print
 ;
 ```
@@ -83,15 +88,15 @@ Our runned workflow only has the following flux and no additional files since it
 ## Use local files for transformation
 
 If you want to load a local file instead of fetching data from the web we need to change the flux a little bit with an texteditor.
-Download the following file [11942150X.json](/home/tobias/git/metafacture-tutorial/sample-scripts/lesson_06/11942150X.json)
+Download the following file [11942150X.json](./sample-scripts/lesson_06/11942150X.json)
 and adjust the path to your file.
 
-Adjust your `downloads/playground.flux` script:
+Adjust your `downloads/playground.flux` script, so that it does not load data from the web, but opens a local file with `open-file` and read it `as-recrods` since the json file is pretty printed:
 
 ```default
 "path/to/your/file/11942150X.json" // Adjust your path!
 | open-file
-| as-lines
+| as-records
 | decode-json
 | encode-yaml
 | print
@@ -100,7 +105,177 @@ Adjust your `downloads/playground.flux` script:
 
 Run it again as shown above.
 
-If we want to use fix we need to refrence the fix file that in the playground we only refrenced via `|fix`
+It should output:
+
+```JSON
+{
+  "professionOrOccupation" : [ {
+    "id" : "https://d-nb.info/gnd/4629643-8",
+    "label" : "Politologin"
+  }, {
+    "id" : "https://d-nb.info/gnd/4025243-7",
+    "label" : "Hochschullehrer"
+  } ],
+  "placeOfBirth" : [ {
+    "id" : "https://d-nb.info/gnd/4050042-1",
+    "label" : "Riga"
+  } ],
+  "gender" : [ {
+    "id" : "https://d-nb.info/standards/vocab/gnd/gender#female",
+    "label" : "Weiblich"
+  } ],
+  "dateOfDeath" : [ "1992-09-17" ],
+  "dateOfBirth" : [ "1928-09-24" ],
+  "placeOfDeath" : [ {
+    "id" : "https://d-nb.info/gnd/4009352-9",
+    "label" : "Cambridge, Mass."
+  } ],
+  "variantNameEntityForThePerson" : [ {
+    "forename" : [ "Judith Nisse" ],
+    "surname" : [ "Shklar" ]
+  }, {
+    "forename" : [ "Judita" ],
+    "surname" : [ "Nisse" ]
+  }, {
+    "forename" : [ "Judith" ],
+    "surname" : [ "Shklar" ]
+  } ],
+  "type" : [ "Person", "AuthorityResource", "DifferentiatedPerson" ],
+  "@context" : "https://lobid.org/gnd/context.jsonld",
+  "gndSubjectCategory" : [ {
+    "id" : "https://d-nb.info/standards/vocab/gnd/gnd-sc#8.1p",
+    "label" : "Personen (Politologen, Staatstheoretiker)"
+  } ],
+  "oldAuthorityNumber" : [ "(DE-588a)11942150X", "(DE-588c)4439975-3", "(DE-588)158461525", "(DE-588a)158461525" ],
+  "geographicAreaCode" : [ {
+    "id" : "https://d-nb.info/standards/vocab/gnd/geographic-area-code#XD-US",
+    "label" : "USA"
+  } ],
+  "deprecatedUri" : [ "https://d-nb.info/gnd/158461525" ],
+  "affiliation" : [ {
+    "id" : "https://d-nb.info/gnd/2012974-9",
+    "label" : "Harvard University"
+  } ],
+  "describedBy" : {
+    "id" : "https://d-nb.info/gnd/11942150X/about",
+    "license" : {
+      "id" : "http://creativecommons.org/publicdomain/zero/1.0/",
+      "label" : "http://creativecommons.org/publicdomain/zero/1.0/"
+    },
+    "dateModified" : "2019-07-11T15:58:51.000",
+    "descriptionLevel" : {
+      "id" : "https://d-nb.info/standards/vocab/gnd/description-level#1",
+      "label" : "Allgemeines, Interdisziplinäre Allgemeinwörter"
+    }
+  },
+  "gndIdentifier" : "11942150X",
+  "id" : "https://d-nb.info/gnd/11942150X",
+  "preferredName" : "Shklar, Judith N.",
+  "wikipedia" : [ {
+    "id" : "https://de.wikipedia.org/wiki/Judith_N._Shklar",
+    "label" : "https://de.wikipedia.org/wiki/Judith_N._Shklar"
+  } ],
+  "variantName" : [ "Shklar, Judith", "Nisse, Judita", "Shklar, Judith Nisse" ],
+  "preferredNameEntityForThePerson" : {
+    "forename" : [ "Judith N." ],
+    "surname" : [ "Shklar" ]
+  },
+  "sameAs" : [ {
+    "id" : "http://id.loc.gov/rwo/agents/n82231811",
+    "collection" : {
+      "id" : "http://www.wikidata.org/entity/Q13219454",
+      "abbr" : "LC",
+      "publisher" : "Library of Congress",
+      "icon" : "http://www.loc.gov/favicon.ico",
+      "name" : "NACO Authority File"
+    }
+  }, {
+    "id" : "http://viaf.org/viaf/7412367",
+    "collection" : {
+      "id" : "http://www.wikidata.org/entity/Q54919",
+      "abbr" : "VIAF",
+      "publisher" : "OCLC",
+      "icon" : "http://viaf.org/viaf/images/viaf.ico",
+      "name" : "Virtual International Authority File (VIAF)"
+    }
+  }, {
+    "id" : "http://www.wikidata.org/entity/Q455736",
+    "collection" : {
+      "id" : "http://www.wikidata.org/entity/Q2013",
+      "abbr" : "WIKIDATA",
+      "publisher" : "Wikimedia Foundation Inc.",
+      "icon" : "https://www.wikidata.org/static/favicon/wikidata.ico",
+      "name" : "Wikidata"
+    }
+  }, {
+    "collection" : {
+      "abbr" : "DNB",
+      "name" : "Gemeinsame Normdatei (GND) im Katalog der Deutschen Nationalbibliothek",
+      "publisher" : "Deutsche Nationalbibliothek",
+      "icon" : "https://www.dnb.de/SiteGlobals/Frontend/DNBWeb/Images/favicon.png?__blob=normal&v=4",
+      "id" : "http://www.wikidata.org/entity/Q36578"
+    },
+    "id" : "https://d-nb.info/gnd/11942150X/about"
+  }, {
+    "id" : "https://d-nb.info/gnd/158461525",
+    "collection" : {
+      "id" : "http://www.wikidata.org/entity/Q36578",
+      "abbr" : "DNB",
+      "publisher" : "Deutsche Nationalbibliothek",
+      "icon" : "http://www.dnb.de/SiteGlobals/StyleBundles/Bilder/favicon.png?__blob=normal&v=1",
+      "name" : "Gemeinsame Normdatei (GND) im Katalog der Deutschen Nationalbibliothek"
+    }
+  }, {
+    "id" : "https://dbpedia.org/resource/Judith_N._Shklar",
+    "collection" : {
+      "id" : "https://dbpedia.org"
+    }
+  }, {
+    "collection" : {
+      "abbr" : "dewiki",
+      "name" : "Wikipedia (Deutsch)",
+      "publisher" : "Wikimedia Foundation Inc.",
+      "icon" : "https://de.wikipedia.org/static/favicon/wikipedia.ico",
+      "id" : "http://www.wikidata.org/entity/Q48183"
+    },
+    "id" : "https://de.wikipedia.org/wiki/Judith_N._Shklar"
+  }, {
+    "collection" : {
+      "abbr" : "enwiki",
+      "name" : "Wikipedia (English)",
+      "publisher" : "Wikimedia Foundation Inc.",
+      "icon" : "https://en.wikipedia.org/static/favicon/wikipedia.ico",
+      "id" : "http://www.wikidata.org/entity/Q328"
+    },
+    "id" : "https://en.wikipedia.org/wiki/Judith_N._Shklar"
+  }, {
+    "id" : "https://isni.org/isni/0000000121193284",
+    "collection" : {
+      "id" : "https://isni.org"
+    }
+  }, {
+    "collection" : {
+      "abbr" : "DE-611",
+      "name" : "Kalliope Verbundkatalog",
+      "publisher" : "Staatsbibliothek zu Berlin - Preußischer Kulturbesitz",
+      "icon" : "https://kalliope-verbund.info/img/favicon.ico",
+      "id" : "https://kalliope-verbund.info"
+    },
+    "id" : "https://kalliope-verbund.info/gnd/11942150X"
+  }, {
+    "collection" : {
+      "abbr" : "DDB",
+      "name" : "Deutsche Digitale Bibliothek",
+      "publisher" : "Deutsche Digitale Bibliothek",
+      "icon" : "https://www.deutsche-digitale-bibliothek.de/favicon.ico",
+      "id" : "http://www.wikidata.org/entity/Q621630"
+    },
+    "id" : "https://www.deutsche-digitale-bibliothek.de/person/gnd/11942150X"
+  } ]
+}
+```
+
+If we want to use fix we need to refrence the fix file that in the playground we only refrenced via `| fix`
 
 ```default
 "path/to/your/file/11942150X.json"
@@ -113,11 +288,11 @@ If we want to use fix we need to refrence the fix file that in the playground we
 ;
 ```
 
-Create a new file with a `fixFile.fix`, files with fix scripts should have a `.fix` file suffix.
+Create a new file with the name `fixFile.fix`, files with fix scripts should have a `.fix` file suffix.
 
-Add the follwoing line as content:
+Add the follwoing line as content to this file:
 
-```PEARL
+```perl
 retain("preferredName","id","type[]")
 
 ```
@@ -169,4 +344,6 @@ Excercise: Download the following folder (TODO) with three test examples and run
 - Add a fix file and add the fix module in the flux. With `nothing()` as content.
 - Add some transformations to the fix e.g. add fields.
 
- Next lesson: [07 Processing MARC](./07_Processing_MARC.md)
+---------------
+
+**Next lesson**: [07 Processing MARC](./07_Processing_MARC.md)
