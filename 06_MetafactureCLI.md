@@ -40,7 +40,7 @@ Unix:
 or Windows:
 
 ```bash
-~/metafacture/flux.bat path/to/your.flux
+~\metafacture\flux.bat path\to\your.flux
 ```
 
 (Hint: You need to know the path to your file to run the function.)
@@ -65,8 +65,10 @@ Linux:
 Windows:
 
 ```bash
-~/metafacture/flux.bat downloads/playground.flux
+~\metafacture\flux.bat downloads\playground.flux
 ```
+
+To simplify the code examples we will be using unix paths for the terminal commands. Windows Powershell will change these to windows paths automatically.
 
 The result of running the Flux-Script via CLI should be the same as with the Playground.
 

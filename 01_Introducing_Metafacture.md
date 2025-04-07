@@ -19,6 +19,12 @@ But the examples are still provided in the Playground.
 
 To run Metafacture on your local machine you need a Linux/Unix Bash Shell (part of every Linux, MacOS and Windows >=10) with Metafacture Core installed. In this course we are not teaching you how to use the command line. For that see: [Chapter 6](./06_MetafactureCLI.md)
 
+## Getting started with the Metafacture Playground
+
+To process data Metafacture can be used with the command line, as JAVA library or you can use the Metafacture Playground.
+
+For this introduction we will start with the Playground since it allows a quick start without additional installing. The [Metafacture Playground](https://metafacture.org/playground) is a web interface to test and share Metafacture workflows. The commandline handling will be subject in [lesson 6](./06_MetafactureCLI.md)
+
 ---------------
 
 **Next lesson**: [02 Introduction into Metafacture Flux](./02_Introduction_into_Metafacture-Flux.md)

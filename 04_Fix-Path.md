@@ -224,7 +224,7 @@ title.type
 title.lang
 ```
 
-If you want to create xml with attributes then you need to map to this structure too. We will come back to lection working with xml in lesson 10.
+If you want to create xml with attributes then you need to map to this structure too. We will come back to lection working with xml [in lesson 10](10_Working_with_XML.md).
 
 ---------------
 
