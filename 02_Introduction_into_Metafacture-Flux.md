@@ -231,7 +231,7 @@ The [result in the playground](https://metafacture.org/playground/?flux=%22https
 Let's take a look what a Flux workflow does. The Flux workflow is combination of different moduls to process incoming structured data. In our example we have different things that we do with these modules:
 
 1. We have a URL as input. The URL localizes the data on the web.
-3. We tell Metafacture to request the stated url using `open-http`.
+2. We tell Metafacture to request the stated url using `open-http`.
 3. Then we define how to handle the incoming data: since the JSON is written in one line, we tell Metafacture to regard every new line as a new record with `as-lines`
 4. Afterwards we tell Metafacture to `decode-json` in order to translate the incoming data as json to the generic internal data model that is called metadata events
 5. Then we instruct Metafacture to serialize the metadata events as YAML with `encode-yaml`
