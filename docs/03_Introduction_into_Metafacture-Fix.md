@@ -1,3 +1,10 @@
+---
+layout: default
+title: "Lesson 3: Introduction into Metafacture Fix"
+nav_order: 3
+parent: Lessons
+---
+
 # Lesson 3: Introduction into Metafacture Fix
 
 In the last session we learned about Flux moduls.
@@ -22,7 +29,7 @@ So let's dive into Metafacture Fix and get back to the [Playground](https://meta
 
 Clear it if needed and paste the following Flux in the Flux-File area.
 
-```default
+```text
 "https://openlibrary.org/books/OL2838758M.json"
 | open-http
 | as-lines
@@ -47,7 +54,7 @@ and single quotes in the fix functions. As we did here: `fix ("retain('title')")
 
 Now let us additionally keep the info that is given in the element `"publish_date"` and the subfield `"key"` in `'type'` by adding `'publish_date', 'type.key'` to `retain`:
 
-```default
+```text
 "https://openlibrary.org/books/OL2838758M.json"
 | open-http
 | as-lines
@@ -173,4 +180,4 @@ or <a href="https://metafacture.org/playground/?flux=%22https%3A//openlibrary.or
 
 ---------------
 
-**Next lesson**: [04 Fix Path](./04_Fix-Path.md)
+**Next lesson**: [04 Fix Path](./04_Fix-Path.html)

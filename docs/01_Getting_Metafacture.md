@@ -1,3 +1,10 @@
+---
+layout: default
+title: "Lesson 1: Introducing Metafacture and requirements for this tutorial"
+nav_order: 1
+parent: Lessons
+---
+
 # Lesson 1: Introducing Metafacture and requirements for this tutorial
 
 ![Logo](https://metafacture.org/img/metafacture.png)
@@ -12,10 +19,10 @@ In this tutorial we are going to teach how to use Metafacture to perform simple 
 
 In the first lessons, we will use the [Metafacture Playground](https://metafacture.org/playground/), a web application that helps you getting started. It is useful to test, share and export Metafacture workflows and requires no local installation.
 
-Starting with [Chapter 6](./06_MetafactureCLI.md), we can switch from using Playground to running Metafacture on our own hardware but the examples are still provided in the Playground.
+Starting with [Chapter 6](./06_MetafactureCLI.html), we can switch from using Playground to running Metafacture on our own hardware but the examples are still provided in the Playground.
 
-To run Metafacture on your local machine you need a Linux/Unix Bash Shell (part of every Linux, MacOS and Windows >=10) with metafacture-core installed. See [Chapter 6](./06_MetafactureCLI.md) for details.
+To run Metafacture on your local machine you need a Linux/Unix Bash Shell (part of every Linux, MacOS and Windows >=10) with metafacture-core installed. See [Chapter 6](./06_MetafactureCLI.html) for details.
 
 ---------------
 
-**Next lesson**: [02 Introduction into Metafacture Flux](./02_Introduction_into_Metafacture-Flux.md)
+**Next lesson**: [02 Introduction into Metafacture Flux](./02_Introduction_into_Metafacture-Flux.html)

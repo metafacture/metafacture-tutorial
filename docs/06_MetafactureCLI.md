@@ -1,3 +1,10 @@
+---
+layout: default
+title: "Lesson 6: Using Metafacture as Command Line Tool"
+nav_order: 6
+parent: Lessons
+---
+
 # Lesson 6: Using Metafacture as Command Line Tool
 
 ## Get Metafacture Runner as CLI Tool
@@ -75,7 +82,7 @@ Our runned workflow only has the following flux and no additional files since it
 
 The downloaded file should have the following content, defining the playground specific variables and the flux workflow that you also saw in the playground. You can delete the playground specific variables since they are not needed here.
 
-```default
+```text
 "https://openlibrary.org/books/OL2838758M.json"
 | open-http
 | as-lines
@@ -93,7 +100,7 @@ and adjust the path to your file.
 
 Adjust your `downloads/playground.flux` script, so that it does not load data from the web, but opens a local file with `open-file` and read it `as-recrods` since the json file is pretty printed:
 
-```default
+```text
 "path/to/your/file/11942150X.json" // Adjust your path!
 | open-file
 | as-records
@@ -277,7 +284,7 @@ It should output:
 
 If we want to use fix we need to refrence the fix file that in the playground we only refrenced via `| fix`
 
-```default
+```text
 "path/to/your/file/11942150X.json"
 | open-file
 | as-lines
@@ -303,7 +310,7 @@ Save it in the same folder as the flux file. (Hint: It does not always have to b
 
 Hint: You can use the varliable FLUX_DIR to shorten the file path if the file is in the same folder as the flux-file.
 
-```default
+```text
 FLUX_DIR + "file.json"
 | open-file
 | as-lines
@@ -318,7 +325,7 @@ If you are using variables, that are not defined in the flux, you can pass them 
 
 e.g.
 
-```default
+```text
 FILE
 | open-file
 | as-lines
@@ -346,4 +353,4 @@ Excercise: Download the following folder (TODO) with three test examples and run
 
 ---------------
 
-**Next lesson**: [07 Processing MARC](./07_Processing_MARC.md)
+**Next lesson**: [07 Processing MARC](./07_Processing_MARC.html)

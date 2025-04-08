@@ -1,8 +1,15 @@
+---
+layout: default
+title: "Lesson 5: More Fix concepts"
+nav_order: 5
+parent: Lessons
+---
+
 # Lesson 5: More Fix concepts
 
 We already learned about simple Fixes aka *[Fix functions](https://metafacture.github.io/metafacture-documentation/docs/fix/Fix-functions.html)* but there are three additional concepts in Fix: selector, conditionals and binds.
 
-These Fix concepts were introduced by Catmandu (see [functions](https://librecat.org/Catmandu/#functions), [selector](https://librecat.org/Catmandu/#selectors), [conditionals](https://librecat.org/Catmandu/#conditionals) and [binds](https://librecat.org/Catmandu/#binds)). But be aware that Metafacture Fix does not support all of the specific functions, selectors, conditionals and binds from Catmandu. Check the documentation for a full overview of the supported [Fix functions](https://github.com/metafacture/metafacture-documentation/blob/master/Fix-function-and-Cookbook.md#functions).
+These Fix concepts were introduced by Catmandu (see [functions](https://librecat.org/Catmandu/#functions), [selector](https://librecat.org/Catmandu/#selectors), [conditionals](https://librecat.org/Catmandu/#conditionals) and [binds](https://librecat.org/Catmandu/#binds)). But be aware that Metafacture Fix does not support all of the specific functions, selectors, conditionals and binds from Catmandu. Check the documentation for a full overview of the supported [Fix functions](https://github.com/metafacture/metafacture-documentation/blob/master/Fix-function-and-Cookbook.html#functions).
 
 ## Additional concepts
 
@@ -246,4 +253,4 @@ TODO: Add excercises.
 
 ---------------
 
-**Next lesson**: [06 Metafacture CLI](./06_MetafactureCLI.md)
+**Next lesson**: [06 Metafacture CLI](./06_MetafactureCLI.html)

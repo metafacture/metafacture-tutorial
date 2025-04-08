@@ -1,3 +1,10 @@
+---
+layout: default
+title: "Lesson 10: Working with XML"
+nav_order: 10
+parent: Lessons
+---
+
 # Lesson 10: Working with XML
 
 While CSV are one type of file format that are used for data exchange. The other one which is most famous is XML.
@@ -254,4 +261,4 @@ inputFile
 
 ---------------
 
-**Next lesson**: [11 Mapping Marc to Dublin Core](./11_MARC_to_Dublin_Core.md)
+**Next lesson**: [11 Mapping Marc to Dublin Core](./11_MARC_to_Dublin_Core.html)

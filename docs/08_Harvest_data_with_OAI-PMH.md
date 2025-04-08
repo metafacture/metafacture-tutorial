@@ -1,3 +1,11 @@
+---
+layout: default
+title: "Lesson 8: Harvest data with OAI-PMH"
+nav_order: 8
+parent: Lessons
+---
+
+
 # Lesson 8: Harvest data with OAI-PMH
 
 The Open Archives Initiative Protocol for Metadata Harvesting (OAI-PMH) is a protocol to harvest metadata records from OAI compliant repositories. It was developed by the Open Archives Initiative as a low-barrier mechanism for repository interoperability. The Open Archives Initiative maintains a registry of OAI data providers.
@@ -19,7 +27,7 @@ The client requests could be limited via datestamps (`datefrom`, `dateuntil`) or
 
 To get some Dublin Core records from the collection of Ghent University Library and convert it to JSON (default) run the following Metafacture worklow via Playground or CLI:
 
-```default
+```text
 "https://lib.ugent.be/oai"
 | open-oaipmh(metadataPrefix="oai_dc", setSpec="flandrica")
 | decode-xml
@@ -33,7 +41,7 @@ But if you just want to use the specific metadata records and not the oai-pmh sp
 
 You can also harvest MARC data, serialze it to marc-binary and store it in a file:
 
-```default
+```text
 "https://lib.ugent.be/oai"
 | open-oaipmh(metadataPrefix="marcxml", setSpec="flandrica")
 | decode-xml
@@ -57,7 +65,7 @@ retain("_id","title","creator[]","date")
 
 Now you can run an ETL process (extract, transform, load) with this worklflow:
 
-```default
+```text
 "https://lib.ugent.be/oai"
 | open-oaipmh(metadataPrefix="marcxml", setSpec="flandrica")
 | decode-xml
@@ -73,4 +81,4 @@ Excercise: Try to fetch data from a OAI-PMH you know. (e.g. the [DNB OAI](https:
 
 ---------------
 
-**Next lesson**: [09 Working with CSV and TSV](./09_Working_with_CSV.md)
+**Next lesson**: [09 Working with CSV and TSV](./09_Working_with_CSV.html)

@@ -1,3 +1,11 @@
+---
+layout: default
+title: "Lesson 11 : From MARC to Dublin Core as loud JSON-LD"
+nav_order: 11
+parent: Lessons
+---
+
+
 # Lesson 11 : From MARC to Dublin Core as loud JSON-LD
 TODO: Use better example. But the following is missing isbns: https://github.com/metafacture/metafacture-examples/blob/master/Swissbib-Extensions/MARC-CSV/
 
@@ -47,7 +55,7 @@ Given the dublin.txt file above we can execute the filtering command like this:
 TODO: Explain how to run the function with CLI.
 
 
-```default
+```text
 "https://raw.githubusercontent.com/metafacture/metafacture-examples/master/Swissbib-Extensions/MARC-CSV/input.xml"
 | open-http
 | decode-xml

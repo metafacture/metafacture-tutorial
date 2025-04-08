@@ -1,3 +1,11 @@
+---
+layout: default
+title: "Lesson 7: Processing MARC with Metafacture"
+nav_order: 7
+parent: Lessons
+---
+
+
 # Lesson 7: Processing MARC with Metafacture
 
 In the previous lessons we learned how we can use Metafacture to process structured data like JSON. Today we will use Metafacture to process MARC metadata records. In this process we will see that MARC can be processed using FIX paths.
@@ -34,7 +42,7 @@ Like JSON the MARC file contains structured data but the format is different. Al
 
 Lets create a new small Flux script to transform the Marc data into YAML, name it `marc2.flux`:
 
-```default
+```text
 "https://raw.githubusercontent.com/metafacture/metafacture-core/master/metafacture-runner/src/main/dist/examples/read/marc21/10.marc21"
 | open-http
 | as-lines
@@ -57,7 +65,7 @@ All `XXX` fields starting with `100` are translated in top elements with name of
 
 Lets use `list-fix-paths(count="false")` to show the pathes that are used in the records. It helps to get a overview of the records:
 
-```default
+```text
 "https://raw.githubusercontent.com/metafacture/metafacture-core/master/metafacture-runner/src/main/dist/examples/read/marc21/10.marc21"
 | open-http
 | as-lines
@@ -77,7 +85,7 @@ We can use metafacture fix to read the _id fields of the MARC record with the re
 
 Flux:
 
-```default
+```text
 "https://raw.githubusercontent.com/metafacture/metafacture-tutorial/main/data/sample.mrc"
 | open-http
 | as-lines
@@ -132,7 +140,7 @@ Extracting data out of the MARC record itself is a bit more difficult. This is a
 
 You need paths of the elements to extract the data. For instance the MARC leader is usually in the first field of a MARC record. In the previous posts about paths. To keep the `leader`element we need to retain the element `leader`.
 
-```default
+```text
 "https://raw.githubusercontent.com/metafacture/metafacture-tutorial/main/data/sample.mrc"
 | open-http
 | as-lines
@@ -266,7 +274,7 @@ Here you see, a simple mapping from the element `245 any indicators $a`  to a ne
 
 Flux:
 
-```default
+```text
 "https://raw.githubusercontent.com/metafacture/metafacture-tutorial/main/data/sample.mrc"
 | open-http
 | as-lines
@@ -308,7 +316,7 @@ HINT: Sometimes it makes sense to create an empty array by `add_array` or an emp
 
  Step 2, create the flux workflow and execute this worklow either with CLI or the playground:
 
-```default
+```text
 "https://raw.githubusercontent.com/metafacture/metafacture-core/master/metafacture-runner/src/main/dist/examples/read/marc21/10.marc21"
 | open-http
 | as-lines
@@ -361,4 +369,4 @@ Try to fetch some data from GND or other MARC XML resource and use the flux comm
 
 ---------------
 
-**Next lesson**: [08 Harvest data with OAI-PMH](./08_Harvest_data_with_OAI-PMH.md)
+**Next lesson**: [08 Harvest data with OAI-PMH](./08_Harvest_data_with_OAI-PMH.html)

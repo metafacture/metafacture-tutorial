@@ -1,3 +1,10 @@
+---
+layout: default
+title: "Lesson 2: Introduction into Metafacture Flux"
+nav_order: 2
+parent: Lessons
+---
+
 # Lesson 2: Introduction into Metafacture Flux
 
 To perform data processing with Metafacture, transformation workflows are configured with **Metafacture Flux**, a [domain-specific scripting language (DSL)](https://en.wikipedia.org/wiki/Domain-specific_language).
@@ -23,7 +30,7 @@ See the window called Flux?
 
 Copy the following short code sample [into the playground](https://metafacture.org/playground/?flux=%22Hello%2C+friend.+I%27am+Metafacture%21%22%0A%7Cprint%0A%3B&active-editor=fix):
 
-```default
+```
 "Hello, friend. I'am Metafacture!"
 |print
 ;
@@ -40,7 +47,7 @@ We have a short text string `"Hello, friend. I'am Metafacture"`. That is printed
 A Metafacture Workflow is nothing else than an incoming text string that is manipulated by one or multiple moduls that do something with the incoming string.
 However, the workflow does not have to start with a text string but can also be a variable that stands for the text string and needs to be defined before the workflow. As this:
 
-```default
+```text
 INPUT="Hello, friend. I'am Metafacture!";
 
 INPUT
@@ -67,7 +74,7 @@ Data for `inputFile-content`:
 
 Flux:
 
-```default
+```text
 inputFile
 |print
 ;
@@ -83,7 +90,7 @@ We need to add two additional Metafacture commands: `open-file` and `as-lines`
 
 Flux:
 
-```default
+```text
 inputFile
 | open-file
 | as-lines
@@ -124,7 +131,7 @@ The Flux should now look like this:
 
 Flux:
 
-```default
+```text
 inputFile
 | open-file
 | as-lines
@@ -216,7 +223,7 @@ Luckily, we cannot only open the data we have in our `inputFile-content` field, 
 
 Clear your playground and copy the following Flux workflow:
 
-```default
+```
 "https://openlibrary.org/books/OL2838758M.json"
 | open-http
 | as-lines
@@ -241,7 +248,7 @@ So let's have a small recap of what we done and learned so far: * We played arou
 * We learned that a Metafacture Flux workflow is a combination of modules with an inital text string or an variable.
 * We got to know different modules like `open-http`, `as-lines`. `decode-json`, `encode-yaml`, `print`
 
-More modules can be found in the [documentation of available flux commands](https://github.com/metafacture/metafacture-documentation/blob/master/flux-commands.md).
+More modules can be found in the [documentation of available flux commands](https://github.com/metafacture/metafacture-documentation/blob/master/flux-commands.html).
 
 Now take some time and play around a little bit more and use some other modules.
 
@@ -305,7 +312,7 @@ See:
 ;
 ```
 
----------------
+------------
 
 ## Exercise
 
@@ -352,4 +359,4 @@ This will be the theme of the next session.
 
 ---------------
 
-**Next lesson**: [03 Introduction into Metafacture-Fix](./03_Introduction_into_Metafacture-Fix.md)
+**Next lesson**: [03 Introduction into Metafacture-Fix](./03_Introduction_into_Metafacture-Fix.html)
