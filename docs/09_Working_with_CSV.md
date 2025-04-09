@@ -1,8 +1,8 @@
 ---
 layout: default
-title: "Lesson 9: Working with CSV and TSV files"
+title: "Lesson 9: Working with CSV/TSV"
 nav_order: 9
-parent: Lessons
+parent: Tutorial
 ---
 
 

@@ -1,8 +1,8 @@
 ---
 layout: default
-title: "Lesson 8: Harvest data with OAI-PMH"
+title: "Lesson 8: Harvest an OAI-PMH"
 nav_order: 8
-parent: Lessons
+parent: Tutorial
 ---
 
 

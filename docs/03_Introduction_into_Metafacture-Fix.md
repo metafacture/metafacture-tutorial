@@ -1,8 +1,8 @@
 ---
 layout: default
-title: "Lesson 3: Introduction into Metafacture Fix"
+title: "Lesson 3: Metafacture Fix"
 nav_order: 3
-parent: Lessons
+parent: Tutorial
 ---
 
 # Lesson 3: Introduction into Metafacture Fix

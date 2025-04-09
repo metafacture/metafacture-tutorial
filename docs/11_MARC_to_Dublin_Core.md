@@ -1,8 +1,8 @@
 ---
 layout: default
-title: "Lesson 11 : From MARC to Dublin Core as loud JSON-LD"
+title: "Lesson 11 : From MARC to Dublin Core"
 nav_order: 11
-parent: Lessons
+parent: Tutorial
 ---
 
 

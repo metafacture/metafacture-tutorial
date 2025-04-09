@@ -1,8 +1,8 @@
 ---
 layout: default
-title: "Lesson 7: Processing MARC with Metafacture"
+title: "Lesson 7: Processing MARC"
 nav_order: 7
-parent: Lessons
+parent: Tutorial
 ---
 
 

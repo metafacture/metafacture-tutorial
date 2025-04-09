@@ -1,8 +1,8 @@
 ---
 layout: default
-title: "Lesson 6: Using Metafacture as Command Line Tool"
+title: "Lesson 6: Metafacture CLI"
 nav_order: 6
-parent: Lessons
+parent: Tutorial
 ---
 
 # Lesson 6: Using Metafacture as Command Line Tool

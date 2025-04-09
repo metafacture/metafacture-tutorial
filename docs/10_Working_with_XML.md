@@ -2,7 +2,7 @@
 layout: default
 title: "Lesson 10: Working with XML"
 nav_order: 10
-parent: Lessons
+parent: Tutorial
 ---
 
 # Lesson 10: Working with XML

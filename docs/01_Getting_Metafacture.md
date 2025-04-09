@@ -1,8 +1,8 @@
 ---
 layout: default
-title: "Lesson 1: Introducing Metafacture and requirements for this tutorial"
+title: "Lesson 1: Introduction and Requirements"
 nav_order: 1
-parent: Lessons
+parent: Tutorial
 ---
 
 # Lesson 1: Introducing Metafacture and requirements for this tutorial

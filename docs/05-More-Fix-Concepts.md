@@ -2,7 +2,7 @@
 layout: default
 title: "Lesson 5: More Fix concepts"
 nav_order: 5
-parent: Lessons
+parent: Tutorial
 ---
 
 # Lesson 5: More Fix concepts

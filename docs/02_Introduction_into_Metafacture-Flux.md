@@ -1,8 +1,8 @@
 ---
 layout: default
-title: "Lesson 2: Introduction into Metafacture Flux"
+title: "Lesson 2: Metafacture Flux"
 nav_order: 2
-parent: Lessons
+parent: Tutorial
 ---
 
 # Lesson 2: Introduction into Metafacture Flux

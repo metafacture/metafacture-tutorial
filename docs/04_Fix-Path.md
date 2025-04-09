@@ -1,8 +1,8 @@
 ---
 layout: default
-title: "Lesson 4: FixPath and more complex transformations in Fix"
+title: "Lesson 4: FixPath"
 nav_order: 4
-parent: Lessons
+parent: Tutorial
 ---
 
 # Lesson 4: FixPath and more complex transformations in Fix
