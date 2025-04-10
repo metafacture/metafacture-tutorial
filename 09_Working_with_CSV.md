@@ -36,17 +36,49 @@ See that the elements have no name literal names but are only numbers.
 But the csv has a header we need to add the option `(hasHeader="true")` to `decode-csv` in the flux.
 
 
-You can extract specified fields while converting to another tabular format by using the fix. This is quite handy for analysis of specific fields or to generate reports.
+You can extract specified fields while converting to another tabular format by using the fix. This is quite handy for analysis of specific fields or to generate reports. In the following example we only keep three columns (`ISBN"`,`"Title"`,`"Author"`):
 
-https://metafacture.org/playground/?flux=%22https%3A//lib.ugent.be/download/librecat/data/goodreads.csv%22%0A%7C+open-http%0A%7C+as-lines%0A%7C+decode-csv%28hasHeader%3D%22true%22%29%0A%7C+fix%28transformationFile%29%0A%7C+encode-csv%28includeHeader%3D%22true%22%29%0A%7C+print%0A%3B&transformation=retain%28%22ISBN%22%2C%22Title%22%2C%22Author%22%29
+Flux:
 
-By default Metafactures `decode-csv` expects that CSV fields are separated by comma ‘,’ and strings are quoted with double qoutes ‘”‘ or single quotes `'`. You can specify other characters as separator or quotes with the option ‘separator’ and clean special quote signs with the fix:
+```text
+"https://lib.ugent.be/download/librecat/data/goodreads.csv"
+| open-http
+| as-lines
+| decode-csv(hasHeader="true")
+| fix(transformationFile)
+| encode-csv(includeHeader="true")
+| print
+;
+```
 
-See:
+With Fix:
+```
+retain("ISBN","Title","Author")
+```
 
-https://metafacture.org/playground/?flux=%2212157%3B%24The+Journal+of+Headache+and+Pain%24%3B2193-1801%22%0A%7C+read-string%0A%7C+as-lines%0A%7C+decode-csv%28separator%3D%22%3B%22%29%0A%7C+fix%28transformationFile%29%0A%7C+encode-csv%28separator%3D%22\t%22%2C+includeheader%3D%22true%22%29%0A%7C+print%3B&transformation=replace_all%28%22%3F%22%2C%22%5E\\%24%7C\\%24%24%22%2C%22%22%29
+[See the example in the Playground](https://metafacture.org/playground/?flux=%22https%3A//lib.ugent.be/download/librecat/data/goodreads.csv%22%0A%7C+open-http%0A%7C+as-lines%0A%7C+decode-csv%28hasHeader%3D%22true%22%29%0A%7C+fix%28transformationFile%29%0A%7C+encode-csv%28includeHeader%3D%22true%22%29%0A%7C+print%0A%3B&transformation=retain%28%22ISBN%22%2C%22Title%22%2C%22Author%22%29)
 
-(Different to Catmandu quote-chars cannot be manipulated by the decoder directly.)
+By default Metafactures `decode-csv` expects that CSV fields are separated by comma ‘,’ and strings are quoted with double qoutes ‘”‘ or single quotes `'`. You can specify other characters as separator or quotes with the option ‘separator’ and clean special quote signs with the fix. (In contrast to Catmandu quote-chars cannot be manipulated by the decoder directly, yet.)
+
+Flux:
+
+```text
+"12157;$The Journal of Headache and Pain$;2193-1801"
+| read-string
+| as-lines
+| decode-csv(separator=";")
+| fix(transformationFile)
+| encode-csv(separator="\t", includeheader="true")
+| print;
+```
+
+Fix:
+
+```
+replace_all("?","^\\$|\\$$","")
+```
+
+[See the example in the Playground.](https://metafacture.org/playground/?flux=%2212157%3B%24The+Journal+of+Headache+and+Pain%24%3B2193-1801%22%0A%7C+read-string%0A%7C+as-lines%0A%7C+decode-csv%28separator%3D%22%3B%22%29%0A%7C+fix%28transformationFile%29%0A%7C+encode-csv%28separator%3D%22\t%22%2C+includeheader%3D%22true%22%29%0A%7C+print%3B&transformation=replace_all%28%22%3F%22%2C%22%5E\\%24%7C\\%24%24%22%2C%22%22%29)
 
 In the example above we read the string as a little CSV fragment using the `read-string` command for our small test. It will read the tiny CSV string which uses “;” and “$” as separation and quotation characters.
 The string is then read each line by `as-lines` and decoded as csv with the separator `,`.
@@ -55,13 +87,44 @@ With a little fix you can
 
 ## Writing CSVs
 
-When exporting data a tabular format you can change the field names in the header or omit the header:
+When harvesting data in tabular format you also can change the field names in the header or omit the header:
 
-https://metafacture.org/playground/?flux=%22https%3A//lib.ugent.be/download/librecat/data/goodreads.csv%22%0A%7C+open-http%0A%7C+as-lines%0A%7C+decode-csv%28hasheader%3D%22true%22%29%0A%7C+fix%28transformationFile%29%0A%7C+encode-csv%28includeHeader%3D%22true%22%29%0A%7C+print%3B&transformation=move_field%28%22ISBN%22%2C%22A%22%29%0Amove_field%28%22Title%22%2C%22B%22%29%0Amove_field%28%22Author%22%2C%22C%22%29%0A%0Aretain%28%22A%22%2C%22B%22%2C%22C%22%29
+Flux:
+
+```text
+"https://lib.ugent.be/download/librecat/data/goodreads.csv"
+| open-http
+| as-lines
+| decode-csv(hasheader="true")
+| fix(transformationFile)
+| encode-csv(includeHeader="true")
+| print;
+```
+
+Fix:
+
+```perl
+move_field("ISBN","A")
+move_field("Title","B")
+move_field("Author","C")
+
+retain("A","B","C")
+```
+
+[See example in he playground.](https://metafacture.org/playground/?flux=%22https%3A//lib.ugent.be/download/librecat/data/goodreads.csv%22%0A%7C+open-http%0A%7C+as-lines%0A%7C+decode-csv%28hasheader%3D%22true%22%29%0A%7C+fix%28transformationFile%29%0A%7C+encode-csv%28includeHeader%3D%22true%22%29%0A%7C+print%3B&transformation=move_field%28%22ISBN%22%2C%22A%22%29%0Amove_field%28%22Title%22%2C%22B%22%29%0Amove_field%28%22Author%22%2C%22C%22%29%0A%0Aretain%28%22A%22%2C%22B%22%2C%22C%22%29)
 
 You can transform the data to an tsv file with the separator \t which has no header like this.
 
-https://metafacture.org/playground/?flux=%22https%3A//lib.ugent.be/download/librecat/data/goodreads.csv%22%0A%7C+open-http%0A%7C+as-lines%0A%7C+decode-csv%28hasheader%3D%22true%22%29%0A%7C+fix%28transformationFile%29%0A%7C+encode-csv%28separator%3D%22\t%22%2C+noQuotes%3D%22true%22%29%0A%7C+print%3B&transformation=retain%28%22ISBN%22%2C%22Title%22%2C%22Author%22%29
+```text
+"https://lib.ugent.be/download/librecat/data/goodreads.csv"
+| open-http
+| as-lines
+| decode-csv(hasheader="true")
+| encode-csv(separator="\t", noQuotes="true")
+| print;
+```
+
+[See example in playground.](https://metafacture.org/playground/?flux=%22https%3A//lib.ugent.be/download/librecat/data/goodreads.csv%22%0A%7C+open-http%0A%7C+as-lines%0A%7C+decode-csv%28hasheader%3D%22true%22%29%0A%7C+fix%28transformationFile%29%0A%7C+encode-csv%28separator%3D%22\t%22%2C+noQuotes%3D%22true%22%29%0A%7C+print%3B&transformation=retain%28%22ISBN%22%2C%22Title%22%2C%22Author%22%29)
 
 When you create a CSV from a by export complex/nested data structures to a tabular format, you must “flatten” the datastructure. Also 
 you have to be aware that the order and number of elements in every record is the same otherwise the header does not match the records.
