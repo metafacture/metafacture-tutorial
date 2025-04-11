@@ -1,3 +1,10 @@
+---
+layout: default
+title: "Lesson 4: FixPath"
+nav_order: 4
+parent: Tutorial
+---
+
 # Lesson 4: FixPath and more complex transformations in Fix
 
 Over the last lessons we learned how to construct a Metafacture workflow, how to use the Playground and how Metafacture Flux and Fix can be used to parse structured information. We saw how you can use Flux to transform the JSON format into the YAML format which is easier to read and contains the same information. We also learned how to retrieve information out of the JSON file using a Fix function like `retain("title", "publish_date", "notes.value", "type.key")`.
@@ -6,7 +13,7 @@ In this lesson we will go deeper into Metafacture Fix and describe how to pluck 
 
 First, let's fetch of a new book with the Metafacture Playground:
 
-```default
+```text
 "https://openlibrary.org/books/OL27333998M.json"
 | open-http
 | as-lines
@@ -224,8 +231,8 @@ title.type
 title.lang
 ```
 
-If you want to create xml with attributes then you need to map to this structure too. We will come back to lection working with xml in lesson 10.
+If you want to create xml with attributes then you need to map to this structure too. We will come back to lection working with xml [in lesson 10](10_Working_with_XML.md).
 
 ---------------
 
-**Next lesson**: [05 More Fix Concepts](./05-More-Fix-Concepts.md)
+**Next lesson**: [05 More Fix Concepts](./05-More-Fix-Concepts.html)

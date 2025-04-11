@@ -1,3 +1,11 @@
+---
+layout: default
+title: "Lesson 9: Working with CSV/TSV"
+nav_order: 9
+parent: Tutorial
+---
+
+
 # Lesson 9: Working with CSV and TSV files
 
 CSV and TSV files are widely-used to store and exchange simple structured data. Many open datasets are published as CSV or TSV files, e.g. datahub.io. Within the library community CSV files are used for the distribution of title lists (KBART), e.g Knowledge Base+.
@@ -8,7 +16,7 @@ Metafacture implements an decoder and encoder for both formats: decode-csv and e
 
 So get some CSV data to work with:
 
-```default
+```text
 "https://lib.ugent.be/download/librecat/data/goodreads.csv"
 | open-http
 | as-lines
@@ -140,4 +148,4 @@ Excercises:
 
 ---------------
 
-**Next lesson**: [10 Working with XML](./10_Working_with_XML.md)
+**Next lesson**: [10 Working with XML](./10_Working_with_XML.html)
