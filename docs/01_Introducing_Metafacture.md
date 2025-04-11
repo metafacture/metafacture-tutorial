@@ -4,7 +4,6 @@ title: "Lesson 1: Introduction and Requirements"
 nav_order: 1
 parent: Tutorial
 ---
-
 # Lesson 1: Introducing Metafacture and requirements for this tutorial
 
 ![Logo](https://metafacture.org/img/metafacture.png)
@@ -23,6 +22,12 @@ Starting with [Chapter 6](./06_MetafactureCLI.html), we can switch from using Pl
 
 To run Metafacture on your local machine you need a Linux/Unix Bash Shell (part of every Linux, MacOS and Windows >=10) with metafacture-core installed. See [Chapter 6](./06_MetafactureCLI.html) for details.
 
+## Getting started with the Metafacture Playground
+
+To process data Metafacture can be used with the command line, as JAVA library or you can use the Metafacture Playground.
+
+For this introduction we will start with the Playground since it allows a quick start without additional installing. The [Metafacture Playground](https://metafacture.org/playground) is a web interface to test and share Metafacture workflows. The commandline handling will be subject in [lesson 6](./06_MetafactureCLI.md)
+
 ---------------
 
-**Next lesson**: [02 Introduction into Metafacture Flux](./02_Introduction_into_Metafacture-Flux.html)
+**Next lesson**: [02 Introduction into Metafacture Flux](./02_Introduction_into_Metafacture-Flux.md)
