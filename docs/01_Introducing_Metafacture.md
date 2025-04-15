@@ -30,4 +30,4 @@ For this introduction we will start with the Playground since it allows a quick 
 
 ---------------
 
-**Next lesson**: [02 Introduction into Metafacture Flux](./02_Introduction_into_Metafacture-Flux.md)
+**Next lesson**: [02 Introduction into Metafacture Flux](./02_Introduction_into_Metafacture-Flux.html)
