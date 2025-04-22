@@ -10,22 +10,20 @@ parent: Tutorial
 
 The Open Archives Initiative Protocol for Metadata Harvesting (OAI-PMH) is a protocol to harvest metadata records from OAI compliant repositories. It was developed by the Open Archives Initiative as a low-barrier mechanism for repository interoperability. The Open Archives Initiative maintains a registry of OAI data providers.
 
-Metafacture provides an opener flux module for harvesting metadata from OAI-PMH: `open-oaipmh`
+Metafacture provides a Flux module for harvesting metadata from OAI-PMH: `open-oaipmh`.
 
 Lets have a look at the documentation of open-oaipmh:
 
 ![open-oaipmh Documentation](./images/OAI-PMH-Docu.png)
 
-There you see the specific options that can be used to configure your OAI PMH Harvesting.
+You see the specific options that can be used to configure your OAI PMH harvesting.
 
-Every OAI server must provide metadata records in Dublin Core, other (bibliographic) formats like MARC may be supported additionally. Available metadata formats can be detected with the OAI verb `ListMetadataFormats`:  https://lib.ugent.be/oai?verb=ListMetadataFormats
-
-This OAI-PMH API provides MODS and Dublin Core. For specifying the metadataformat you use the `metadataprefix:` Option.
+Every OAI server must provide metadata records in Dublin Core, other (bibliographic) formats like MARC may be supported additionally. Available metadata formats can be detected with the OAI verb `ListMetadataFormats`, [see an example](https://lib.ugent.be/oai?verb=ListMetadataFormats) which provides MODS and Dublin Core. For specifying the metadata format use the `metadataprefix` option.
 
 The OAI server may support selective harvesting, so OAI clients can get only subsets of records from a repository.
-The client requests could be limited via datestamps (`datefrom`, `dateuntil`) or set membership (`setSpec`).
+The client requests could be limited via datestamps (`datefrom`, `dateuntil`) or by setting the membership (`setSpec`).
 
-To get some Dublin Core records from the collection of Ghent University Library and convert it to JSON (default) run the following Metafacture worklow via Playground or CLI:
+To get some Dublin Core records from the collection of Ghent University Library and convert it to JSON (default) run the following Metafacture workflow via Playground or CLI:
 
 ```text
 "https://lib.ugent.be/oai"
@@ -37,9 +35,9 @@ To get some Dublin Core records from the collection of Ghent University Library 
 ;
 ```
 
-But if you just want to use the specific metadata records and not the oai-pmh specific metadata wrappers then specify the xml handler like this: `| handle-generic-xml(recordtagname="dc")`
+If you just want to use the specific metadata records and not the OAI-PMH specific metadata wrappers then specify the XML handler like this: `| handle-generic-xml(recordtagname="dc")`
 
-You can also harvest MARC data, serialze it to marc-binary and store it in a file:
+You can also harvest MARC data, serialize it to MARC-binary and store it in a file:
 
 ```text
 "https://lib.ugent.be/oai"
@@ -51,7 +49,7 @@ You can also harvest MARC data, serialze it to marc-binary and store it in a fil
 ;
 ```
 
-You can also transform incoming data and immediately store/index it with MongoDB or Elasticsearch. For the transformation you need to create a fix (see Lesson 3) in the playground or in a text editor:
+You can also transform incoming data and store/index it with MongoDB or Elasticsearch. For the transformation you need to create a fix (see Lesson 3) in the playground or in a text editor:
 
 Add the following fixes to the file:
 
@@ -77,7 +75,7 @@ Now you can run an ETL process (extract, transform, load) with this worklflow:
 ;
 ```
 
-Excercise: Try to fetch data from a OAI-PMH you know. (e.g. the [DNB OAI](https://www.dnb.de/DE/Professionell/Metadatendienste/Datenbezug/OAI/oai_node.html))
+Excercise: Try to fetch data from an OAI-PMH you know. (e.g. the [DNB OAI](https://www.dnb.de/DE/Professionell/Metadatendienste/Datenbezug/OAI/oai_node.html))
 
 ---------------
 
