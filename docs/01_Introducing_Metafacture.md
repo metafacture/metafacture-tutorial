@@ -14,9 +14,9 @@ It was initially developed by the [DNB](https://www.dnb.de) starting in 2011 and
 Metafacture can be used as a stand-alone application or as a Java library in other applications.
 The name "Metafacture" is a portmanteau of the words metadata and manufacture.
 
-In this tutorial we are going to teach how to use Metafacture to perform simple and advanced data processing tasks.
+In this tutorial we are going to teach how to use Metafacture to perform simple and advanced data processing tasks. To process data Metafacture can be used with the command line, as JAVA library or you can use the Metafacture Playground.
 
-In the first lessons, we will use the [Metafacture Playground](https://metafacture.org/playground/), a web application that helps you getting started. It is useful to test, share and export Metafacture workflows and requires no local installation.
+For this introduction we will start with the Playground since it allows a quick start without additional installing. The [Metafacture Playground](https://metafacture.org/playground) is a web interface to test and share Metafacture workflows and requires no local installation.
 
 Starting with [Chapter 6](./06_MetafactureCLI.html), we can switch from using Playground to running Metafacture on our own hardware but the examples are still provided in the Playground.
 
@@ -24,9 +24,7 @@ To run Metafacture on your local machine you need a Linux/Unix Bash Shell (part 
 
 ## Getting started with the Metafacture Playground
 
-To process data Metafacture can be used with the command line, as JAVA library or you can use the Metafacture Playground.
-
-For this introduction we will start with the Playground since it allows a quick start without additional installing. The [Metafacture Playground](https://metafacture.org/playground) is a web interface to test and share Metafacture workflows. The commandline handling will be subject in [lesson 6](./06_MetafactureCLI.md)
+You will see what a workflow in Metafacture in the Playground looks like in the following lessons. For a first overview, you will find an example workflow 'How to use the Playground' under the menu item 'Load examples'. To run this example, just click on 'Process' in the menu.
 
 ---------------
 
