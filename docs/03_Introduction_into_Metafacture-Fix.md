@@ -7,15 +7,15 @@ parent: Tutorial
 
 # Lesson 3: Introduction into Metafacture Fix
 
-In the last session we learned about Flux moduls.
-Flux moduls can do a lot of things. They configure the "high-level" transformation pipeline.
+In the last session we've learned about Flux modules.
+Flux modules can do a lot of things. They configure the "high-level" transformation pipeline.
 
-But the main transformation of incoming data at record, elemenet and value level is usually done by the transformation moduls [Fix](https://metafacture.github.io/metafacture-documentation/docs/flux/flux-commands.html#fix) or [Morph](https://metafacture.github.io/metafacture-documentation/docs/flux/flux-commands.html#morph) as one step in the pipeline.
+But the main transformation of incoming data at record, element and value level is usually done by the transformation modules [Fix](https://metafacture.github.io/metafacture-documentation/docs/flux/flux-commands.html#fix) or [Morph](https://metafacture.github.io/metafacture-documentation/docs/flux/flux-commands.html#morph) as one step in the pipeline.
 
 By transformation we mean things like:
 
 * Manipulating element names and element values
-* Change hierachies and structures of records
+* Changing hierachies and structures of records
 * Lookup values in concordance list
 
 But not changing serialization that is part of encoding and decoding.
@@ -47,10 +47,10 @@ You should end up with something like:
 title: "Ordinary vices"
 ```
 
-The Fix module, called by `fix`, in Metafacture is used to manipulate the input data filtering fields we would like to see. Only one fix-function was used: `retain`, which throws away all the data from the input except the stated `"title"` field. Normally all incoming data is passed through, unless it is somehow manipulated or a `retain` function is used.
+The Fix module, called by `fix`, is used to manipulate the input data filtering fields we would like to see. Only one Fix-function was used: `retain`, which throws away all the data from the input except the stated `"title"` field. Normally all incoming data is passed through, unless it is somehow manipulated or a `retain` function is used.
 
-HINT: As long as you embedd the fix functions in the Flux Workflow, you have to use double quotes to fence the fix functions,
-and single quotes in the fix functions. As we did here: `fix ("retain('title')")`
+HINT: As long as you embed the Fix functions in the Flux Workflow, you have to use double quotes to fence the Fix functions,
+and single quotes in the Fix functions. As we did here: `fix ("retain('title')")`
 
 Now let us additionally keep the info that is given in the element `"publish_date"` and the subfield `"key"` in `'type'` by adding `'publish_date', 'type.key'` to `retain`:
 
@@ -76,9 +76,9 @@ notes:
 
 ```
 
-When manipulating data you often need to create many fixes to process a data file in the format and structure you need. With a text editor you can write all fix functions in a singe separate Fix file.
+When manipulating data you often need to create many Fixes to process a data file in the format and structure you need. With a text editor you can write all Fix functions in a singe separate Fix file.
 
-The playground has an transformationFile-content area that can be used as if the Fix is in a separate file.
+The playground has a transformationFile-content area that can be used as if the Fix is in a separate file.
 In the playground we use the variable `transformationFile` to adress the Fix file in the playground.
 
 Like this.
@@ -93,7 +93,7 @@ retain("title", "publish_date", "notes.value", "type.key")
 
 Using a separate Fix file is recommended if you need to write many Fix functions. It will keep the Flux workflow clear and legible.
 
-To add more fixes we can again edit the Fix file.
+To add more Fixes we can again edit the Fix file.
 Lets add these lines in front of the retain function:
 
 ```
@@ -109,7 +109,7 @@ retain("title", "publish_date",  "notes.value", "pub_type")
 
 The output should be something like this:
 
-```yaml
+the fix func```yaml
 ---
 title: "Ordinary vices"
 publish_date: "1984"
@@ -169,7 +169,7 @@ retain("title", "publish_date", "pub_type")
 
 2) [Add a field with todays date called `"map_date"`.](https://metafacture.org/playground/?flux=%22https%3A//openlibrary.org/books/OL2838758M.json%22%0A%7C+open-http%0A%7C+as-lines%0A%7C+decode-json%0A%7C+fix+%28transformationFile%29%0A%7C+encode-yaml%0A%7C+print%0A%3B&transformation=move_field%28%22type.key%22%2C%22pub_type%22%29%0Areplace_all%28%22pub_type%22%2C%22/type/%22%2C%22%22%29%0A...%28%22mape_date%22%2C%22...%22%29%0Aretain%28%22title%22%2C+%22publish_date%22%2C+%22by_statement%22%2C+%22pub_type%22%29)
 
-Have a look at the fix functions: https://metafacture.org/metafacture-documentation/docs/fix/Fix-functions.html (Hint: you could use `add_field` or `timestamp`. And don't forget to add the new element to `retain`)
+Have a look at the [Fix functions](https://metafacture.org/metafacture-documentation/docs/fix/Fix-functions.html). (Hint: you could use `add_field` or `timestamp`. And don't forget to add the new element to `retain`)
 
 
 <details>
