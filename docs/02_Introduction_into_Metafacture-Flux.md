@@ -267,7 +267,7 @@ What you see with the modules `encode-formeta` and `write` is that modules can h
 These can eiter be a string in `"..."` or attributes that define options as with `style=`.
 
 One last thing you should learn on an abstract level to grasp the general idea of Metafacture Flux workflows is that they have many different modules through which the data is flowing.
-The most abstract and most common process is resembled by the following steps:
+The most abstract and most common process resembles the following steps:
 
 **→ read → decode → transform → encode → write →**
 
