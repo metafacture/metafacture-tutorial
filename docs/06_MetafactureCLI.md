@@ -9,30 +9,24 @@ parent: Tutorial
 
 ## Get Metafacture Runner as CLI Tool
 
-Hint: This lesson requires basic practical knowledge of the command line and Shell.
-If you want to get familiar with tit, have a look at the great intro to Unix Shell by Library Carpentry: https://librarycarpentry.github.io/lc-shell/ (Session 1 - 3) You could also have a look at the great introdution by the Programming Historian to Powershell: https://programminghistorian.org/en/lessons/intro-to-powershell
+_This lesson requires basic practical knowledge of the command line and Shell.
+If you want to get familiar with it, have a look at the great [intro to Unix Shell by Library Carpentry](https://librarycarpentry.github.io/lc-shell/) (Session 1 - 3). You could also have a look at the great [introdution by the Programming Historian to Powershell](https://programminghistorian.org/en/lessons/intro-to-powershell)_
 
-While we had fun with our Metafacture Playground another way to use Metafacture is
-the command line. For running a Metafacture flux process we need a terminal and installed JAVA 11 ore higher.
-For creating and editing Flux and Fix files we need an texteditor like Codium/VS Code or others.
+While we had fun with our Metafacture Playground another way to use Metafacture is by
+the command line. For running a Metafacture Flux process we need a terminal and Java 11 ore higher.
+For creating and editing Flux and Fix files we need a text editor like Codium/VS Code or others.
 
 For this lesson basic knowledge of the commandline is recommended.
 
 Check if Java 11 or higher is installed with `java -version` in your terminal.
-If not, install JAVA 11 or higher.
+If not, install Java 11 or higher.
 
-To use Metafacture on the commandline we can download the latest distribution e.g.: `metafacture-core-7.0.0-dist.zip`:
-
-[https://github.com/metafacture/metafacture-core/releases](https://github.com/metafacture/metafacture-core/releases)
-
-Hint: If 7.0.0 is not published yet use the runner version of the [prerelease 7.0.0-rc1](https://github.com/metafacture/metafacture-core/releases/tag/metafacture-core-7.0.0-rc1).
+To use Metafacture on the commandline [download the latest (pre-) release](https://github.com/metafacture/metafacture-core/releases).
 
 Download `metafacture-core-$VERSION-dist.tar.gz` or the zip version and extract the archive to your choosen folder.
 In the folder you find the `flux.bat` and `flux.sh`
 
-The code below assumes you moved the resulting folder to your home directory and renamed it to `'metafacture'`
-
-$ ~/metafacture/flux.sh # or flux.bat on Windows
+The code below assumes you moved the resulting folder to your home directory and renamed it to `"metafacture"`.
 
 ## How to run Metafacture via CLI
 
@@ -50,7 +44,7 @@ or Windows:
 ~\metafacture\flux.bat path\to\your.flux
 ```
 
-(Hint: You need to know the path to your file to run the function.)
+(Hint: You need to know the path to your Flux file to run it.)
 
 To get quick started let's revisit a Flux we toyed around with in the playground.
 The playground has a nice feature to export and import Metafacture Workflows.
@@ -77,12 +71,10 @@ Windows:
 
 To simplify the code examples we will be using unix paths for the terminal commands. Windows Powershell will change these to windows paths automatically.
 
-The result of running the Flux-Script via CLI should be the same as with the Playground.
+The result of running the Flux script via CLI should be the same as with the Playground.
 
-The Metafacture CLI Tool expects a flux file for every workflow.
-Our runned workflow only has the following flux and no additional files since it is fetching data from the web and it has no fix transformations.
-
-The downloaded file should have the following content, defining the playground specific variables and the flux workflow that you also saw in the playground. You can delete the playground specific variables since they are not needed here.
+The Metafacture CLI tool expects a Flux file for every workflow.
+Our workflow only has the following Flux and no additional files since it is fetching data from the web and it has no fix transformations. The file should have the following content, defining the playground specific variables and the Flux workflow that you also saw in the playground. You can delete the playground specific variables since they are not needed so you woul end with this:
 
 ```text
 "https://openlibrary.org/books/OL2838758M.json"
@@ -96,11 +88,11 @@ The downloaded file should have the following content, defining the playground s
 
 ## Use local files for transformation
 
-If you want to load a local file instead of fetching data from the web we need to change the flux a little bit with an texteditor.
+If you want to load a local file instead of fetching data from the web you need to change the Flux a little bit with an text editor.
 Download the following file [11942150X.json](./sample-scripts/lesson_06/11942150X.json)
 and adjust the path to your file.
 
-Adjust your `downloads/playground.flux` script, so that it does not load data from the web, but opens a local file with `open-file` and read it `as-recrods` since the json file is pretty printed:
+Adjust your `downloads/playground.flux` script, so that it does not load data from the web, but opens a local file with `open-file` and reads it using `as-records` since the json file is pretty printed (not as one record per line):
 
 ```text
 "path/to/your/file/11942150X.json" // Adjust your path!
@@ -284,7 +276,7 @@ It should output:
 }
 ```
 
-If we want to use fix we need to refrence the fix file that in the playground we only refrenced via `| fix`
+If we want to use Fix we need to reference the Fix file (in the playground we only referenced t via `| fix`):
 
 ```text
 "path/to/your/file/11942150X.json"
@@ -297,20 +289,19 @@ If we want to use fix we need to refrence the fix file that in the playground we
 ;
 ```
 
-Create a new file with the name `fixFile.fix`, files with fix scripts should have a `.fix` file suffix.
+Create a new file with the name `fixFile.fix`. Files with Fix scripts should have a `.fix` file suffix to easily discriminate them later.
 
-Add the follwoing line as content to this file:
+Add the following line as content to this file:
 
 ```perl
 retain("preferredName","id","type[]")
-
 ```
 
-Save it in the same folder as the flux file. (Hint: It does not always have to be in the same folder.)
+Save it in the same folder as the Flux file. (Hint: It does not always have to be in the same folder.)
 
 ## Use variables
 
-Hint: You can use the varliable FLUX_DIR to shorten the file path if the file is in the same folder as the flux-file.
+Hint: You can use the varliable FLUX_DIR to shorten the file path if the file is in the same folder as the Flux file:
 
 ```text
 FLUX_DIR + "file.json"
@@ -323,7 +314,7 @@ FLUX_DIR + "file.json"
 ;
 ```
 
-If you are using variables, that are not defined in the flux, you can pass them on with the CLI:
+If you are using variables that are not defined in the flux, you can pass them on with the CLI:
 
 e.g.
 
@@ -338,7 +329,7 @@ FILE
 ;
 ```
 
-You could use:
+which you use like:
 
 ```bash
 ~/metafacture/flux.sh path/to/your.flux FILE="path/to/your/file.json"
@@ -348,10 +339,10 @@ You could use:
 Excercise: Download the following folder (TODO) with three test examples and run them. Adjust them if needed:
 
 - Run example script locally.
-- Adjust example script so that all json files but no other in the folder are read. Get inspired by https://github.com/metafacture/metafacture-core/blob/master/metafacture-runner/src/main/dist/examples/misc/reading-dirs/read-dirs.flux.
-- Change the FLUX script so that you write the output in the local file instead of stoudt.
-- Add a fix file and add the fix module in the flux. With `nothing()` as content.
-- Add some transformations to the fix e.g. add fields.
+- Adjust example script so that all json files but no other in the folder are read. Get inspired by the [reading directories example](https://github.com/metafacture/metafacture-core/blob/master/metafacture-runner/src/main/dist/examples/misc/reading-dirs/read-dirs.flux).
+- Change the Flux script so that you write the output in the local file instead of stoudt.
+- Add a Fix file and add the Fix module in the Flux. With `nothing()` as content.
+- Add some transformations to the Fix e.g. add fields.
 
 ---------------
 
