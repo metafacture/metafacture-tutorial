@@ -142,7 +142,7 @@ We cleaned up the value of `"pub_type"` element for better readability.
 
 Metafacture contains many Fix functions to manipulate data. Also there are many Flux commands/modules that can be used.
 
-Check the documentation to get a complete list of [Flux commands](https://metafacture.github.io/metafacture-documentation/docs/flux/flux-commands.html) and [Fix functions](https://metafacture.github.io/metafacture-documentation/docs/fix/Fix-functions.html). This post only presented a short introduction into Metafacture. In the next posts we will go deeper into its capabilities.
+Check the documentation to get a complete list of [Flux commands](https://metafacture.github.io/metafacture-documentation/docs/flux/flux-commands.html) and [Fix functions](https://metafacture.github.io/metafacture-documentation/docs/fix/fix-functions.html). This post only presented a short introduction into Metafacture. In the next posts we will go deeper into its capabilities.
 
 Besides Fix functions you can also add as many comments and linebreaks as you want to a Fix.
 
@@ -169,7 +169,7 @@ retain("title", "publish_date", "pub_type")
 
 2) [Add a field with todays date called `"map_date"`.](https://metafacture.org/playground/?flux=%22https%3A//openlibrary.org/books/OL2838758M.json%22%0A%7C+open-http%0A%7C+as-lines%0A%7C+decode-json%0A%7C+fix+%28transformationFile%29%0A%7C+encode-yaml%0A%7C+print%0A%3B&transformation=move_field%28%22type.key%22%2C%22pub_type%22%29%0Areplace_all%28%22pub_type%22%2C%22/type/%22%2C%22%22%29%0A...%28%22mape_date%22%2C%22...%22%29%0Aretain%28%22title%22%2C+%22publish_date%22%2C+%22by_statement%22%2C+%22pub_type%22%29)
 
-Have a look at the [Fix functions](https://metafacture.org/metafacture-documentation/docs/fix/Fix-functions.html). (Hint: you could use `add_field` or `timestamp`. And don't forget to add the new element to `retain`)
+Have a look at the [Fix functions](https://metafacture.org/metafacture-documentation/docs/fix/fix-functions.html). (Hint: you could use `add_field` or `timestamp`. And don't forget to add the new element to `retain`)
 
 
 <details>
