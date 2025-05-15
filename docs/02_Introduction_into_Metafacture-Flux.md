@@ -272,7 +272,7 @@ The most abstract and most common process resembles the following steps:
 
 **→ read → decode → transform → encode → write →**
 
-This process chain transforms incoming data.
+This process chain transforms incoming data in distinct steps.
 Each step can be done by one or a combination of multiple modules.
 Modules are small tools that do parts of the complete task we want to do.
 
