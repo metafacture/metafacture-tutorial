@@ -214,7 +214,7 @@ Luckily, we cannot only open the data we have in our `inputFile-content` field, 
 
 Clear your playground and copy the following Flux workflow:
 
-```
+```text
 "https://openlibrary.org/books/OL2838758M.json"
 | open-http
 | as-lines
@@ -236,6 +236,7 @@ Let's take a look at what a Flux workflow does. The Flux workflow is a combinati
 6. Finally, we tell MF to `print` everything.
 
 So let's have a small recap of what we've done and learned so far:
+
 * We've played around with the Metafacture Playground.
 * We've learned that a Metafacture Flux workflow is a combination of modules with an inital text string or a variable.
 * We got to know different modules like `open-http`, `as-lines`. `decode-json`, `encode-yaml`, `print`

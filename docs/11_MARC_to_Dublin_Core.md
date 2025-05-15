@@ -6,7 +6,8 @@ parent: Tutorial
 ---
 
 
-# Lesson 11 : From MARC to Dublin Core as Linked Open Usable Data (LOUD)
+## Lesson 11 : From MARC to Dublin Core as Linked Open Usable Data (LOUD)
+
 TODO: Use better example. But the following is missing isbns: https://github.com/metafacture/metafacture-examples/blob/master/Swissbib-Extensions/MARC-CSV/
 
 Today we will look a bit further into MARC processing with Metafacture. We already saw a bit of MARC processing and today we will transform MARC records into Dublin Core providing the data as linked open usable data.

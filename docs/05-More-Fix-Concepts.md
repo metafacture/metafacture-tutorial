@@ -7,9 +7,9 @@ parent: Tutorial
 
 # Lesson 5: More Fix concepts
 
-We already learned about simple Fixes aka *[Fix functions](https://metafacture.github.io/metafacture-documentation/docs/fix/fix-functions.html)* but there are three additional concepts in Fix: selector, conditionals and binds.
+We already learned about simple Fixes aka *[Fix functions](https://metafacture.github.io/metafacture-documentation/docs/fix/Fix-functions.html)* but there are three additional concepts in Fix: selector, conditionals and binds.
 
-These Fix concepts were introduced by Catmandu (see [functions](https://librecat.org/Catmandu/#functions), [selector](https://librecat.org/Catmandu/#selectors), [conditionals](https://librecat.org/Catmandu/#conditionals) and [binds](https://librecat.org/Catmandu/#binds)). Be aware that Metafacture Fix does not support all of the specific functions, selectors, conditionals and binds from Catmandu. Check the documentation for a full overview of the supported [Fix functions](https://metafacture.org/metafacture-documentation/docs/fix/fix-functions.html).
+These Fix concepts were introduced by Catmandu (see [functions](https://librecat.org/Catmandu/#functions), [selector](https://librecat.org/Catmandu/#selectors), [conditionals](https://librecat.org/Catmandu/#conditionals) and [binds](https://librecat.org/Catmandu/#binds)). Be aware that Metafacture Fix does not support all of the specific functions, selectors, conditionals and binds from Catmandu. Check the documentation for a full overview of the supported [Fix functions](https://metafacture.org/metafacture-documentation/docs/fix/Fix-functions.html).
 
 ## Additional concepts
 
@@ -47,11 +47,11 @@ Fix functions are used to add, change, remove or otherwise manipulate elements. 
 
 The other three concepts help when you intend to use more complex transformations:
 
-*[Conditionals](https://metafacture.github.io/metafacture-documentation/docs/fix/fix-functions.html#conditionals)* are used to control the processing of Fix functions. The included Fix functions are not processed with every workflow but only under certain conditions.
+*[Conditionals](https://metafacture.github.io/metafacture-documentation/docs/fix/Fix-functions.html#conditionals)* are used to control the processing of Fix functions. The included Fix functions are not processed with every workflow but only under certain conditions.
 
-*[Selectors](https://metafacture.github.io/metafacture-documentation/docs/fix/fix-functions.html#selectors)* can be used to filter the records you want.
+*[Selectors](https://metafacture.github.io/metafacture-documentation/docs/fix/Fix-functions.html#selectors)* can be used to filter the records you want.
 
-*[Binds](https://metafacture.github.io/metafacture-documentation/docs/fix/fix-functions.html#binds)* are wrappers for one or more Fixes. They give extra control functionality for Fixes such as loops. All binds have the same syntax:
+*[Binds](https://metafacture.github.io/metafacture-documentation/docs/fix/Fix-functions.html#binds)* are wrappers for one or more Fixes. They give extra control functionality for Fixes such as loops. All binds have the same syntax:
 
 ```perl
 do Bind(params,...)
@@ -160,7 +160,7 @@ else
 end
 ```
 
-Metafacture supports lots of conditionals, find a list of all of them [here](https://metafacture.github.io/metafacture-documentation/docs/fix/fix-functions.html#conditionals).
+Metafacture supports lots of conditionals, find a list of all of them [here](https://metafacture.github.io/metafacture-documentation/docs/fix/Fix-functions.html#conditionals).
 
 ## Selectors
 
@@ -176,11 +176,11 @@ end
 
 Selectors work in combination with conditionals to define the conditions that you want to kick out.
 
-See the [list of supported selectors](https://metafacture.github.io/metafacture-documentation/docs/fix/fix-functions.html#selectors).
+See the [list of supported selectors](https://metafacture.github.io/metafacture-documentation/docs/fix/Fix-functions.html#selectors).
 
 ## Binds
 
-As mentioned above [Binds](https://metafacture.github.io/metafacture-documentation/docs/fix/fix-functions.html#binds) are wrappers for one or more Fixes. They give extra control functionality for Fixes such as loops. All binds have the same syntax:
+As mentioned above [Binds](https://metafacture.github.io/metafacture-documentation/docs/fix/Fix-functions.html#binds) are wrappers for one or more Fixes. They give extra control functionality for Fixes such as loops. All binds have the same syntax:
 
 ```perl
 do Bind(params,...)
@@ -247,7 +247,7 @@ end
 
 [See this example in the playground.](https://metafacture.org/playground/?flux=inputFile%0A%7C+open-file%0A%7C+as-records%0A%7C+decode-yaml%0A%7C+fix%28transformationFile%29%0A%7C+encode-yaml%0A%7C+print%0A%3B&transformation=do+list%28path%3A%22colours%5B%5D%22%2C%22var%22%3A%22%24i%22%29%0A++++if+any_equal%28%22%24i%22%2C%22green%22%29%0A++++++++upcase%28%22%24i%22%29%0A++++++++append%28%22%24i%22%2C%22+is+a+nice+color%22%29%0A++++++++copy_field%28%22%24i%22%2C%22result%5B%5D.%24append%22%29%0A++++end%0Aend&data=---%0Acolours%3A%0A+-+red%0A+-+yellow%0A+-+green)
 
-See the [list of supported binds](https://metafacture.github.io/metafacture-documentation/docs/fix/fix-functions.html#binds).
+See the [list of supported binds](https://metafacture.github.io/metafacture-documentation/docs/fix/Fix-functions.html#binds).
 
 TODO: Add excercises.
 

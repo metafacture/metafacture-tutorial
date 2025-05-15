@@ -49,7 +49,7 @@ You can also harvest MARC data, serialize it to MARC-binary and store it in a fi
 ;
 ```
 
-You can also transform incoming data and store/index it with MongoDB or Elasticsearch. For the transformation you need to create a fix (see Lesson 3) in the playground or in a text editor:
+You can also transform incoming data and prepare it for indexing it with Elasticsearch. For the transformation you need to create a fix (see Lesson 3) in the playground or in a text editor:
 
 Add the following fixes to the file:
 
@@ -61,7 +61,7 @@ copy_field("260??.c","date")
 retain("_id","title","creator[]","date")
 ```
 
-Now you can run an ETL process (extract, transform, load) with this worklflow:
+Now you can run an ETL process (extract, transform, load) with this worklflow, we use `json-to-elasticsearch-bulk` to prepare the output for elastic search indexing:
 
 ```text
 "https://lib.ugent.be/oai"

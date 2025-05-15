@@ -103,7 +103,7 @@ title:
 [For our example above, to get rid of the value subfields in the yaml, we need to change the hirachy:](https://metafacture.org/playground/?flux=inputFile%0A%7C+open-file%0A%7C+decode-xml%0A%7C+handle-generic-xml%0A%7C+fix%28transformationFile%29%0A%7C+encode-yaml%0A%7C+print%0A%3B&transformation=move_field%28%22title.value%22%2C%22@title%22%29%0Amove_field%28%22@title%22%2C%22title%22%29%0Amove_field%28%22author.value%22%2C%22@author%22%29%0Amove_field%28%22@author%22%2C%22author%22%29%0Amove_field%28%22datePublished.value%22%2C%22@datePublished%22%29%0Amove_field%28%22@datePublished%22%2C%22datePublished%22%29&data=%3C%3Fxml+version%3D%221.0%22+encoding%3D%22utf-8%22%3F%3E%0A%3Crecord%3E%0A++%3Ctitle%3EGRM%3C/title%3E%0A++%3Cauthor%3ESibille+Berg%3C/author%3E%0A++%3CdatePublished%3E2019%3C/datePublished%3E%0A%3C/record%3E)
 
 
-```
+```text
 inputFile
 | open-file
 | decode-xml
@@ -115,6 +115,7 @@ inputFile
 ```
 
 with Fix:
+
 ```perl
 move_field("title.value","@title")
 move_field("@title","title")
@@ -135,6 +136,7 @@ inputFile
 | print
 ;
 ```
+
 results in:
 
 ```xml

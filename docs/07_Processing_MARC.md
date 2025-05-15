@@ -10,7 +10,7 @@ parent: Tutorial
 
 In the previous lessons we learned how we can use Metafacture to process structured data like JSON. In this lesson we will use Metafacture to process MARC metadata records. In this process we will see that MARC can be processed using FIX paths.
 
-[Transformation of MARC data with Mmetafacture can be used for multiple things, e.g. you could transform MARC binary files to MARC XML.](https://metafacture.org/playground/?flux=%22https%3A//raw.githubusercontent.com/metafacture/metafacture-tutorial/main/data/sample.mrc%22%0A%7C+open-http%0A%7C+as-lines%0A%7C+decode-marc21%28emitleaderaswhole%3D%22true%22%29%0A%7C+encode-marcxml%0A%7C+print%0A%3B)
+[Transformation of MARC data with Metafacture can be used for multiple things, e.g. you could transform MARC binary files to MARC XML.](https://metafacture.org/playground/?flux=%22https%3A//raw.githubusercontent.com/metafacture/metafacture-tutorial/main/data/sample.mrc%22%0A%7C+open-http%0A%7C+as-lines%0A%7C+decode-marc21%28emitleaderaswhole%3D%22true%22%29%0A%7C+encode-marcxml%0A%7C+print%0A%3B)
 
 As always, we will need to set up a small metafacture Flux script.
 
@@ -18,7 +18,7 @@ Lets inspect a MARC file: https://raw.githubusercontent.com/metafacture/metafact
 
 Create the following Flux in a new file and name it e.g. `marc1.flux`:
 
-```
+```text
 "https://raw.githubusercontent.com/metafacture/metafacture-tutorial/main/data/sample.mrc"
 | open-http
 | as-lines
@@ -27,7 +27,8 @@ Create the following Flux in a new file and name it e.g. `marc1.flux`:
 ```
 
 Run this Flux via CLI, e.g.:
-```
+
+```bash
 /path/to/your/metafix-runner path/to/your/marc1.flux
 ```
 
@@ -352,7 +353,7 @@ You will see this as output:
 
 In the Fix above we mapped the field 245 to the title, and iterated over every subfield with the help of the list-bind and the `?`- wildcard. The ISBN is in the 020-field. Because MARC records can contain one or more 020 fields we created an isbn array with add_array and added the values using the isbn.$append syntax. Next we turned the isbn array back into a comma separated string using the join_field fix. As last step we deleted all the fields we didn’t need in the output with the `retain` syntax.
 
-Different versions of MARC-Serialization need different workflows: e.g. h[ere see an example of Aseq-MARC Files that are transformed to MARCxml.](https://test.metafacture.org/playground/?flux=%22https%3A//raw.githubusercontent.com/LibreCat/Catmandu-MARC/dev/t/rug01.aleph%22%0A%7C+open-http%0A%7C+as-lines%0A%7C+decode-aseq%0A%7C+merge-same-ids%0A%7C+encode-marcxml%0A%7C+print%0A%3B)
+Different versions of MARC-Serialization need different workflows: e.g. [here see an example of Aseq-MARC Files that are transformed to MARCxml.](https://test.metafacture.org/playground/?flux=%22https%3A//raw.githubusercontent.com/LibreCat/Catmandu-MARC/dev/t/rug01.aleph%22%0A%7C+open-http%0A%7C+as-lines%0A%7C+decode-aseq%0A%7C+merge-same-ids%0A%7C+encode-marcxml%0A%7C+print%0A%3B)
 
 In this post we demonstrated how to process MARC data. In the next post we will show some examples how Catmandu typically can be used to process library data.
 

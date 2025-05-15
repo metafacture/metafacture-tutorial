@@ -43,7 +43,6 @@ Convert the data to different serializations, like JSON, YAML and XML by decodin
 See that the elements have no literal names but only numbers.
 As the CSV has a header we need to add the option `(hasHeader="true")` to `decode-csv` in the Flux.
 
-
 You can extract specified fields while converting to another tabular format by using the Fix. This is quite handy for analysis of specific fields or to generate reports. In the following example we only keep three columns (`"ISBN"`,`"Title"`,`"Author"`):
 
 Flux:
@@ -60,7 +59,8 @@ Flux:
 ```
 
 With Fix:
-```
+
+```perl
 retain("ISBN","Title","Author")
 ```
 
@@ -82,7 +82,7 @@ Flux:
 
 Fix:
 
-```
+```perl
 replace_all("?","^\\$|\\$$","")
 ```
 

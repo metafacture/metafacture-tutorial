@@ -9,7 +9,7 @@ parent: Tutorial
 
 ## Get Metafacture Runner as CLI Tool
 
-_This lesson requires basic practical knowledge of the command line and Shell.
+This lesson requires basic practical knowledge of the command line and Shell.
 If you want to get familiar with it, have a look at the great [intro to Unix Shell by Library Carpentry](https://librarycarpentry.github.io/lc-shell/) (Session 1 - 3). You could also have a look at the great [introdution by the Programming Historian to Powershell](https://programminghistorian.org/en/lessons/intro-to-powershell)_
 
 While we had fun with our Metafacture Playground another way to use Metafacture is by
@@ -27,6 +27,22 @@ Download `metafacture-core-$VERSION-dist.tar.gz` or the zip version and extract 
 In the folder you find the `flux.bat` and `flux.sh`
 
 The code below assumes you moved the resulting folder to your home directory and renamed it to `"metafacture"`.
+
+If you run
+
+Unix:
+
+```bash
+~/metafacture/flux.sh
+```
+
+or Windows:
+
+```bash
+~\metafacture\flux.bat
+```
+
+Metafacture will list all currently available Flux Commands.
 
 ## How to run Metafacture via CLI
 
@@ -74,7 +90,7 @@ To simplify the code examples we will be using unix paths for the terminal comma
 The result of running the Flux script via CLI should be the same as with the Playground.
 
 The Metafacture CLI tool expects a Flux file for every workflow.
-Our workflow only has the following Flux and no additional files since it is fetching data from the web and it has no fix transformations. The file should have the following content, defining the playground specific variables and the Flux workflow that you also saw in the playground. You can delete the playground specific variables since they are not needed so you woul end with this:
+Our workflow only has the following Flux and no additional files since it is fetching data from the web and it has no Fix transformations. The file should have the following content, defining the playground specific variables and the Flux workflow that you also saw in the playground. You can delete the playground specific variables since they are not needed so you would end with this:
 
 ```text
 "https://openlibrary.org/books/OL2838758M.json"
@@ -108,7 +124,7 @@ Run it again as shown above.
 
 It should output:
 
-```JSON
+```json
 {
   "professionOrOccupation" : [ {
     "id" : "https://d-nb.info/gnd/4629643-8",
@@ -276,7 +292,7 @@ It should output:
 }
 ```
 
-If we want to use Fix we need to reference the Fix file (in the playground we only referenced t via `| fix`):
+If we want to use Fix we need to reference the Fix file (in the playground we only referenced the variable `transformationFile` via `| fix`):
 
 ```text
 "path/to/your/file/11942150X.json"
@@ -329,7 +345,7 @@ FILE
 ;
 ```
 
-which you use like:
+Which you use like:
 
 ```bash
 ~/metafacture/flux.sh path/to/your.flux FILE="path/to/your/file.json"
