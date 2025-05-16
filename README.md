@@ -13,6 +13,8 @@ Since [Metafacture Fix](https://github.com/metafacture/metafacture-fix) is intro
 It should help you to get accustomed with Metafacture Core and Metafacture Fix.
 Have fun.
 
+The content pages can be found [in `/docs/`](/docs/)
+
 Lesson plan:
 
 [01 Introducing metafacture](./docs/01_Introducing_Metafacture.md)
@@ -36,4 +38,25 @@ Lesson plan:
 [10 Working with XML](./docs/10_Working_with_XML.html)
 
 [11 Mapping Marc to Dublin Core](./docs/11_MARC_to_Dublin_Core.html)
+
+## Testing
+
+### Installation
+If you are on debian derivates go install build-essentials:
+```
+apt install build-essential
+```
+Then you can use the Ruby Dependency Management to build all you need:
+```
+bundle install
+```
+Start jekyll like this:
+```
+bundle exec jekyll serve
+```
+If you experience troubles, make sure to not have jekyll installed via you
+package manager. On debian derivates do:
+```
+apt purge jekyll
+```
 
