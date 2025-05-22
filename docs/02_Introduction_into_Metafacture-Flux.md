@@ -241,7 +241,7 @@ So let's have a small recap of what we've done and learned so far:
 * We've learned that a Metafacture Flux workflow is a combination of modules with an inital text string or a variable.
 * We got to know different modules like `open-http`, `as-lines`. `decode-json`, `encode-yaml`, `print`
 
-More modules can be found in the [documentation of available flux commands](https://github.com/metafacture/metafacture-documentation/blob/master/flux-commands.html).
+More modules can be found in the [documentation of available flux commands](https://metafacture.github.io/metafacture-documentation/docs/flux/flux-commands.html).
 
 Now take some time and play around a little bit more and use some other modules.
 
