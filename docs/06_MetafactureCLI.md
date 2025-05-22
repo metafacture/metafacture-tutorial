@@ -105,7 +105,7 @@ Our workflow only has the following Flux and no additional files since it is fet
 ## Use local files for transformation
 
 If you want to load a local file instead of fetching data from the web you need to change the Flux a little bit with an text editor.
-Download the following file [11942150X.json](./sample-scripts/lesson_06/11942150X.json)
+Download the following file [11942150X.json](../sample-scripts/lesson_06/11942150X.json)
 and adjust the path to your file.
 
 Adjust your `downloads/playground.flux` script, so that it does not load data from the web, but opens a local file with `open-file` and reads it using `as-records` since the json file is pretty printed (not as one record per line):
