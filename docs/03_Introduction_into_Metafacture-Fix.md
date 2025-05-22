@@ -109,7 +109,7 @@ retain("title", "publish_date",  "notes.value", "pub_type")
 
 The output should be something like this:
 
-the fix func```yaml
+```yaml
 ---
 title: "Ordinary vices"
 publish_date: "1984"
