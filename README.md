@@ -42,9 +42,11 @@ Lesson plan:
 ## Testing
 
 ### Installation
+sudo apt remove ruby-bundler; sudo apt purge jekyll; sudo apt update; sudo apt install build-essential; bundle install; bundle exec jekyll serve
+
 If you are on debian derivates go install build-essentials:
 ```
-apt install build-essential
+sudo apt install build-essential
 ```
 Then you can use the Ruby Dependency Management to build all you need:
 ```
@@ -55,8 +57,8 @@ Start jekyll like this:
 bundle exec jekyll serve
 ```
 If you experience troubles, make sure to not have jekyll installed via you
-package manager. On debian derivates do:
+package manager. Also remove ruby-bundler. On debian derivates do:
 ```
-apt purge jekyll
+sudo apt purge jekyll; sudo apt remove ruby-bundler
 ```
 
