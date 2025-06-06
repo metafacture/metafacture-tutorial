@@ -6,14 +6,15 @@ parent: Tutorial
 ---
 
 
-# Lesson 11 : From MARC to Dublin Core as loud JSON-LD
+## Lesson 11 : From MARC to Dublin Core as Linked Open Usable Data (LOUD)
+
 TODO: Use better example. But the following is missing isbns: https://github.com/metafacture/metafacture-examples/blob/master/Swissbib-Extensions/MARC-CSV/
 
-Today we will look a bit further into MARC processing with Metafacture. We already saw a bit of MARC processing in and today we will show you how to transform MARC records into Dublin Core and providing the data as linked open usable data.
+Today we will look a bit further into MARC processing with Metafacture. We already saw a bit of MARC processing and today we will transform MARC records into Dublin Core providing the data as linked open usable data.
 
-To transform this MARC file into Dublin Core we need to create a fix file. You can use any texteditor for this and create a file dublin.fix (or use the transformationFile window in the playground):
+To transform this MARC file into Dublin Core we need to create a Fix file. You can use any text editor for this and create a file dublin.fix (or use the `transformationFile` window in the Playground).
 
-And type into this textfile the following fixes:
+Type into the text file the following Fix commands:
 
 ```perl
 copy_field("245??.a","title")
@@ -37,20 +38,20 @@ end
 retain("title","creator[]","date","publisher","isbn[]","issn[]","subject[]")
 ```
 
-Every MARC record contains in the 245-field the title of a record. In the first line we map the MARC-245 field to new field in the record called title:
+Every MARC record contains in the 245-field the title of a record. In the first line we map the MARC-245 field to a new field in the record called title:
 `copy_field("245??.a","title")``
 
-In the line 2-4 we map authors to a field creator. In the the marc records the authors are stored in the MARC-100 and MARC-700 field. Because there is usually more than one author in a record, we need to $append them to create an array (a list) of one or more creator-s.
+In the line 2-4 we map authors to a field "creator". In the the MARC records the authors are stored in the MARC-100 and MARC-700 field. Because there is usually more than one author in a record, we need to `$append` them to create an array (a list) of one or more creator-s.
 
-In line 5 and line 6 we read the MARC-260 field which contains publisher and date information. Here we don’t need the $append trick because there is usually only one 260-field in a MARC record.
+In line 5 and line 6 we read the MARC-260 field which contains publisher and date information. Here we don’t need the `$append` trick because there is usually only one 260-field in a MARC record.
 
-In line 7 to line 15 we do the same trick to filter out the ISBN and ISSN number out of the record which we store in separate fields isbn and issn (indeed these are not Dublin Core fields, we will process them later). But because these elements can be repeated we iterate over them with a list bind and copy the values in an array.
+In line 7 to line 15 we do the same trick to filter out the ISBN and ISSN number out of the record which we store in separate fields "isbn" and "issn" (indeed these are not Dublin Core fields, we will process them later). But because these elements can be repeated we iterate over them with a list bind and copy the values in an array.
 
-In line 16-19 the subjects are to extracted from the 260-field using the same $append trick as above. Notice that we only extracted the $a subfields?
+In line 16-19 the subjects are extracted from the 260-field using the same `$append` trick as above. Notice that we only extracted the `$a` subfields.
 
-We end the fix and retain only those elements that we want to keep.
+We end the Fix and retain only those elements that we want to keep.
 
-Given the dublin.txt file above we can execute the filtering command like this:
+Given the `dublin.txt` file above we can execute the filtering command like this:
 
 TODO: Explain how to run the function with CLI.
 
@@ -87,7 +88,7 @@ title: Propositional structure and illocutionary force :a study of the contribut
 ...
 ```
 
-Congratulations, you’ve created your first mapping file to transform library data from MARC to Dublin Core! We need to add a bit more cleaning to delete some periods and commas here and there but as is we already have our first mapping.
+Congratulations, you’ve created your first mapping file to transform library data from MARC to Dublin Core! We need to add a bit more cleaning to delete some periods and commas here and there but as it is we already have our first mapping.
 
 Below you’ll find a complete example. You can read more about our Fix language online.
 
@@ -120,9 +121,9 @@ end
 retain("title","creator[]","date","publisher","isbn[]","issn[]","subject[]")
 ```
 
-We can turn this data also to JSON-LD by adding a context that specifies the elements with URIs.
+We can turn this data to JSON-LD by adding a context that specifies the elements with URIs.
 
-Add the following fix to the fix above:
+Add the following Fix to the Fix above:
 
 ```perl
 add_field("@context.title","http://purl.org/dc/terms/title")

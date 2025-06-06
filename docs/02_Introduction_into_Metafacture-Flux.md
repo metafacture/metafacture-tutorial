@@ -38,7 +38,7 @@ See the result below? It is `Hello, friend. I'am Metafacture!`.
 But what have we done here?
 We have a short text string `"Hello, friend. I'am Metafacture"`. That is printed with the modul `print`.
 
-A Metafacture Workflow is nothing else than an incoming text string that is manipulated by one or multiple moduls that do something with the incoming string.
+A Metafacture Workflow is nothing else than an incoming text string that is manipulated by one or multiple modules that do something with the incoming string.
 However, the workflow does not have to start with a text string but can also be a variable that stands for the text string and needs to be defined before the workflow. As this:
 
 ```text
@@ -93,8 +93,7 @@ inputFile
 ```
 
 The inputFile is opened as a file (`open-file`) and then processed line by line (`as-line`).
-You can see that in this [sample](https://metafacture.org/playground/?flux=inputFile%0A%7Copen-file%0A%7Cas-lines%0A%7Cprint%0A%3B&data=Hello%2C+friend.+I%27am+Metafacture%21).
-https://metafacture.org/playground/?flux=inputFile%0A%7C+open-file%0A%7C+as-lines%0A%7C+print%0A%3B&data=Hello%2C+friend.+I%27am+Metafacture%21
+Have a look at this [sample](https://metafacture.org/playground/?flux=inputFile%0A%7Copen-file%0A%7Cas-lines%0A%7Cprint%0A%3B&data=Hello%2C+friend.+I%27am+Metafacture%21).
 
 We usually do not start with any random text strings but with data. So lets play around with some data.
 
@@ -108,7 +107,7 @@ You will see data that look like this:
 
 This is data in JSON format. But it seems not very readable.
 
-But all these fields tell something about a publication, a book, with 268 pages and title Ordinary Vices by Judith N. Shklar.
+All these fields tell us something about a publication, a book, with 268 pages and title "Ordinary Vices" by Judith N. Shklar.
 
 Let's copy the JSON data into our `ìnputFile-content` field. [And run it again](https://metafacture.org/playground/?flux=inputFile%0A%7Copen-file%0A%7Cas-lines%0A%7Cprint%0A%3B&data=%7B%22publishers%22%3A+%5B%22Belknap+Press+of+Harvard+University+Press%22%5D%2C+%22identifiers%22%3A+%7B%22librarything%22%3A+%5B%22321843%22%5D%2C+%22goodreads%22%3A+%5B%222439014%22%5D%7D%2C+%22covers%22%3A+%5B413726%5D%2C+%22local_id%22%3A+%5B%22urn%3Atrent%3A0116301499939%22%2C+%22urn%3Asfpl%3A31223009984353%22%2C+%22urn%3Asfpl%3A31223011345064%22%2C+%22urn%3Acst%3A10017055762%22%5D%2C+%22lc_classifications%22%3A+%5B%22JA79+.S44+1984%22%2C+%22HM216+.S44%22%2C+%22JA79.S44+1984%22%5D%2C+%22key%22%3A+%22/books/OL2838758M%22%2C+%22authors%22%3A+%5B%7B%22key%22%3A+%22/authors/OL381196A%22%7D%5D%2C+%22ocaid%22%3A+%22ordinaryvices0000shkl%22%2C+%22publish_places%22%3A+%5B%22Cambridge%2C+Mass%22%5D%2C+%22subjects%22%3A+%5B%22Political+ethics.%22%2C+%22Liberalism.%22%2C+%22Vices.%22%5D%2C+%22pagination%22%3A+%22268+p.+%3B%22%2C+%22source_records%22%3A+%5B%22marc%3AOpenLibraries-Trent-MARCs/tier5.mrc%3A4020092%3A744%22%2C+%22marc%3Amarc_openlibraries_sanfranciscopubliclibrary/sfpl_chq_2018_12_24_run01.mrc%3A195791766%3A1651%22%2C+%22ia%3Aordinaryvices0000shkl%22%2C+%22marc%3Amarc_claremont_school_theology/CSTMARC1_barcode.mrc%3A137174387%3A3955%22%2C+%22bwb%3A9780674641754%22%2C+%22marc%3Amarc_loc_2016/BooksAll.2016.part15.utf8%3A115755952%3A680%22%2C+%22marc%3Amarc_claremont_school_theology/CSTMARC1_multibarcode.mrc%3A137367696%3A3955%22%2C+%22ia%3Aordinaryvices0000shkl_a5g0%22%2C+%22marc%3Amarc_columbia/Columbia-extract-20221130-001.mrc%3A328870555%3A1311%22%2C+%22marc%3Aharvard_bibliographic_metadata/ab.bib.01.20150123.full.mrc%3A156768969%3A815%22%5D%2C+%22title%22%3A+%22Ordinary+vices%22%2C+%22dewey_decimal_class%22%3A+%5B%22172%22%5D%2C+%22notes%22%3A+%7B%22type%22%3A+%22/type/text%22%2C+%22value%22%3A+%22Bibliography%3A+p.+251-260.\nIncludes+index.%22%7D%2C+%22number_of_pages%22%3A+268%2C+%22languages%22%3A+%5B%7B%22key%22%3A+%22/languages/eng%22%7D%5D%2C+%22lccn%22%3A+%5B%2284000531%22%5D%2C+%22isbn_10%22%3A+%5B%220674641752%22%5D%2C+%22publish_date%22%3A+%221984%22%2C+%22publish_country%22%3A+%22mau%22%2C+%22by_statement%22%3A+%22Judith+N.+Shklar.%22%2C+%22works%22%3A+%5B%7B%22key%22%3A+%22/works/OL2617047W%22%7D%5D%2C+%22type%22%3A+%7B%22key%22%3A+%22/type/edition%22%7D%2C+%22oclc_numbers%22%3A+%5B%2210348450%22%5D%2C+%22latest_revision%22%3A+16%2C+%22revision%22%3A+16%2C+%22created%22%3A+%7B%22type%22%3A+%22/type/datetime%22%2C+%22value%22%3A+%222008-04-01T03%3A28%3A50.625462%22%7D%2C+%22last_modified%22%3A+%7B%22type%22%3A+%22/type/datetime%22%2C+%22value%22%3A+%222024-12-27T16%3A46%3A50.181109%22%7D%7D).
 
@@ -117,13 +116,11 @@ The output in result is the same as the input and it is still not very readable.
 Lets turn the one line of JSON data into YAML. YAML is another format for structured information which is a bit easier to read for human eyes.
 In order to change the serialization of the data we need to decode the data and then encode the data.
 
-Metafacture has lots of decoder and encoder modules for specific data formats that can be used in an Flux workflow.
+Metafacture has lots of decoder and encoder modules for specific data formats that can be used in a Flux workflow.
 
 Let's try this out. Add the module `decode-json` and `encode-yaml` to your Flux Workflow.
 
 The Flux should now look like this:
-
-Flux:
 
 ```text
 inputFile
@@ -217,7 +214,7 @@ Luckily, we cannot only open the data we have in our `inputFile-content` field, 
 
 Clear your playground and copy the following Flux workflow:
 
-```
+```text
 "https://openlibrary.org/books/OL2838758M.json"
 | open-http
 | as-lines
@@ -227,22 +224,24 @@ Clear your playground and copy the following Flux workflow:
 ;
 ```
 
-The [result in the playground](https://metafacture.org/playground/?flux=%22https%3A//openlibrary.org/books/OL2838758M.json%22%0A%7C+open-http%0A%7C+as-lines%0A%7C+decode-json%0A%7C+encode-yaml%0A%7C+print%0A%3B) should be the same as before without having to paste anything into the text field. We just used the module `open-http` and directly retrieved the data from the URL.
+The [result in the playground](https://metafacture.org/playground/?flux=%22https%3A//openlibrary.org/books/OL2838758M.json%22%0A%7C+open-http%0A%7C+as-lines%0A%7C+decode-json%0A%7C+encode-yaml%0A%7C+print%0A%3B) should be the same as before without having to paste anything into the text field. We just used the module `open-http` to directly retrieve the data from the URL.
 
-Let's take a look what a Flux workflow does. The Flux workflow is combination of different moduls to process incoming structured data. In our example we have different things that we do with these modules:
+Let's take a look at what a Flux workflow does. The Flux workflow is a combination of different modules to process incoming structured data. In our example we have different things that we do with these modules:
 
 1. We have a URL as input. The URL localizes the data on the web.
-2. We tell Metafacture to request the stated url using `open-http`.
+2. We tell Metafacture to request the stated URL using `open-http`.
 3. Then we define how to handle the incoming data: since the JSON is written in one line, we tell Metafacture to regard every new line as a new record with `as-lines`
-4. Afterwards we tell Metafacture to `decode-json` in order to translate the incoming data as json to the generic internal data model that is called metadata events
+4. Afterwards we tell Metafacture to `decode-json` in order to translate the incoming data as JSON to the generic internal data model that is called metadata events
 5. Then we instruct Metafacture to serialize the metadata events as YAML with `encode-yaml`
 6. Finally, we tell MF to `print` everything.
 
-So let's have a small recap of what we done and learned so far: * We played around with the Metafacture Playground.
-* We learned that a Metafacture Flux workflow is a combination of modules with an inital text string or an variable.
+So let's have a small recap of what we've done and learned so far:
+
+* We've played around with the Metafacture Playground.
+* We've learned that a Metafacture Flux workflow is a combination of modules with an inital text string or a variable.
 * We got to know different modules like `open-http`, `as-lines`. `decode-json`, `encode-yaml`, `print`
 
-More modules can be found in the [documentation of available flux commands](https://github.com/metafacture/metafacture-documentation/blob/master/flux-commands.html).
+More modules can be found in the [documentation of available flux commands](https://metafacture.github.io/metafacture-documentation/docs/flux/flux-commands.html).
 
 Now take some time and play around a little bit more and use some other modules.
 
@@ -268,16 +267,16 @@ Now take some time and play around a little bit more and use some other modules.
 What you see with the modules `encode-formeta` and `write` is that modules can have further specification in brackets.
 These can eiter be a string in `"..."` or attributes that define options as with `style=`.
 
-One last thing you should learn on an abstract level is to grasp the general idea of Metafacture Flux workflows is that they have many different moduls through which the data is flowing.
-The most abstract and most common process resemble the following steps:
+One last thing you should learn on an abstract level to grasp the general idea of Metafacture Flux workflows is that they have many different modules through which the data is flowing.
+The most abstract and most common process resembles the following steps:
 
 **→ read → decode → transform → encode → write →**
 
-This process is one that transforms incoming data in a way that is changed at the end.
+This process chain transforms incoming data in distinct steps.
 Each step can be done by one or a combination of multiple modules.
 Modules are small tools that do parts of the complete task we want to do.
 
-Each modul demands a certain input and give a certain output. This is called signature.
+Each modul demands a certain input and gives a certain output. This is called signature.
 e.g.:
 
 The first modul `open-file` expects a string and provides read data (called reader).
@@ -286,12 +285,12 @@ This reader data can be passed on to a modul that accepts reader data e.g. in ou
 
 If you have a look at the flux modul/command documentation then you see under signature which data a modul expects and which data it outputs.
 
-The combination of moduls is a Flux workflow.
+The combination of modules is called a "Flux workflow".
 
 Each module is separated by a `|` and every workflow ends with a `;`.
 Comments can be added with `//`.
 
-See:
+For example:
 
 ```
 //input string:
@@ -319,7 +318,7 @@ Add the option: <code>prettyPrinting="true"</code> to the <code>encode-json</cod
 
 
 
-2) Have a look at documentation of [`decode-xml`](https://metafacture.org/metafacture-documentation/docs/flux/flux-commands.html#decode-xml) what is different to `decode-json`? And what input does it expect and what output does it create (Hint: signature)?
+2) Have a look at the documentation of [`decode-xml`](https://metafacture.org/metafacture-documentation/docs/flux/flux-commands.html#decode-xml). What is different to `decode-json`? And what input does it expect and what output does it create (hint: signature)?
 
 <details>
 <summary>Answer</summary>
@@ -329,7 +328,7 @@ The signature of <code>decode-xml</code> and <code>decode-json</code> is quiet d
 <code>decode-json</code>: signature: String -> StreamReceiver
 
 Explanation:
-<code>decode-xml</code> expects data from Reader output of <code>open-file</code> or <code>open-http</code>, and creates output that can be transformed by a specific xml <code>handler</code>. The xml parser of <code>decode-xml</code> works straight with read content of a file or a url.
+<code>decode-xml</code> expects data from Reader output of <code>open-file</code> or <code>open-http</code>, and creates output that can be transformed by a specific XML <code>handler</code>. The XML parser of <code>decode-xml</code> works straight by reading the content of a file or a URL.
 
 <code>decode-json</code> expects data from output of a string like <code>as-lines</code> or <code>as-records</code> and creates output that could be transformed by <code>fix</code> or encoded with a module like <code>encode-xml</code>. For the most decoding you have to specify how (<code>as-lines</code> or <code>as-records</code>) the incoming data is read.
 </details>
@@ -354,7 +353,7 @@ Explanation:
 
 As you surely already saw I mentioned transform as one step in a metafacture workflow.
 
-But aside from changing the serialisation we did not play around with transformations yet.
+But aside from changing the serialization we did not play around with transformations yet.
 This will be the theme of the next session.
 
 ---------------
