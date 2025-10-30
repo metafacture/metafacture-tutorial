@@ -209,7 +209,7 @@ append("colours[].*"," is a nice color")
 copy_field("colours[].*","result.$append")
 ```
 
-It [results](https://metafacture.org/playground/?flux=inputFile%0A%7C+open-file%0A%7C+as-records%0A%7C+decode-yaml%0A%7C+fix%28transformationFile%29%0A%7C+encode-yaml%0A%7C+print%0A%3B&transformation=replace_all%28%22colours%5B%5D.%2A%22%2C%22e%22%2C%22X%22%29&data=---%0Acolours%3A%0A+-+red%0A+-+yellow%0A+-+green) in:
+It [results](https://metafacture.org/playground/?flux=inputFile%0A%7C+open-file%0A%7C+as-records%0A%7C+decode-yaml%0A%7C+fix%28transformationFile%29%0A%7C+encode-yaml%0A%7C+print%0A%3B&transformation=upcase%28%22colours%5B%5D.%2A%22%29%0Aappend%28%22colours%5B%5D.%2A%22%2C%22+is+a+nice+color%22%29%0Acopy_field%28%22colours%5B%5D.%2A%22%2C%22result.%24append%22%29%0A&data=---%0Acolours%3A%0A+-+red%0A+-+yellow%0A+-+green) in:
 
 ```yaml
 ---
