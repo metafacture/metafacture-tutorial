@@ -1,0 +1,214 @@
+---
+layout: default
+title: "Bonus Lesson 12 : Triples, Counting, Analysing and Combining"
+nav_order: 12
+parent: Tutorial
+---
+
+
+## Lesson 12 : Using Triples for Counting, Analysing and Combining
+
+In Metafacture every record is assinged a record id. Using this id Metafacture is able to disassemble metadata records into so called triples.
+With triples Metafacture is able to count, analyse and even combine or reassable metadata. In this session we learn about triples and their use cases.
+
+![Triple](https://metafacture.org/img/triple.png)
+
+### What is a triple in metafacture?
+
+A triple describes a combinantion of Subject, Predicate, Object. It is inspired by RDF triples but in context of Metafacture you do not need URI for subject and predicate. Instead the triples contain certain values that are derived from the metadata stream events metafacture processes.
+
+The subject is usually the id of an record in metafacture. Most decoders and handlers assinge a specific or an upcounted record id to each record. But you can also use the flux command `change-id`to specify the record id that you want to set.
+
+### Small excursion: Metadata stream evens in metafacture
+
+If you decode e.g. MARC Data and set the value in 001 as the record id ( when using marc-xml you need to add `| change-id(idliteral="id", keepidliteral="true")`)
+Metafacture internally translates this as the following:
+
+Marc Record
+```
+	001
+			948469390
+	245 Ind1=1 Ind2=2
+			$$a Title
+			$$b	Remainder of title
+			$$c Resposibility Statement
+```
+
+`decode-marc21` translates this to a sequence of metadata events:
+-> Start record 948469390
+-> Literal 001: 948469390
+-> Start entity 24510
+-> Literal a: Title
+-> Literal b: Remainder of title
+-> Literal c: Respondibility Statement
+-> End entity
+-> End record
+
+### Generating triples
+
+When using the flux command `stream to triples` this is translated into triples:
+Each entity and each top level literal is turned into a triple:
+
+```TSV
+948469390	001	948469390
+948469390	24510	{a:Title,b:Remainder of title,c: Respondibility Statement}
+
+```
+
+If you have metadata stream events like these:
+
+![Generating Triples](https://metafacture.org/img/generatingTriples.png)
+
+-> Start record record-id
+-> Literal name: Klaus
+-> Start entity died
+-> Literal when: 1401
+-> Literal where: HH
+-> End entity
+-> End record
+
+With `stream-to-triples` this is translated into:
+
+```TSV
+record-id	name	Klaus
+record-id	died	{when:1401,where:HH}
+```
+
+In context of a full metafacture workflow this example would look something like this:
+
+Input of an formeta record:
+```
+record-id{name: Klaus, died {when: 1401, where: HH} }
+```
+
+FLUX:
+```
+inputFile
+|open-file
+|as-lines
+|decode-formeta
+|stream-to-triples
+|print
+;
+```
+
+If you print it out directly it would look something like this:
+```
+record-id:name=Klaus (STRING)
+record-id:died={when:1401,where:HH} (ENTITY)
+```
+
+You can see that the literal is typed by the statement in the braket. [See this example in the playground.](https://metafacture.org/playground/?flux=inputFile%0A%7Copen-file%0A%7Cas-lines%0A%7Cdecode-formeta%0A%7Cstream-to-triples%0A%7Cprint%0A%3B&data=record-id%7Bname%3A+Klaus%2C+died+%7Bwhen%3A+1401%2C+where%3A+HH%7D+%7D)
+
+
+In order to improve the readability or change the output to your liking you can configure the output with the `template` function
+
+e.g. if you add `|template("Subject:${s}   Predicate:${p}   Object:${o}")` before print the output would change to:
+
+```TSV
+Subject:record-id   Predicate:name   Object:Klaus
+Subject:record-id   Predicate:died   Object:{when:1401,where:HH}
+```
+
+### Listing values to records
+
+After you stream records into triples you can do a lot of things. The first use case would be listing all contributors of all records and the record id of the publication that they belong to.
+
+FLUX:
+```
+"https://raw.githubusercontent.com/metafacture/metafacture-core/master/metafacture-runner/src/main/dist/examples/read/marc21/10.marc21"
+| open-http
+| as-lines
+| decode-marc21 // sets the value of 001 as record-id
+| fix(transformationFile)
+| stream-to-triples
+| template("${s}\t${o}")
+| print
+;
+```
+
+FIX:
+```
+do list(path:"100??|700??","var":"$i")
+    copy_field("$i.a","name.$append")
+end
+retain("name")
+```
+
+It outputs the record id and the name of each contributor:
+
+```TSV
+946638705	Kim, Soonsik
+94685887X	Grunsky, Konrad
+947459928	Henze, Hartwig
+948469390	Burning, Michael
+950561274	Ru§�ppell, Georg
+950592463	Pru§�tting, Hanns
+950974439	Bigalke, Rainer
+953176436	Hanau, Peter
+954369300	Hommelhoff, Peter
+954377915	Horn, Norbert
+```
+
+### Counting triples
+
+After you stream records into triples you can do quiet a lot of things e.g. counting values.
+
+
+![Counting Triples](https://metafacture.org/img/countingTriples.png)
+
+You are able to count the value of each element of an triple. Usually the object is the most interesting, but also the predicate can be interesting to.
+
+In the next example we copy the publication places into a new top level field:
+
+FLUX
+```
+"https://raw.githubusercontent.com/metafacture/metafacture-core/master/metafacture-runner/src/main/dist/examples/read/marc21/10.marc21"
+| open-http
+| as-lines
+| decode-marc21 // sets the value of 001 as record-id
+| fix(transformationFile)
+| stream-to-triples
+| count-triples(countBy="object")
+| template("${o}\ttimes\t${s}")
+| print
+;
+```
+
+FIX:
+```
+do list(path:"260??","var":"$i")
+    copy_field("$i.a","publicationPlace.$append")
+end
+
+retain("publicationPlace")
+```
+
+This results inot:
+```
+1	times	Berlin
+1	times	Bern
+1	times	Brussels
+1	times	Frankfurt am Main
+1	times	Hohenwarsleben
+1	times	Husum
+5	times	Ko§�ln
+1	times	Mu§�nchen
+1	times	Mu§�nster/Westf.
+1	times	New York
+1	times	Newcastle
+1	times	Oxford
+1	times	Vienna
+1	times	Washington, D.C./Baltimore
+```
+
+You can add the following flux command after count triples in order to sort the results by the number of appeareance:
+`| sort-triples(by="object",order="decreasing",numeric="true")`
+
+## Counting patterns
+
+TODO
+
+## Merging records
+
+TODO: Add this section or add this as additional lesson.

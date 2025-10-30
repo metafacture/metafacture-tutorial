@@ -1,0 +1,145 @@
+---
+layout: default
+title: "Bonus Lesson 12 : Data lookup in Fix"
+nav_order: 12
+parent: Tutorial
+---
+
+## Bonus Lesson 12 : Data lookup in Fix
+
+THIS IS AN EARLY DRAFT.
+
+When transforming data you often need to map certain values to concepts based on a vocabulary mapping.
+
+In Fix you can use the function `lookup` to map one term to another. But in oder to map these you need to 
+define the mapping list that you want to use.
+
+### Internal lookup
+
+The simplest form to define a list is to state the map within the lookup function, like this: `lookup("path.to.field", key_1: "value_1", ...)`
+
+Look at this simple example ([Playground-Link](https://metafacture.org/playground/?flux=inputFile%0A%7Copen-file%0A%7Cas-lines%0A%7Cdecode-json%0A%7Cfix%28transformationFile%29%0A%7Cencode-json%0A%7Cprint%0A%3B%0A&transformation=lookup%28%22colour%22%2C%22r%22%3A%22red%22%2C%22b%22%3A%22blue%22%2C%22y%22%3A%22yellow%22%29%0A&data=%7B+%22colour%22+%3A+%22r%22+%7D%0A%7B+%22colour%22+%3A+%22b%22+%7D%0A%7B+%22colour%22+%3A+%22y%22+%7D)):
+
+inputFile
+
+```JSON
+{ "colour" : "r" }
+{ "colour" : "b" }
+{ "colour" : "y" }
+```
+
+Flux
+```
+inputFile
+|open-file
+|as-lines
+|decode-json
+|fix(transformationFile)
+|encode-json
+|print
+;
+```
+
+Fix
+```
+lookup("colour","r":"red","b":"blue","y":"yellow")
+```
+
+Result
+```JSON
+{"colour":"red"}
+{"colour":"blue"}
+{"colour":"yellow"}
+```
+
+It is not always helpful to configure the map within the `lookup` function, because e.g. the list is too long and makes overcrowds the function or you want to use the map multiple times within the Fix transformation.
+
+Then it is better to cofigure the map by using `put_map`, like in the following scenario ([Playground-Link](https://metafacture.org/playground/?flux=inputFile%0A%7Copen-file%0A%7Cas-records%0A%7Cdecode-json%0A%7Cfix%28transformationFile%29%0A%7Cencode-json%0A%7Cprint%0A%3B%0A&transformation=%23+Define+a+map+within+the+fix+file%0Aput_map%28%22map%22%2C%0A++%22dog%22%3A%22mammal%22%2C%0A++%22cat%22%3A%22mammal%22%2C%0A++%22parrot%22%3A%22bird%22%2C%0A++%22shark%22%3A%22fish%22%2C%0A++%22dragon%22%3A%22fictional+animal%22%2C%0A++%22unicorn%22%3A%22fictional+animal%22%29%0A%0Alookup%28%22animal.type%22%2C+%22map%22%29%0A&data=%7B++%22animal%22%3A+%7B+%22name%22%3A+%22Jake%22%2C+%22type%22%3A+%22dog%22++%7D+%7D%0A%7B++%22animal%22%3A+%7B+%22name%22%3A+%22Blacky%22%2C+%22type%22%3A+%22parrot%22+%7D+%7D%0A)):
+
+inputFile
+
+```JSON
+{  "animal": { "name": "Jake", "type": "dog"  } }
+{  "animal": { "name": "Blacky", "type": "parrot" } }
+```
+
+FLUX
+
+```
+inputFile
+|open-file
+|as-records
+|decode-json
+|fix(transformationFile)
+|encode-json
+|print
+;
+```
+
+```
+# Define a map within the fix file
+put_map("map",
+  "dog":"mammal",
+  "cat":"mammal",
+  "parrot":"bird",
+  "shark":"fish",
+  "dragon":"fictional animal",
+  "unicorn":"fictional animal")
+
+lookup("animal.type", "map")
+```
+
+This results in:
+```
+{"animal":{"name":"Jake","type":"mammal"}}
+{"animal":{"name":"Blacky","type":"bird"}}
+```
+
+Instead of defining the map within the `lookup` function, here the map is defined with `put_map` and named `map`.
+By this name `map` you can then refer to the map in the lookup function.
+
+
+
+Look at this more elaborate usecase in the playground that maps codes 002@ from PICA records to literal format information: [Version with unnamed map](https://metafacture.org/playground/?flux=inputFile%0A%7C+open-file%0A%7C+as-lines%0A%7C+decode-pica%0A%7C+fix%28transformationFile%29%0A%7C+encode-json%28prettyPrinting%3D%22true%22%29%0A%7C+print%3B&transformation=copy_field%28%22002@.0%22%2C+%22dcterms%3Aformat%22%29%0Asubstring%28%22dcterms%3Aformat%22%2C+%220%22%2C+%221%22%29%0Alookup%28%22dcterms%3Aformat%22%2C+%22A%22%3A+%22print%22%2C+%22B%22%3A+%22audiovisual%22%2C+%22O%22%3A+%22online%22%29%0Aretain%28%22002@%22%2C+%22dcterms%3Aformat%22%29&data=001@+%1Fa5%1F01-2%1E001A+%1F01100%3A15-10-94%1E001B+%1F09999%3A12-06-06%1Ft16%3A10%3A17.000%1E001D+%1F09999%3A99-99-99%1E001U+%1F0utf8%1E001X+%1F00%1E002@+%1F0Aag%1E003@+%1F0482147350%1E006U+%1F094%2CP05%1E007E+%1F0U+70.16407%1E007I+%1FSo%1F074057548%1E011@+%1Fa1970%1E017A+%1Farh%1E021A+%1FaDie+@Berufsfreiheit+der+Arbeitnehmer+und+ihre+Ausgestaltung+in+vo%CC%88lkerrechtlichen+Vertra%CC%88gen%1FdEine+Grundrechtsbetrachtg%1E028A+%1F9106884905%1F7Tn3%1FAgnd%1F0106884905%1FaProjahn%1FdHorst+D.%1E033A+%1FpWu%CC%88rzburg%1E034D+%1FaXXXVIII%2C+165+S.%1E034I+%1Fa8%1E037C+%1FaWu%CC%88rzburg%2C+Jur.+F.%2C+Diss.+v.+7.+Aug.+1970%1E%0A001@+%1F01%1Fa5%1E001A+%1F01140%3A08-12-99%1E001B+%1F09999%3A05-01-08%1Ft22%3A57%3A29.000%1E001D+%1F09999%3A99-99-99%1E001U+%1F0utf8%1E001X+%1F00%1E002@+%1F0Aa%1E003@+%1F0958090564%1E004A+%1Ffkart.+%3A+DM+9.70%2C+EUR+4.94%2C+sfr+8.00%2C+S+68.00%1E006U+%1F000%2CB05%2C0285%1E007I+%1FSo%1F076088278%1E011@+%1Fa1999%1E017A+%1Farb%1Fasi%1E019@+%1FaXA-AT%1E021A+%1FaZukunft+Bildung%1FhPolitische+Akademie.+%5BHrsg.+von+Gu%CC%88nther+R.+Burkert-Dottolo+und+Bernhard+Moser%5D%1E028C+%1F9130681849%1F7Tp1%1FVpiz%1FAgnd%1F0130681849%1FE1952%1FaBurkert%1FdGu%CC%88nther+R.%1FBHrsg.%1E033A+%1FpWien%1FnPolit.+Akad.%1E034D+%1Fa79+S.%1E034I+%1Fa24+cm%1E036F+%1Fx299+12%1F9551720077%1FgAdn%1F7Tb1%1FAgnd%1F01040469-7%1FaPolitische+Akademie%1FgWien%1FYPA-Information%1FhPolitische+Akademie%2C+WB%1FpWien%1FJPolitische+Akad.%2C+WB%1Fl99%2C2%1E036F/01+%1Fx12%1F9025841467%1FgAdvz%1Fi2142105-5%1FYAktuelle+Fragen+der+Politik%1FhPolitische+Akademie%1FpWien%1FJPolitische+Akad.+der+O%CC%88VP%1FlBd.+2%1E045E+%1Fa22%1Fd18%1Fm370%1E047A+%1FSFE%1Fata%1E%0A001@+%1Fa5%1F01%1E001A+%1F01140%3A19-02-03%1E001B+%1F09999%3A19-06-11%1Ft01%3A20%3A13.000%1E001D+%1F09999%3A26-04-03%1E001U+%1F0utf8%1E001X+%1F00%1E002@+%1F0Aal%1E003@+%1F0361809549%1E004A+%1FfHlw.%1E006U+%1F000%2CL01%1E006U+%1F004%2CP01-s-41%1E006U+%1F004%2CP01-f-21%1E007G+%1FaDNB%1F0361809549%1E007I+%1FSo%1F072658383%1E007M+%1F04413/0275%1E011@+%1Fa1925%1E019@+%1FaXA-DXDE%1FaXA-DE%1E021A+%1FaHundert+Jahre+Buchdrucker-Innung+Hamburg%1FdWesen+u.+Werden+d.+Vereinigungen+Hamburger+Buchdruckereibesitzer+1825-1925+%3B+Gedenkschrift+zur+100.+Wiederkehr+d.+Gru%CC%88ndungstages%2C+verf.+im+Auftr.+d.+Vorstandes+d.+Buchdrucker-Innung+%28Freie+Innung%29+zu+Hamburg%1FhFriedrich+Voeltzer%1E028A+%1F9101386281%1F7Tp1%1FVpiz%1FAgnd%1F0101386281%1FE1895%1FaVo%CC%88ltzer%1FdFriedrich%1E033A+%1FpHamburg%1FnBuchdrucker-Innung+%28Freie+Innung%29%1E033A+%1FpHamburg%1Fn%5BVerlagsbuchh.+Broschek+%26+Co.%5D%1E034D+%1Fa44+S.%1E034I+%1Fa4%1E%0A001@+%1Fa5%1F01-3%1E001A+%1F01240%3A01-08-95%1E001B+%1F09999%3A24-09-10%1Ft17%3A42%3A20.000%1E001D+%1F09999%3A99-99-99%1E001U+%1F0utf8%1E001X+%1F00%1E002@+%1F0Af%1E003@+%1F0945184085%1E004A+%1F03-89007-044-2%1FfGewebe+%3A+DM+198.00%2C+sfr+198.00%2C+S+1386.00%1E006T+%1F095%2CN35%2C0856%1E006U+%1F095%2CA48%2C1186%1E006U+%1F010%2CP01%1E007I+%1FSo%1F061975997%1E011@+%1Fa1995%1E017A+%1Fara%1E021A+%1Fx213%1F9550711899%1FYNeues+Handbuch+der+Musikwissenschaft%1Fhhrsg.+von+Carl+Dahlhaus.+Fortgef.+von+Hermann+Danuser%1FpLaaber%1FJLaaber-Verl.%1FS48%1F03-89007-030-2%1FgAc%1E021B+%1FlBd.+13.%1FaRegister%1Fhzsgest.+von+Hans-Joachim+Hinrichsen%1E028C+%1F9121445453%1F7Tp3%1FVpiz%1FAgnd%1F0121445453%1FE1952%1FaHinrichsen%1FdHans-Joachim%1E034D+%1FaVIII%2C+408+S.%1E045V+%1F9090001001%1E047A+%1FSFE%1Fagb/fm%1E%0A001@+%1F01-2%1Fa5%1E001A+%1F01239%3A18-08-11%1E001B+%1F09999%3A05-09-11%1Ft23%3A31%3A44.000%1E001D+%1F01240%3A30-08-11%1E001U+%1F0utf8%1E001X+%1F00%1E002@+%1F0Af%1E003@+%1F01014417392%1E004A+%1Ffkart.%1E006U+%1F011%2CA37%1E007G+%1FaDNB%1F01014417392%1E007I+%1FSo%1F0752937239%1E010@+%1Fager%1E011@+%1Fa2011%1E017A+%1Fara%1Fasf%1E021A+%1Fxtr%1F91014809657%1F7Tp3%1FVpiz%1FAgnd%1F01034622773%1FE1958%1FaLu%CC%88beck%1FdMonika%1FYPersonalwirtschaft+mit+DATEV%1FhMonika+Lu%CC%88beck+%3B+Helmut+Lu%CC%88beck%1FpBodenheim%1FpWien%1FJHerdt%1FRXA-DE%1FS650%1FgAc%1E021B+%1FlTrainerbd.%1E032@+%1Fg11%1Fa1.+Ausg.%1E034D+%1Fa129+S.%1E034M+%1FaIll.%1E047A+%1FSFE%1Famar%1E047A+%1FSERW%1Fasal%1E047I+%1Fu%24%1Fc04%1FdDNB%1Fe1%1E)
+
+[Version with `put_map`](https://metafacture.org/playground/?flux=inputFile%0A%7C+open-file%0A%7C+as-lines%0A%7C+decode-pica%0A%7C+fix%28transformationFile%29%0A%7Cencode-json%28prettyPrinting%3D%22true%22%29%0A%7Cprint%0A%3B&transformation=put_map%28%22formats%22%2C+%0A++++%22A%22%3A+%22print%22%2C+%0A++++%22B%22%3A+%22audiovisual%22%2C+%0A++++%22O%22%3A+%22online%22%29%0A%0Acopy_field%28%22002@.0%22%2C+%22dcterms%3Aformat%22%29%0Asubstring%28%22dcterms%3Aformat%22%2C+%220%22%2C+%221%22%29%0Alookup%28%22dcterms%3Aformat%22%2C+%22formats%22%29%0Aretain%28%22002@%22%2C+%22dcterms%3Aformat%22%29&data=001@+%1Fa5%1F01-2%1E001A+%1F01100%3A15-10-94%1E001B+%1F09999%3A12-06-06%1Ft16%3A10%3A17.000%1E001D+%1F09999%3A99-99-99%1E001U+%1F0utf8%1E001X+%1F00%1E002@+%1F0Aag%1E003@+%1F0482147350%1E006U+%1F094%2CP05%1E007E+%1F0U+70.16407%1E007I+%1FSo%1F074057548%1E011@+%1Fa1970%1E017A+%1Farh%1E021A+%1FaDie+@Berufsfreiheit+der+Arbeitnehmer+und+ihre+Ausgestaltung+in+vo%CC%88lkerrechtlichen+Vertra%CC%88gen%1FdEine+Grundrechtsbetrachtg%1E028A+%1F9106884905%1F7Tn3%1FAgnd%1F0106884905%1FaProjahn%1FdHorst+D.%1E033A+%1FpWu%CC%88rzburg%1E034D+%1FaXXXVIII%2C+165+S.%1E034I+%1Fa8%1E037C+%1FaWu%CC%88rzburg%2C+Jur.+F.%2C+Diss.+v.+7.+Aug.+1970%1E%0A001@+%1F01%1Fa5%1E001A+%1F01140%3A08-12-99%1E001B+%1F09999%3A05-01-08%1Ft22%3A57%3A29.000%1E001D+%1F09999%3A99-99-99%1E001U+%1F0utf8%1E001X+%1F00%1E002@+%1F0Aa%1E003@+%1F0958090564%1E004A+%1Ffkart.+%3A+DM+9.70%2C+EUR+4.94%2C+sfr+8.00%2C+S+68.00%1E006U+%1F000%2CB05%2C0285%1E007I+%1FSo%1F076088278%1E011@+%1Fa1999%1E017A+%1Farb%1Fasi%1E019@+%1FaXA-AT%1E021A+%1FaZukunft+Bildung%1FhPolitische+Akademie.+%5BHrsg.+von+Gu%CC%88nther+R.+Burkert-Dottolo+und+Bernhard+Moser%5D%1E028C+%1F9130681849%1F7Tp1%1FVpiz%1FAgnd%1F0130681849%1FE1952%1FaBurkert%1FdGu%CC%88nther+R.%1FBHrsg.%1E033A+%1FpWien%1FnPolit.+Akad.%1E034D+%1Fa79+S.%1E034I+%1Fa24+cm%1E036F+%1Fx299+12%1F9551720077%1FgAdn%1F7Tb1%1FAgnd%1F01040469-7%1FaPolitische+Akademie%1FgWien%1FYPA-Information%1FhPolitische+Akademie%2C+WB%1FpWien%1FJPolitische+Akad.%2C+WB%1Fl99%2C2%1E036F/01+%1Fx12%1F9025841467%1FgAdvz%1Fi2142105-5%1FYAktuelle+Fragen+der+Politik%1FhPolitische+Akademie%1FpWien%1FJPolitische+Akad.+der+O%CC%88VP%1FlBd.+2%1E045E+%1Fa22%1Fd18%1Fm370%1E047A+%1FSFE%1Fata%1E%0A001@+%1Fa5%1F01%1E001A+%1F01140%3A19-02-03%1E001B+%1F09999%3A19-06-11%1Ft01%3A20%3A13.000%1E001D+%1F09999%3A26-04-03%1E001U+%1F0utf8%1E001X+%1F00%1E002@+%1F0Aal%1E003@+%1F0361809549%1E004A+%1FfHlw.%1E006U+%1F000%2CL01%1E006U+%1F004%2CP01-s-41%1E006U+%1F004%2CP01-f-21%1E007G+%1FaDNB%1F0361809549%1E007I+%1FSo%1F072658383%1E007M+%1F04413/0275%1E011@+%1Fa1925%1E019@+%1FaXA-DXDE%1FaXA-DE%1E021A+%1FaHundert+Jahre+Buchdrucker-Innung+Hamburg%1FdWesen+u.+Werden+d.+Vereinigungen+Hamburger+Buchdruckereibesitzer+1825-1925+%3B+Gedenkschrift+zur+100.+Wiederkehr+d.+Gru%CC%88ndungstages%2C+verf.+im+Auftr.+d.+Vorstandes+d.+Buchdrucker-Innung+%28Freie+Innung%29+zu+Hamburg%1FhFriedrich+Voeltzer%1E028A+%1F9101386281%1F7Tp1%1FVpiz%1FAgnd%1F0101386281%1FE1895%1FaVo%CC%88ltzer%1FdFriedrich%1E033A+%1FpHamburg%1FnBuchdrucker-Innung+%28Freie+Innung%29%1E033A+%1FpHamburg%1Fn%5BVerlagsbuchh.+Broschek+)
+
+### External lookup
+
+Besides the use of internal maps, Metafacture is able to load external map files to be used. There are currently two types of external lookups that utilize the `put_filemap` function for CSV and TSV files as well as the `put_rdfmap` that can be used for SKOS files.
+
+### CSV/TSV lookup
+
+The scenario above with the animals could be recreated like this. You have a tsv file like the following with the name `animals.tsv`:
+
+```TSV
+dog	mammal
+cat	mammal
+parrot	bird
+shark	fish
+dragon	fictional animal
+unicorn	fictional animal
+```
+
+You would adjust the fix as follow:
+
+```
+put_filemap("map","animals.tsv", sep_char: "\t")
+
+lookup("animal.type", "map")
+```
+
+[See here a usecase where the bibliographic level is mapped from MARC leader to human readable representation by doing a lookup an a tabulator separated value file (tsv) residing at the web.](https://metafacture.org/playground/?flux=%22http%3A//lobid.org/download/marcXml-8-records.xml%22%0A%7C+open-http%0A%7C+decode-xml%0A%7C+handle-marcxml%0A%7C+fix%28transformationFile%29%0A%7C+encode-json%0A%7C+print%0A%3B&transformation=put_filemap%28%22https%3A//gist.githubusercontent.com/TobiasNx/005d8d7b65324c88b1aa28fa5bea540b/raw/da995f9f3837f51709cae965426271f76aae2bb6/bibliographicLevel.tsv%22%2C+%22bibliographicLevelMap%22%2Csep_char%3A%22\t%22%29%0A%0A%0Acopy_field%28%22leader%22%2C%22bibliographicLevel%22%29%0Asubstring%28%22bibliographicLevel%22%2C%227%22%2C%221%22%29%0Alookup%28%22bibliographicLevel%22%2C%22bibliographicLevelMap%22%29%0Aretain%28%22bibliographicLevel%22%29)
+
+
+TODO: Explain relation of the file to the fix function. Is the path relative to the fix file or the place where you start the command?
+
+
+Hint: `put_filemap` does not interpret the files as true CSV or as TSV but by seperating textstrings via the sep_char, therefore escape sign and quotations are not translated or deleted.
+
+`put_filemap` is also able to create a map out of multi colum files for that you need configure the `key_column` and the `value column` like this: `put_filemap("map","animals.tsv", sep_char: "\t", key_column:"2",value_column:"0")`. The colums are counted by a zero index therefore in our example you set the third column ("2") for the keys and the first ("0") for the values.
+
+
+### External SKOS lookup
+
+TODO.
