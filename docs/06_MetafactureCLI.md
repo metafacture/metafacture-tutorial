@@ -13,12 +13,12 @@ This lesson requires basic practical knowledge of the command line and Shell.
 If you want to get familiar with it, have a look at the great [intro to Unix Shell by Library Carpentry](https://librarycarpentry.github.io/lc-shell/) (Session 1 - 3). You could also have a look at the great [introdution by the Programming Historian to Powershell](https://programminghistorian.org/en/lessons/intro-to-powershell)_
 
 While we had fun with our Metafacture Playground another way to use Metafacture is by
-the command line. For running a Metafacture Flux process we need a terminal and Java 11 ore higher.
+the command line. For running a Metafacture Flux process we need a terminal and Java 21 ore higher.
 For creating and editing Flux and Fix files we need a text editor like Codium/VS Code or others.
 
 For this lesson basic knowledge of the commandline is recommended.
 
-Check if Java 11 or higher is installed with `java -version` in your terminal.
+Check if Java 21 or higher is installed with `java -version` in your terminal.
 If not, install Java 11 or higher.
 
 To use Metafacture on the commandline [download the latest (pre-) release](https://github.com/metafacture/metafacture-core/releases).
@@ -28,39 +28,77 @@ In the folder you find the `flux.bat` and `flux.sh`
 
 The code below assumes you moved the resulting folder to your home directory and renamed it to `"metafacture"`.
 
+HINT: With the major release 9.0.0 of metafacture-core the CLI changed due to the instroduction of options. Referring to a flux file should now be done with the function `-f`. Now you also can include a script directly into your flux command with the function `-e`.
+
 If you run
 
 Unix:
 
 ```bash
-~/metafacture/flux.sh
+~/metafacture/flux.sh --help
 ```
 
 or Windows:
 
 ```bash
-~\metafacture\flux.bat
+~\metafacture\flux.bat --help
 ```
 
-Metafacture will list all currently available Flux Commands.
+Metafacture will output a short manual how to use the CLI tool and the options:
 
-## How to run Metafacture via CLI
+```
+flux.sh --help
+Usage: flux [-lhV] [-v=<name>=<value>]... [-f=<fluxFile> | -e=<fluxScript>]
 
-You can run your workflows:
+Runs the Flux.
+
+Options:
+  -f, --file=<fluxFile>       Specify the path to the Flux file.
+  -e, --script=<fluxScript>   Specify the inline Flux script.
+  -v, --var=<name>=<value>    Assign Flux variables (repeatable).
+  -l, --list-commands         List all available Flux commands and exit.
+  -h, --help                  Show this help message and exit.
+  -V, --version               Print version information and exit.
+
+Exit codes:
+  0   Successful program execution
+  1   Internal software error
+  2   Usage error
+```
+
+There you also find the option `-l/--list-commands`.
 
 Unix:
 
 ```bash
-~/metafacture/flux.sh path/to/your.flux
+~/metafacture/flux.sh -l
 ```
 
 or Windows:
 
 ```bash
-~\metafacture\flux.bat path\to\your.flux
+~\metafacture\flux.bat -l
 ```
 
-(Hint: You need to know the path to your Flux file to run it.)
+Running this in your terminal Metafacture will list all currently available Flux Commands.
+
+## How to run Metafacture via CLI
+
+You can run your flux workflows like this:
+
+Unix:
+
+```bash
+~/metafacture/flux.sh -f path/to/your.flux
+```
+
+or Windows:
+
+```bash
+~\metafacture\flux.bat -f path\to\your.flux
+```
+
+(Hint: You need to know the path to your Flux file to run it and referrence it with the option `-f/--file`.)
 
 To get quick started let's revisit a Flux we toyed around with in the playground.
 The playground has a nice feature to export and import Metafacture Workflows.
@@ -76,13 +114,13 @@ Open your terminal and and lets run the flux with the following command:
 Linux:
 
 ```bash
-~/metafacture/flux.sh  downloads/playground.flux
+~/metafacture/flux.sh  -f downloads/playground.flux
 ```
 
 Windows:
 
 ```bash
-~\metafacture\flux.bat downloads\playground.flux
+~\metafacture\flux.bat -f downloads\playground.flux
 ```
 
 To simplify the code examples we will be using unix paths for the terminal commands. Windows Powershell will change these to windows paths automatically.
@@ -101,6 +139,10 @@ Our workflow only has the following Flux and no additional files since it is fet
 | print
 ;
 ```
+
+You also can include this workflow in your CLI command like this by using the option `-e`:
+`flux.sh  -e '"https://openlibrary.org/books/OL2838758M.json" | open-http | as-lines | decode-json | encode-json(prettyPrinting="true") | print;`
+
 
 ## Use local files for transformation
 
@@ -348,8 +390,37 @@ FILE
 Which you use like:
 
 ```bash
-~/metafacture/flux.sh path/to/your.flux FILE="path/to/your/file.json"
+~/metafacture/flux.sh -f path/to/your.flux -v FILE="path/to/your/file.json"
 ```
+
+## Bonus: Piping the stdin into Metafacture
+
+You also can pipe stdin from previous commands on your terminal into metafacture by using `>` at the beginning of your workflow instead of an string and an opener.
+
+e.g.
+
+```bash
+echo '{ "test" : "case"}' | ~/metafacture/flux.sh -e '> | as-records | decode-json | encode-yaml | print ;'
+```
+
+
+or if you are using a flux file:
+
+```bash
+cat test.flux
+
+> 
+| as-records 
+| decode-json 
+| encode-yaml 
+| print ;
+```
+
+
+```bash
+echo '{ "test" : "case"}' |  ~/metafacture/flux.sh  -f test.flux'
+```
+
 
 
 Excercise: Download the following folder (TODO) with three test examples and run them. Adjust them if needed:
